@@ -22,19 +22,20 @@
 			$postTools = new PostTools();
 			$escapedTitle = addslashes($data->title);
 			$uploadDate = $data->uploaded;
+			$views = $data->viewCount;
 
 			$date = date('Y-m-d H:i:s',time());
-			$diff = strtotime($date) - strtotime($uploaded);
+			$diff = strtotime($date) - strtotime($uploadDate);
 			$days = floor($diff/(3600*24));
 
 			if($postTools->checkTitleExists($escapedTitle)){
 			    $success = false;
-			    print '<div style="color:red;">'.$escapedTitle.'<br>'.$channelName.'<br>'.$views.'<br>'.$uploaded.'<br>Duplicate<br>'.$days.'<br><br></div>';
+			    print '<div style="color:red;">'.$escapedTitle.'<br>'.$channelName.'<br>'.$views.'<br>'.$uploadDate.'<br>Duplicate<br>'.$days.'<br><br></div>';
 
 			}
 
 			if($success && $days < 5){
-				print '<div style="color:green;">'.$escapedTitle.'<br>'.$channelName.'<br>'.$views.'<br>'.$uploaded.'<br>New Post<br><br></div>';
+				print '<div style="color:green;">'.$escapedTitle.'<br>'.$channelName.'<br>'.$views.'<br>'.$uploadDate.'<br>New Post<br><br></div>';
 	   			
 	   			$post['video_title'] = $escapedTitle;
 	    		$post['video_id'] = $data->id;

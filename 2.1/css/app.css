@@ -9760,3 +9760,42 @@ table.hide-for-medium {
   font-size: 17px;
   margin-bottom: 10px;
 }
+
+/* Small screens */
+@media only screen and (max-width: 767px) {
+  /* line 205, ../sass/_custom.scss */
+  #header {
+    margin: 0;
+    text-align: center;
+  }
+
+  /* line 210, ../sass/_custom.scss */
+  .track > div.three, .row .track > div.three, #player-controls {
+    display: none;
+    opacity: 0;
+    top: -100px;
+  }
+
+  /* line 216, ../sass/_custom.scss */
+  #nav {
+    margin-bottom: 60px;
+    position: static;
+  }
+  /* line 220, ../sass/_custom.scss */
+  #nav li {
+    margin-top: 10px;
+  }
+  /* line 223, ../sass/_custom.scss */
+  #nav li a {
+    background-color: #ffcdcd;
+    color: #222222;
+    display: block;
+    font-size: 18px;
+    line-height: 60px;
+    text-align: center;
+  }
+  /* line 231, ../sass/_custom.scss */
+  #nav li a:hover, #nav li a:active {
+    background-color: #ff9a9a;
+  }
+}

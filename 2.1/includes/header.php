@@ -12,6 +12,10 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="css/app.css">
 
+	<!--[if lt IE 9]>
+		<script src="js/libs/html5shiv.js"></script>
+	<![endif]-->
+
 	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
@@ -31,7 +35,7 @@
 	<header id="header" class="row">
 		<div class="ten columns offset-by-two">
 			<h1 id="logo"><a href="/">ChannelTrak</a></h1>
-			<p>Consilidating the best youtube channels in one place.</p>
+			<p>Consolidating the best youtube channels in one place.</p>
 		</div>
 
 	</header>
