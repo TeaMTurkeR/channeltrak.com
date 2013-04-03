@@ -20,7 +20,7 @@
 		$days = floor($diff/(3600*24));
 
 
-		if ( $upvotes = 0 && $days > 28 ) {
+		if ( $days > 30 ) {
 
 			print '<div style="color:red;">Stale<br>'.$videoTitle.'<br>'.$upvotes.'<br>'.$days.'<br><br></div>';
 

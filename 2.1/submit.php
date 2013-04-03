@@ -71,7 +71,7 @@ if(isset($_POST['submit-form'])) {
 				<label for="url">Channel URL</label>
 				<input type="text" value="<?php echo $url; ?>" name="url" /><br/>
 				<input type="hidden" value="<?php echo $submitter; ?>" name="submitter" disabled=""/><br/>
-				<input class="button radius" type="submit" value="submit channel" name="submit-form" />
+				<input class="button radius" type="submit" value="submit channel for review" name="submit-form" />
 			</form>
 
 		</div>
