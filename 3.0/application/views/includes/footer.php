@@ -1,3 +1,20 @@
+		<footer id="footer">
+			<div class="row">
+				<div class="large-12 columns">
+					<ul class="inline-list left">
+						<li><a href="">About</a></li>
+						<li><a href="">Contact</a></li>
+						<li><a href="">Terms</a></li>
+						<li><a href="">Privacy</a></li>
+					</ul>
+					<ul class="inline-list right">
+						<li>&copy W/M 2013</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div> <!-- END WRAP -->
+
 	<script>
 		document.write('<script src=' +
 		('__proto__' in {} ? '<?php echo base_url(); ?>assets/javascripts/vendor/zepto' : '<?php echo base_url(); ?>assets/javascripts/vendor/jquery') +

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(64) NOT NULL,
   `user_registered` datetime NOT NULL,
-  `user_permissions` varchar(11) NOT NULL DEFAULT 0,
+  `user_permissions` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`)
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `songs` (
   `song_title` text NOT NULL,
   `song_yt_id` varchar(11) NOT NULL,
   `song_channel_id` int(11) NOT NULL,
+  `song_favorite_count` int(11) NOT NULL DEFAULT 0,
   `song_uploaded` datetime NOT NULL,
   `song_imported` datetime NOT NULL,
   PRIMARY KEY (`song_id`),
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
   `channel_slug` varchar(100) NOT NULL,
   `channel_name` text NOT NULL,
   `channel_yt_id` varchar(100) NOT NULL,
-  `channel_status` varchar(11) NOT NULL DEFAULT 0,
+  `channel_status` int(11) NOT NULL DEFAULT 0,
   `channel_approved` datetime NOT NULL,
   PRIMARY KEY (`channel_id`),
   UNIQUE KEY `channel_yt_id` (`channel_yt_id`)

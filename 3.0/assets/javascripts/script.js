@@ -19,4 +19,52 @@ function submitForm(element){
         form.appendChild(textareas[0]);
     
     form.submit();
-};
+}
+
+function favorite(newCount, id, direction){ 
+    var data = 'newCount='+newCount+'&songId='+id+'&favorite='+direction;
+    console.log(data);
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost/channeltrak.com/3.0/index.php/song/favorite', 
+        data: data
+    });
+}
+
+$(function(){
+
+    $('.favorite-song').click(function(){
+
+        var $this = $(this);
+        if ( !$this.hasClass('favorited') && $('body').hasClass('logged-in')) {
+      
+            var id = $this.parents('.song').attr('id');
+            var oldCount = $this.parents('.song').attr('data-song-favorites');
+            var newCount = parseInt(oldCount) + 1;
+
+            console.log('Old Count:'+oldCount);
+            console.log('New Count:'+newCount);
+
+            favorite(newCount, id, true);
+
+            $this.addClass('favorited');
+            $this.parents('.song').attr('data-song-favorites', newCount);
+        } else if ( $this.hasClass('favorited') && $('body').hasClass('logged-in')){
+
+            var id = $this.parents('.song').attr('id');
+            var oldCount = $this.parents('.song').attr('data-song-favorites');
+            var newCount = parseInt(oldCount) - 1;
+
+            console.log('Old Count:'+oldCount);
+            console.log('New Count:'+newCount);
+
+            favorite(newCount, id, false);
+            $this.removeClass('favorited');
+            $this.parents('.song').attr('data-song-favorites', newCount);
+        } else {
+            alert('login please');
+        }
+
+    });
+
+});

@@ -1,3 +1,6 @@
+// Compass
+@import "compass";
+
 // Global Foundation Settings
 @import "settings";
 
@@ -44,3 +47,5 @@
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
 
+@import "mixins";
+@import "customizations";

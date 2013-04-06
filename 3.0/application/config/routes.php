@@ -41,12 +41,18 @@
 $route['default_controller'] = "site";
 $route['404_override'] = '';
 
+$route['popular'] = 'site/popular';
+$route['staff-picks'] = 'site/staffpicks';
+$route['favorites'] = 'site/favorites';
+$route['settings'] = 'site/settings';
+
 $route['join'] = 'site/join';
 $route['login'] = 'site/login';
+$route['logout'] = 'site/logout';
 $route['submit'] = 'site/submit';
 $route['admin'] = 'site/admin';
 
-
+$route['song/(:any)'] = "song/singleSong/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

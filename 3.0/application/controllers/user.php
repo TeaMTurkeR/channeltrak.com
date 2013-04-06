@@ -34,9 +34,9 @@ class User extends CI_Controller {
             redirect('/', 'refresh');
         } else {
             print 'invalid';
-        }
-        
+        } 
     }
+
 }
 
 ?>

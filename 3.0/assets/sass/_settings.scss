@@ -16,8 +16,8 @@
 
 // We use these to control various global styles
 // $body-bg: #fff;
-// $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+   $body-font-color: #666;
+   $body-font-family: "jaf-facitweb", sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -28,8 +28,8 @@
 // $text-direction: ltr;
 
 // We use these as default colors throughout
-// $primary-color: #2ba6cb;
-// $secondary-color: #e9e9e9;
+   $primary-color:  #ff9a9a;
+   $secondary-color: #cccccc;
 // $alert-color: #c60f13;
 // $success-color: #5da423;
 
@@ -65,7 +65,7 @@
 // Grid Variables
 //
 
-// $row-width: 62.5em;
+   $row-width: 62.5em;
 // $column-gutter: 1.875em;
 // $total-columns: 12;
 
@@ -85,7 +85,7 @@
 //
 
 // We use these to control header font styles
-// $header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+   $header-font-family: "jaf-facitweb", sans-serif;
 // $header-font-weight: bold;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -252,7 +252,7 @@
 // $button-font-tny: emCalc(11px);
 // $button-font-sml: emCalc(13px);
 // $button-font-lrg: emCalc(20px);
-// $button-font-weight: bold;
+   $button-font-weight: normal;
 // $button-font-align: center;
 
 // We use these to control various hover effects.
@@ -516,7 +516,7 @@
 // $flex-video-margin-bottom: emCalc(16px);
 
 // We use this to control widescreen bottom padding
-// $flex-video-widescreen-padding-bottom: 57.25%;
+   $flex-video-widescreen-padding-bottom: 56.25%;
 
 //
 // Inline List Variables
@@ -827,8 +827,8 @@
 // We use these to control link styles.
 // $side-nav-link-color: $primary-color;
 // $side-nav-link-color-active: lighten(#000, 30%);
-// $side-nav-font-size: emCalc(14px);
-// $side-nav-font-weight: bold;
+   $side-nav-font-size: emCalc(16px);
+   $side-nav-font-weight: normal;
 
 // We use these to control border styles
 // $side-nav-divider-size: 1px;
