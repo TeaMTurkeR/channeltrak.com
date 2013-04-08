@@ -2,13 +2,13 @@
 
 class Song extends CI_Controller {
 
-	function __construct() {
+	public function __construct() {
         parent::__construct();
         $this->load->model('Songmodel');
         $this->load->model('Favoritemodel');
     }
 
-    function singleSong($slug) {
+    public function index($slug) {
         $data['row'] = $this->Songmodel->getSongBySlug($slug);
         $this->load->view('single', $data);
     }

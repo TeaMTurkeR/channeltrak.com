@@ -37,6 +37,17 @@ html, body {
 		}
 	}
 
+	#toggle-mobile-nav {
+
+		span {
+			margin-right: 10px;
+		}
+	}
+
+	#site-nav, #account-nav {
+		display: block;
+	}
+
 }
 
 #main {
@@ -76,54 +87,74 @@ html, body {
 			position: fixed;
 			z-index: 9999;
 			
-			&.prev-song {margin-left: $thumbnail-width + 15px}
-			&.play-song {margin-left: $thumbnail-width + 15px + 40px}
-			&.next-song {margin-left: $thumbnail-width + 15px + 40px + 40px}
+			&#prev {margin-left: $thumbnail-width + 15px}
+			&#play {margin-left: $thumbnail-width + 15px + 40px}
+			&#next {margin-left: $thumbnail-width + 15px + 40px + 40px}
+
+			.spin {
+				font-size: 24px;
+			}
 
 		}
 	}
 
-	.song {
+	.song, .channel {
 		margin-bottom: $column-gutter; 
 		position: relative;
 
 		.content {
 			margin-right: $column-gutter/2 + emCalc(60px);
+		}
 
-			.thumbnail {
-				cursor: pointer;
-				overflow: hidden;
+		.thumbnail {
+			cursor: pointer;
+			overflow: hidden;
 
-				.flex-image {
-					height: 0;
-					padding-bottom: 56.25%;
+			.flex-image {
+				height: 0;
+				padding-bottom: 56.25%;
+				position: relative;
 
-					img {
-						margin-top: -9.4%;
-						width: 100%;
-					}
+				img {
+					margin-top: -9.4%;
+					width: 100%;
 				}
 
-				.flex-video {
-					margin: 0;
+				.rank {
+					background-color: #fff;
+					font-size: 20px;
+					left: 15px;
+					line-height: 40px;
+					opacity: .75;
+					position: absolute;
+					text-align: center;
+					top: 15px;
+					width: 40px;
+					z-index: 10;
 				}
 			}
 
-			.caption {
-				padding: $column-gutter/2;
+			.flex-video {
+				margin: 0;
+				padding-top: 0;
+			}
+		}
 
-				h2 {
-					@include ellipsis;
-					font-size: 18px;
-					margin: 0 0 $column-gutter/4;
-				}
+		.caption {
+			padding: $column-gutter/2;
 
-				p {
-					margin: 0;
+			h2 {
+				@include ellipsis;
+				font-size: 18px;
+				margin: 0 0 $column-gutter/4;
+			}
 
-					.iconic {
-						margin-right: 10px;
-					}
+			p {
+				color: #ccc;
+				margin: 0;
+
+				.iconic {
+					margin-right: 10px;
 				}
 			}
 		}
@@ -139,8 +170,22 @@ html, body {
 				@include control(60px, 30px, $secondary-color);
 				margin-bottom: emCalc(16px/2);
 
+				.favorite-count {
+					display: none;
+					font-size: 24px;
+					line-height: 60px;
+				}
+
 				&.favorited {
 					background-color: $success-color;
+					
+					.iconic {
+						display: none;
+					}
+
+					.favorite-count {
+						display: inline;
+					}
 				}
 			}
 		}
@@ -148,6 +193,12 @@ html, body {
 		&:hover, &.playing {
 			.actions {
 				opacity: 1;
+			}
+		}
+
+		&.playing {
+			.flex-image {
+				display: none;
 			}
 		}
 	}
@@ -158,6 +209,31 @@ html, body {
 			margin: 1em 0 0 0;
 		}
 	}
+
+	.channel .thumbnail {
+		cursor: default;
+	}
+}
+
+#pagination {	
+	display: inline-block;
+	margin: 0 auto $column-gutter*2;
+	overflow: auto;
+	text-align: center;
+
+	b, a {
+		background-color: $secondary-color;
+		color: $body-font-color;
+		display: block;
+		float: left;
+		margin-right: 10px;
+		padding: 10px;
+	}
+
+	b, a:hover, a:active {
+		background-color: $primary-color;
+	}
+
 }
 
 #footer {
@@ -173,5 +249,16 @@ html, body {
 		a {
 			color: #fff;
 		}
+	}
+}
+
+table {
+
+	input[type="text"] {
+		margin: 0;
+	}
+
+	button {
+		margin: 0;
 	}
 }

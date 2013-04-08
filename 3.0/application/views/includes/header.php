@@ -19,12 +19,16 @@
 <?php 
 
 	if ($this->session->userdata('logged_in')) { 
-	$this->load->model('Favoritemodel');
+		$this->load->model('Favoritemodel');
 
 ?>
+
 <body class="logged-in">
+
 <?php } else { ?>
+
 <body>
+
 <?php } ?>
 
 	<div id="wrap">

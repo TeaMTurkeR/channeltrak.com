@@ -21,6 +21,7 @@
 					<footer class="caption">
 						<h2><?php echo $row->song_title ?></h2>
 						<p class="date"><span class="iconic clock"></span><?php echo date('F j', strtotime($row->song_uploaded)); ?></p>
+						<p class="source"><span class="iconic home"></span><a href=""><?php echo $row->song_channel_name ?></a></p>
 					</footer>
 				</section>
 				<section class="actions">

@@ -2,6 +2,11 @@
 
 class Favoritemodel extends CI_Model {
 
+	public function countFavorties($userId) {
+		$this->db->where('user_id', $userId);
+        return $this->db->count_all('favorites');
+    }
+
 	public function addFavorite($data) {
 		$this->db->insert('favorites', $data);
         if($this->db->affected_rows() > 0) {

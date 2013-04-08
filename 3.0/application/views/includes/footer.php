@@ -8,18 +8,16 @@
 						<li><a href="">Privacy</a></li>
 					</ul>
 					<ul class="inline-list right">
-						<li>&copy W/M 2013</li>
+						<li>&copy Channeltrak 2013</li>
+						<li style="display:none;">{elapsed_time} secs</li>
 					</ul>
 				</div>
 			</div>
 		</footer>
 	</div> <!-- END WRAP -->
 
-	<script>
-		document.write('<script src=' +
-		('__proto__' in {} ? '<?php echo base_url(); ?>assets/javascripts/vendor/zepto' : '<?php echo base_url(); ?>assets/javascripts/vendor/jquery') +
-		'.js><\/script>')
-	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/javascripts/vendor/jquery.js"><\/script>')</script>
   
 	<?php echo script_tag(base_url().'assets/javascripts/foundation/foundation.js'); ?>
 
@@ -52,7 +50,9 @@
   	<script>
    		$(document).foundation();
   	</script>
-
+	
+	<script src="http://www.youtube.com/iframe_api"></script>
+	<?php echo script_tag(base_url().'assets/javascripts/vendor/plugins.js'); ?>
   	<?php echo script_tag(base_url().'assets/javascripts/script.js'); ?>
 </body>
 </html>

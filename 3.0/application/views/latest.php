@@ -11,7 +11,8 @@
 	</aside>
 	<section id="main" class="large-9 columns">
 		<?php $this->load->view('includes/controls'); ?>
-		<?php $this->load->view('includes/playlist'); ?>
+		<?php $this->load->view('includes/loop'); ?>
+		<?php echo $links; ?>
 	</section>
 </section>
 

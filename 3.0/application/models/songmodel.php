@@ -2,10 +2,21 @@
 
 class Songmodel extends CI_Model {
 
-	public function getSongs($maxDate, $orderBy, $limit) {
+    public function countSongs() {
+        return $this->db->count_all('songs');
+    }
+
+    public function countChannelSongs($slug) {
+        $this->db->where('song_channel_slug', $slug);
+        $query = $this->db->get('songs');
+        return $query->num_rows();
+    }
+
+	public function getSongs($maxDate, $orderBy, $limit, $offset) {
 		$this->db->where('song_imported >', $maxDate);
+        $this->db->limit($limit, $offset);
 		$this->db->order_by($orderBy, 'DESC');
-        $query = $this->db->get('songs', $limit);
+        $query = $this->db->get('songs');
         if($query->num_rows() <= $limit && $query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $data[] = $row;
@@ -23,11 +34,12 @@ class Songmodel extends CI_Model {
         }
     }
 
-    public function getFavorites($userId) {
+    public function getFavorites($userId, $limit, $offset) {
 		$this->db->select('*');
 		$this->db->from('songs');
 		$this->db->join('favorites', 'favorites.song_id = songs.song_id');
 		$this->db->where('favorites.user_id', $userId);
+        $this->db->limit($limit, $offset);
         $query = $this->db->get();
         if($query->num_rows() > 0) {
             foreach ($query->result() as $row) {

@@ -2,12 +2,12 @@
 
 class User extends CI_Controller {
 
-	function __construct() {
+	public function __construct() {
         parent::__construct();
         $this->load->model('Usermodel');
     }
 
-	function register() {
+	public function register() {
         $password = $this->input->post('password');
         $confirmPassword = $this->input->post('confirm-password');
 
@@ -25,7 +25,7 @@ class User extends CI_Controller {
         }
     }
 
-    function login() {
+    public function login() {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $loggedIn = $this->Usermodel->loginUser($email, $password);

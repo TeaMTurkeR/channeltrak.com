@@ -1,6 +1,6 @@
 <?php 
 	
-	if ( $this->session->userdata('logged_in') && $this->session->userdata('user_name') == 'admin' ) {
+	if ( $this->session->userdata('logged_in') && $this->session->userdata('user_name') == 'Admin' ) {
 
 		$data['title'] = 'Admin | Channeltrak';
 		$this->load->view('includes/header', $data);
@@ -8,7 +8,11 @@
 ?>
 
 <form id="update" action="http://localhost/channeltrak.com/3.0/index.php/channel/approve" method="post" accept-charset="utf-8" style="display:none;"></form>
-
+<div class="row">
+	<div class="large-12 columns">
+		<h1>Admin</h1>
+	</div>
+</div>
 <div class="row">
 	<div class="large-12 columns">
 		<h3>Submitted</h3>

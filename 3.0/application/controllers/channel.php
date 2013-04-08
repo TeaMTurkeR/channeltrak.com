@@ -2,9 +2,45 @@
 
 class Channel extends CI_Controller {
 
-	function __construct() {
+	public function __construct() {
         parent::__construct();
         $this->load->model('Channelmodel');
+        $this->load->model('Songmodel');
+    }
+
+    public function index($slug) {
+
+        $config = array();
+        $config['base_url'] = base_url().'index.php/channel/'.$this->uri->segment(2);
+        $config['total_rows'] = $this->Songmodel->countChannelSongs($slug);
+        $config['per_page'] = 50;
+        $config['uri_segment'] = 3;
+
+        $config['full_tag_open'] = '<div id="pagination">';
+        $config['full_tag_close'] = '</div>';
+
+        $config['first_link'] = 'First';
+        $config['last_link'] = 'Last';
+
+        $config['num_tag_open'] = '';
+        $config['num_tag_close'] = '';
+
+        $config['prev_tag_open'] = '';
+
+        $config['cur_tag_open'] = '<b>';
+        $config['cur_tag_close'] = '</b>';
+
+        $config['prev_link'] = false;
+        $config['next_link'] = false;
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $data['rows'] = $this->Channelmodel->getChannelBySlug($slug, $config['per_page'], $page);
+        $data['links'] = $this->pagination->create_links();
+
+        $this->load->view('latest', $data);
     }
 
 	public function submit() {
@@ -40,7 +76,8 @@ class Channel extends CI_Controller {
         $channel = $this->Channelmodel->getChannels('1');
         foreach ($channel as $channel){
         
-            $id = $channel->channel_id;
+            $channelName = $channel->channel_name;
+            $channelSlug = $channel->channel_slug;
 
             for ( $i = 1; $i <= 500; $i += 50) {
 
@@ -63,7 +100,8 @@ class Channel extends CI_Controller {
                                 'song_slug' => $slug,
                                 'song_title' => $song->title,
                                 'song_yt_id' => $song->id,
-                                'song_channel_id' => $id,
+                                'song_channel_name' => $channelName,
+                                'song_channel_slug' => $channelSlug,
                                 'song_uploaded' => $song->uploaded,
                                 'song_imported' => date('Y-m-d H:i:s')
                             );

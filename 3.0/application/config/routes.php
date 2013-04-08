@@ -38,11 +38,13 @@
 |
 */
 
-$route['default_controller'] = "site";
-$route['404_override'] = '';
+$route['default_controller'] = 'site';
+$route['404_override'] = 'site';
 
 $route['popular'] = 'site/popular';
 $route['staff-picks'] = 'site/staffpicks';
+$route['channels'] = 'site/channels';
+
 $route['favorites'] = 'site/favorites';
 $route['settings'] = 'site/settings';
 
@@ -52,7 +54,14 @@ $route['logout'] = 'site/logout';
 $route['submit'] = 'site/submit';
 $route['admin'] = 'site/admin';
 
-$route['song/(:any)'] = "song/singleSong/$1";
+$route['channel/submit'] = 'channel/submit';
+$route['channel/approve'] = 'channel/approve';
+$route['channel/import'] = 'channel/import';
+
+$route['song/favorite'] = 'song/favorite';
+
+$route['channel/(:any)'] = 'channel/index/$1';
+$route['song/(:any)'] = 'song/index/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

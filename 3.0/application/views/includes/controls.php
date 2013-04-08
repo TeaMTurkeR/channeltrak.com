@@ -1,14 +1,19 @@
 <section id="controls">
 	<div id="playing-thumbnail">
-		<img src="http://img.youtube.com/vi/5lfTCgkQe68/hqdefault.jpg" alt="song title">
+		<a href="javascript:void(0)">
+			<img src="http://img.youtube.com/vi/5lfTCgkQe68/hqdefault.jpg" alt="">
+		</a>
+		<div id="playing-info">
+			<span id="playing-song-title"></span>
+		</div>
 	</div>
-	<button class="prev-song">
+	<button id="prev">
 		<span class="iconic first"></span>
 	</button>
-	<button class="play-song">
+	<button id="play">
 		<span class="iconic play"></span>
 	</button>
-	<button class="next-song">
+	<button id="next">
 		<span class="iconic last"></span>
 	</button>
 </section>
