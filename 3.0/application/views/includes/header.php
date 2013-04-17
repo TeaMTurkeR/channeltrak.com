@@ -3,17 +3,19 @@
 <!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title><?php echo $title ?></title>
+	<meta name="viewport" content="width=device-width" />
+	<title><?php echo $title ?></title>
 
-		<?php echo link_tag(base_url().'assets/stylesheets/normalize.css'); ?>
-		<?php echo link_tag(base_url().'assets/stylesheets/iconic_stroke.css'); ?>
-		<?php echo link_tag(base_url().'assets/stylesheets/app.css'); ?>
+	<link rel="icon" href="<?=base_url()?>/favicon.ico" type="image/ico">
+
+	<?php echo link_tag(base_url().'assets/stylesheets/normalize.css'); ?>
+	<?php echo link_tag(base_url().'assets/stylesheets/iconic_stroke.css'); ?>
+	<?php echo link_tag(base_url().'assets/stylesheets/app.css'); ?>
 		
-		<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
+	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-		<?php echo script_tag(base_url().'assets/javascripts/vendor/custom.modernizr.js'); ?>
+	<?php echo script_tag(base_url().'assets/javascripts/vendor/custom.modernizr.js'); ?>
 </head>
 
 <?php 
