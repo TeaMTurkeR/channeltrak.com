@@ -1,0 +1,30 @@
+@mixin ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin control($size, $font, $color) {
+	background-color: $color;
+	border: 0;
+	display: block; 
+	font-size: $font;
+	height: $size;
+	margin: 0;
+	padding: 0;
+	width: $size;
+
+	&:hover {
+		background-color: $primary-color;
+	}
+
+	&:active {
+		background-color: darken($primary-color, 5%);
+	}
+}
+
+$thumbnail-width: 71px;
+
+.hide-desktop {
+	display: none !important;
+}
