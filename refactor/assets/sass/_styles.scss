@@ -1,0 +1,266 @@
+* { @include box-sizing(border-box); }
+
+// html, body {
+// 	height: 100%;
+// }
+
+body {
+	background-color: #eee;
+	color: #666;
+	font-family: "jaf-facitweb", sans-serif;
+	font-size: 1em;
+}
+
+a {
+	color: $primary-color;
+	text-decoration: none;
+}
+
+#wrap {
+	@include clearfix();
+	margin: 0 auto;
+	min-height: 100%;
+	position: relative;
+	width: 1000px;
+}
+
+#nav {
+	position: fixed;
+	top: 20px;
+}
+
+#footer {
+	@include clearfix();
+}
+
+#logo {
+	font-family: "jaf-lapture", serif;
+	font-size: 30px;
+	line-height: 60px; 
+	margin: 0;
+	padding: 10px 0;
+	text-transform: lowercase;
+}
+
+.menu {
+	list-style: none;
+	margin: 0 0 40px;
+	padding: 0;
+
+	li {
+		a {
+			color: #666;
+			display: block;
+			padding: 5px;
+			@include transition(all .5s ease);
+
+			&:hover {
+				background-color: #e0e0e0;
+				//color: #666;
+			} 
+
+			&.active {
+				background-color: #fff;
+				color: #666;
+				cursor: default;
+			}
+		}
+
+		&#account-name {
+			color: #ccc;
+		}
+	}
+}
+
+#info {
+	background-color: #fff;
+	margin: 40px 0 40px 250px;
+	padding: 20px 40px;
+	width: 750px;
+}
+
+#page-title {
+	line-height: 30px;
+	margin: 0;
+}
+
+#total-favorites {
+	margin-right: 40px;
+}
+
+#playlist {
+	background-color: #fff;
+	margin-left: 250px;
+	padding: 40px 0;
+	width: 750px;
+}
+
+#controls {
+	//background-color: #fff;
+	//height: 40px;
+	position: absolute;
+	right: 40px;
+	top: 40px;
+	width: $thumbnail-width + 20px + 40px + 40px + 40px;
+
+	button {
+		@include control(40px, 16px, $secondary-color);
+		float: left;
+		position: fixed;
+		z-index: 9999;
+		
+		&#prev {
+			margin-left: $thumbnail-width + 20px
+		}
+
+		&#play {
+			font-size: 14px;
+			margin-left: $thumbnail-width + 20px + 40px
+		}
+		&#next {
+			margin-left: $thumbnail-width + 20px + 40px + 40px
+		}
+
+		&.scroll {
+			position: fixed;
+			top: 120px;
+		}
+
+	}
+}
+
+#playing-thumbnail {
+	//border: 1px solid #fff;
+	cursor: pointer;
+	height: 40px;
+	opacity: .66;
+	overflow: hidden;
+	position: fixed;
+	@include transition(opacity .3s ease);
+	width: $thumbnail-width;
+	z-index: 9999;
+
+	img {
+		margin-top: -7px;
+		width: 100%;
+	}
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.scroll {
+		position: fixed;
+		top: 120px;
+	}
+}
+
+.song {
+	margin-bottom: 60px; 
+	padding: 0 40px;
+	position: relative;
+
+	&:hover, &.playing {
+		.actions {
+			right: 40px;
+		}
+	}
+
+	&.playing {
+
+		.flex-image {
+			display: none;
+		}
+	}
+}
+
+.thumbnail {
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.flex-media {
+	background-color: #000;
+	height: 0;
+	padding-bottom: 56.25%;
+	position: relative;
+	z-index: 10;
+
+	img {
+		margin-top: -9.4%;
+		width: 100%;
+	}
+
+	iframe {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+}
+
+.rank {
+	background-color: #fff;
+	font-size: 20px;
+	left: 15px;
+	line-height: 40px;
+	opacity: .75;
+	position: absolute;
+	text-align: center;
+	top: 15px;
+	width: 40px;
+	z-index: 10;
+}
+
+.caption {
+	padding: 15px;
+
+	h2 {
+		@include ellipsis;
+		font-size: 18px;
+		margin: 0 0 10px;
+	}
+
+	p {
+		color: #ccc;
+		margin: 0 0 10px 0;
+
+		>span {
+			margin-right: 10px;
+		}
+	}
+}
+
+.actions {
+	//opacity: 0;
+	position: absolute;
+	right: 80px;
+	top: 0px;
+	@include transition(all .5s ease);
+	width: 0px;
+	z-index: 1;
+
+	button {
+		@include control(40px, 18px, $secondary-color);
+		margin-bottom: emCalc(16px/2);
+
+		.favorite-count {
+			display: none;
+			font-size: 18px;
+			line-height: 40px;
+		}
+
+		&.favorited {
+			background-color: $success-color;
+			
+			.iconic {
+				display: none;
+			}
+
+			.favorite-count {
+				display: inline;
+			}
+		}
+	}
+}

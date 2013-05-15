@@ -1,0 +1,34 @@
+$primary-color:  #ff9a9a;
+$secondary-color: #cccccc;
+$success-color: #9affcd;
+
+@mixin ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin control($size, $font, $color) {
+	background-color: $color;
+	border: 0;
+	display: block; 
+	height: $size;
+	margin: 0;
+	padding: 0;
+	@include transition(background-color .3s ease);
+	width: $size;
+
+	&:hover {
+		background-color: $primary-color;
+	}
+
+	&:active {
+		background-color: darken($primary-color, 5%);
+	}
+}
+
+$thumbnail-width: 71px;
+
+.hide-desktop {
+	display: none !important;
+}
