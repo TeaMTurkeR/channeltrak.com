@@ -4,13 +4,20 @@
 		<?php $this->load->view('includes/side'); ?>
 	</nav>
 
-	<section id="info">
-		<?php $this->load->view('includes/info'); ?>
-	</section>
+	<section id="main">
+		<?php echo form_open('index.php/user/login'); ?>
+			<fieldset>
 
-	<section id="playlist">
-		<?php $this->load->view('includes/controls'); ?>
-		<?php $this->load->view('includes/loop'); ?>
+					<label for="email">Email</label>
+					<input type="text" name="email">
+					
+					<label for="password">Password</label>
+					<input type="password" name="password">
+
+					<input class="button small expand" type="submit" value="Login">
+
+			</fieldset>
+		<?php echo form_close(); ?>
 	</section>
 
 	<?php if (isset($pagination)) : ?>

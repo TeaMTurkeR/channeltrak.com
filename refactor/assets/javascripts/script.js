@@ -196,33 +196,14 @@ $(function(){
 
     setPlayingInfo();
 
-    $('#side .active').click(function(){
-        return false;
-    });
+    //Scrolling controls actions
 
-    $('#start').click(function(){
-        $.scrollTo('#logo', 500, {offset:0} );
-    });
-
-    $('#toggle-mobile-nav').click(function(){
-        $('#site-nav, #account-nav').toggleClass('hide-mobile');
-    });
-
-    $('.song .thumbnail').click(function(){
-
-        var $this = $(this);
-        var $song = $this.parents('.song');
-        var yt = $song.attr('data-song-yt-id');
-        var $newPlayer = $('<div id="player"></div>');
-
-        $('#player').remove();
-        $song.addClass('playing');
-        $('.song').not($song).removeClass('playing');
-        $this.children('.flex-media').prepend($newPlayer);
-        createYTPlayer(yt);
-
-        setPlayingInfo();
-
+    $(window).scroll(function(){
+        if ( $(window).scrollTop() > 180 ) {
+            $('#controls').addClass('sticky');
+        } else {
+            $('#controls').removeClass('sticky');
+        }
     });
 
     $('#playing-thumbnail').click(function(){
@@ -291,6 +272,25 @@ $(function(){
         }
     });
 
+    //Individual song actions
+
+    $('.song .thumbnail').click(function(){
+
+        var $this = $(this);
+        var $song = $this.parents('.song');
+        var yt = $song.attr('data-song-yt-id');
+        var $newPlayer = $('<div id="player"></div>');
+
+        $('#player').remove();
+        $song.addClass('playing');
+        $('.song').not($song).removeClass('playing');
+        $this.children('.flex-media').prepend($newPlayer);
+        createYTPlayer(yt);
+
+        setPlayingInfo();
+
+    });
+
     $('.favorite-song').click(function(){
 
         var $this = $(this);
@@ -353,7 +353,7 @@ $(function(){
     $('#load-more').click(function(){
 
         var $this = $('#load-more');
-        var offset = parseInt($this.attr('data-offset'))+5;
+        var offset = parseInt($this.attr('data-offset'))+20;
         var data = 'offset='+offset;
 
         $.ajax({
@@ -364,7 +364,7 @@ $(function(){
                 console.log(data);
             }
         }).done(function(html) {
-            $('#main #loop').append(html);
+            $('#playlist').append(html);
             paginationCallback();
         });
 

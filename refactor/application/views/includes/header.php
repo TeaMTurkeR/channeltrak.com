@@ -16,11 +16,12 @@
 		
 	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-	<?php echo script_tag(base_url().'assets/javascripts/vendor/custom.modernizr.js'); ?>
+	<!--[if lt IE 9]>
+	<?php echo script_tag(base_url().'assets/javascripts/vendor/html5shiv.js'); ?>
+	<![endif]-->
 </head>
 
-<?php if ($this->session->userdata('logged_in')) : $this->load->model('Favoritemodel'); ?>
+<?php if ($this->session->userdata('logged_in')) : $this->load->model('User_model'); ?>
 
 <body class="logged-in">
 

@@ -1,9 +1,5 @@
 * { @include box-sizing(border-box); }
 
-// html, body {
-// 	height: 100%;
-// }
-
 body {
 	background-color: #eee;
 	color: #666;
@@ -16,12 +12,32 @@ a {
 	text-decoration: none;
 }
 
-#wrap {
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+#page {
 	@include clearfix();
 	margin: 0 auto;
 	min-height: 100%;
 	position: relative;
 	width: 1000px;
+}
+
+.inner {
+	background-color: #fff;
+	@include clearfix();
+	margin: 0 0 40px 250px;
+	padding: 40px;
+	width: 750px;
+
+	.inline {
+		margin: 0;
+	}
 }
 
 #nav {
@@ -30,7 +46,15 @@ a {
 }
 
 #footer {
+	background-color: #fff;
 	@include clearfix();
+	margin: 0 0 40px 250px;
+	padding: 40px;
+	width: 750px;
+
+	.inline {
+		margin: 0;
+	}
 }
 
 #logo {
@@ -52,7 +76,6 @@ a {
 			color: #666;
 			display: block;
 			padding: 5px;
-			@include transition(all .5s ease);
 
 			&:hover {
 				background-color: #e0e0e0;
@@ -75,7 +98,7 @@ a {
 #info {
 	background-color: #fff;
 	margin: 40px 0 40px 250px;
-	padding: 20px 40px;
+	padding: 40px;
 	width: 750px;
 }
 
@@ -84,58 +107,108 @@ a {
 	margin: 0;
 }
 
+#page-subtitle {
+	color: #ccc;
+	font-size: 16px;
+	font-weight: normal;
+	margin: 0;
+
+	span {
+		margin-right: 20px;
+	}
+}
+
+.page-info {
+	list-style: none;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.inline {
+	@include clearfix();
+	list-style: none;
+	margin-bottom: 0;
+	padding: 0;
+
+	li {
+		float: left;
+		margin-right: 20px;
+	}
+
+	li:last-child {
+		margin: 0;
+	}
+}
+
 #total-favorites {
 	margin-right: 40px;
 }
 
-#playlist {
+#playlist, #main {
 	background-color: #fff;
-	margin-left: 250px;
+	margin: 0 0 40px 250px;
+	min-height: 100%;
+	overflow: auto;
 	padding: 40px 0;
+	position: relative;
 	width: 750px;
 }
 
+#pagination {
+	background-color: #fff;
+	margin: 0 0 40px 250px;
+	width: 750px;
+}
+
+#load-more {
+	border: none;
+	background-color: $primary-color;
+	color: #666;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 20px 40px;
+	width: 100%;
+}
+
 #controls {
-	//background-color: #fff;
-	//height: 40px;
 	position: absolute;
 	right: 40px;
-	top: 40px;
-	width: $thumbnail-width + 20px + 40px + 40px + 40px;
+	top: 0px;
+	width: $thumbnail-width + 40px + 40px + 40px;
 
 	button {
 		@include control(40px, 16px, $secondary-color);
 		float: left;
-		position: fixed;
+		position: absolute;
 		z-index: 9999;
 		
 		&#prev {
-			margin-left: $thumbnail-width + 20px
+			margin-left: $thumbnail-width
 		}
 
 		&#play {
 			font-size: 14px;
-			margin-left: $thumbnail-width + 20px + 40px
+			margin-left: $thumbnail-width + 40px
 		}
 		&#next {
-			margin-left: $thumbnail-width + 20px + 40px + 40px
+			margin-left: $thumbnail-width + 40px + 40px
 		}
+	}
 
-		&.scroll {
+	&.sticky {
+		button, #playing-thumbnail {
 			position: fixed;
-			top: 120px;
+			top: 40px;
 		}
-
 	}
 }
 
 #playing-thumbnail {
-	//border: 1px solid #fff;
+	border: 2px solid $secondary-color;
 	cursor: pointer;
 	height: 40px;
-	opacity: .66;
 	overflow: hidden;
-	position: fixed;
+	position: absolute;
 	@include transition(opacity .3s ease);
 	width: $thumbnail-width;
 	z-index: 9999;
@@ -146,12 +219,7 @@ a {
 	}
 
 	&:hover {
-		opacity: 1;
-	}
-
-	&.scroll {
-		position: fixed;
-		top: 120px;
+		border-color: $primary-color;
 	}
 }
 
@@ -164,6 +232,10 @@ a {
 		.actions {
 			right: 40px;
 		}
+	}
+
+	&:last-child {
+		margin-bottom: 0;
 	}
 
 	&.playing {
@@ -264,3 +336,42 @@ a {
 		}
 	}
 }
+
+// DIRECTORY
+
+#directory {
+	@include clearfix();
+	margin: 0 0 40px 230px;
+	width: 770px;
+}
+
+.channel {
+	background-color: #fff;
+	display: block;
+	float: left;
+	margin:0 0 20px 20px;
+	width: 236px;
+
+	h2 {
+		color: #666;
+		font-size: 16px;
+		margin: 0;
+		min-height: 64px;
+		padding: 10px;
+	}
+
+	img {
+		width: 100%;
+	}
+
+	&:hover {
+		background-color: $primary-color;
+
+		h2 {
+			color: #fff;
+		}
+	}
+}
+
+// LOGIN, REGISTER, SETTINGS
+

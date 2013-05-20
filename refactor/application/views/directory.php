@@ -1,26 +1,38 @@
 <?php $this->load->view('includes/header'); ?>
-
-<section class="row">
-	<aside id="side" class="large-3 columns">
+<div id="page">
+	<nav id="nav">
 		<?php $this->load->view('includes/side'); ?>
-	</aside>
-	<section id="main" class="large-9 columns">
-		<?php foreach ($channels as $channel) { ?>
+	</nav>
 
-		<div class="channel large-6 columns">
+	<section id="info">
+		<?php $this->load->view('includes/info'); ?>
+	</section>
+
+	<section id="directory">
+		<?php foreach ($channels as $channel) : ?>
+		
+		<a class="channel" href="<?php echo base_url(); ?>index.php/channel/<?php echo $channel->channel_slug ?>">
 			<div class="thumbnail">
-				<div class="flex-image">
+				<div class="flex-media">
 					<img src="http://img.youtube.com/vi/<?php echo $this->Song_model->getChannelImage($channel->channel_slug) ?>/hqdefault.jpg" alt="<?php echo $channel->channel_name ?>">
 				</div>
 			</div>
-			<div class="caption">
-				<h2><a href="<?php echo base_url(); ?>index.php/channel/<?php echo $channel->channel_slug ?>"><?php echo $channel->channel_name ?></a></h2>
-				<p class="source"><span class="iconic link"></span><a href="http://www.youtube.com/user/<?php echo $channel->channel_yt_id ?>">Youtube</a></p>
-			</div>
-		</div>
+			<h2><?php echo $channel->channel_name ?></h2>
+		</a>
 
-		<?php } ?>
+		<?php endforeach; ?>
 	</section>
-</section>
 
-<?php $this->load->view('includes/footer');?>
+	<footer id="footer">
+		<ul class="inline left">
+			<li><a href="">About</a></li>
+			<li><a href="">Contact</a></li>
+			<li><a href="">Terms</a></li>
+			<li><a href="">Privacy</a></li>
+		</ul>
+		<ul class="inline right">
+			<li>&copy Channeltrak 2013</li>
+		</ul>
+	</footer>
+</div>
+<?php $this->load->view('includes/footer'); ?>

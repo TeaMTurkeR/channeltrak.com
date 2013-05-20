@@ -2334,7 +2334,7 @@ ul.icons-ul > li .icon-li {
   box-sizing: border-box;
 }
 
-/* line 7, ../sass/_styles.scss */
+/* line 3, ../sass/_styles.scss */
 body {
   background-color: #eee;
   color: #666;
@@ -2342,14 +2342,24 @@ body {
   font-size: 1em;
 }
 
-/* line 14, ../sass/_styles.scss */
+/* line 10, ../sass/_styles.scss */
 a {
   color: #ff9a9a;
   text-decoration: none;
 }
 
+/* line 15, ../sass/_styles.scss */
+.left {
+  float: left;
+}
+
 /* line 19, ../sass/_styles.scss */
-#wrap {
+.right {
+  float: right;
+}
+
+/* line 23, ../sass/_styles.scss */
+#page {
   overflow: hidden;
   *zoom: 1;
   margin: 0 auto;
@@ -2358,19 +2368,41 @@ a {
   width: 1000px;
 }
 
-/* line 27, ../sass/_styles.scss */
+/* line 31, ../sass/_styles.scss */
+.inner {
+  background-color: #fff;
+  overflow: hidden;
+  *zoom: 1;
+  margin: 0 0 40px 250px;
+  padding: 40px;
+  width: 750px;
+}
+/* line 38, ../sass/_styles.scss */
+.inner .inline {
+  margin: 0;
+}
+
+/* line 43, ../sass/_styles.scss */
 #nav {
   position: fixed;
   top: 20px;
 }
 
-/* line 32, ../sass/_styles.scss */
+/* line 48, ../sass/_styles.scss */
 #footer {
+  background-color: #fff;
   overflow: hidden;
   *zoom: 1;
+  margin: 0 0 40px 250px;
+  padding: 40px;
+  width: 750px;
+}
+/* line 55, ../sass/_styles.scss */
+#footer .inline {
+  margin: 0;
 }
 
-/* line 36, ../sass/_styles.scss */
+/* line 60, ../sass/_styles.scss */
 #logo {
   font-family: "jaf-lapture", serif;
   font-size: 30px;
@@ -2380,72 +2412,126 @@ a {
   text-transform: lowercase;
 }
 
-/* line 45, ../sass/_styles.scss */
+/* line 69, ../sass/_styles.scss */
 .menu {
   list-style: none;
   margin: 0 0 40px;
   padding: 0;
 }
-/* line 51, ../sass/_styles.scss */
+/* line 75, ../sass/_styles.scss */
 .menu li a {
   color: #666;
   display: block;
   padding: 5px;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
 }
-/* line 57, ../sass/_styles.scss */
+/* line 80, ../sass/_styles.scss */
 .menu li a:hover {
   background-color: #e0e0e0;
 }
-/* line 62, ../sass/_styles.scss */
+/* line 85, ../sass/_styles.scss */
 .menu li a.active {
   background-color: #fff;
   color: #666;
   cursor: default;
 }
-/* line 69, ../sass/_styles.scss */
+/* line 92, ../sass/_styles.scss */
 .menu li#account-name {
   color: #ccc;
 }
 
-/* line 75, ../sass/_styles.scss */
+/* line 98, ../sass/_styles.scss */
 #info {
   background-color: #fff;
   margin: 40px 0 40px 250px;
-  padding: 20px 40px;
+  padding: 40px;
   width: 750px;
 }
 
-/* line 82, ../sass/_styles.scss */
+/* line 105, ../sass/_styles.scss */
 #page-title {
   line-height: 30px;
   margin: 0;
 }
 
-/* line 87, ../sass/_styles.scss */
+/* line 110, ../sass/_styles.scss */
+#page-subtitle {
+  color: #ccc;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+}
+/* line 116, ../sass/_styles.scss */
+#page-subtitle span {
+  margin-right: 20px;
+}
+
+/* line 121, ../sass/_styles.scss */
+.page-info {
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+/* line 127, ../sass/_styles.scss */
+.inline {
+  overflow: hidden;
+  *zoom: 1;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+/* line 133, ../sass/_styles.scss */
+.inline li {
+  float: left;
+  margin-right: 20px;
+}
+/* line 138, ../sass/_styles.scss */
+.inline li:last-child {
+  margin: 0;
+}
+
+/* line 143, ../sass/_styles.scss */
 #total-favorites {
   margin-right: 40px;
 }
 
-/* line 91, ../sass/_styles.scss */
-#playlist {
+/* line 147, ../sass/_styles.scss */
+#playlist, #main {
   background-color: #fff;
-  margin-left: 250px;
+  margin: 0 0 40px 250px;
+  min-height: 100%;
+  overflow: auto;
   padding: 40px 0;
+  position: relative;
   width: 750px;
 }
 
-/* line 98, ../sass/_styles.scss */
+/* line 157, ../sass/_styles.scss */
+#pagination {
+  background-color: #fff;
+  margin: 0 0 40px 250px;
+  width: 750px;
+}
+
+/* line 163, ../sass/_styles.scss */
+#load-more {
+  border: none;
+  background-color: #ff9a9a;
+  color: #666;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px 40px;
+  width: 100%;
+}
+
+/* line 173, ../sass/_styles.scss */
 #controls {
   position: absolute;
   right: 40px;
-  top: 40px;
-  width: 211px;
+  top: 0px;
+  width: 191px;
 }
-/* line 106, ../sass/_styles.scss */
+/* line 179, ../sass/_styles.scss */
 #controls button {
   background-color: #cccccc;
   border: 0;
@@ -2459,7 +2545,7 @@ a {
   transition: background-color 0.3s ease;
   width: 40px;
   float: left;
-  position: fixed;
+  position: absolute;
   z-index: 9999;
 }
 /* line 21, ../sass/_variables.scss */
@@ -2470,32 +2556,32 @@ a {
 #controls button:active {
   background-color: #ff8181;
 }
-/* line 112, ../sass/_styles.scss */
+/* line 185, ../sass/_styles.scss */
 #controls button#prev {
-  margin-left: 91px;
+  margin-left: 71px;
 }
-/* line 116, ../sass/_styles.scss */
+/* line 189, ../sass/_styles.scss */
 #controls button#play {
   font-size: 14px;
-  margin-left: 131px;
+  margin-left: 111px;
 }
-/* line 120, ../sass/_styles.scss */
+/* line 193, ../sass/_styles.scss */
 #controls button#next {
-  margin-left: 171px;
+  margin-left: 151px;
 }
-/* line 124, ../sass/_styles.scss */
-#controls button.scroll {
+/* line 199, ../sass/_styles.scss */
+#controls.sticky button, #controls.sticky #playing-thumbnail {
   position: fixed;
-  top: 120px;
+  top: 40px;
 }
 
-/* line 132, ../sass/_styles.scss */
+/* line 206, ../sass/_styles.scss */
 #playing-thumbnail {
+  border: 2px solid #cccccc;
   cursor: pointer;
   height: 40px;
-  opacity: .66;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -o-transition: opacity 0.3s ease;
@@ -2503,43 +2589,42 @@ a {
   width: 71px;
   z-index: 9999;
 }
-/* line 143, ../sass/_styles.scss */
+/* line 216, ../sass/_styles.scss */
 #playing-thumbnail img {
   margin-top: -7px;
   width: 100%;
 }
-/* line 148, ../sass/_styles.scss */
+/* line 221, ../sass/_styles.scss */
 #playing-thumbnail:hover {
-  opacity: 1;
-}
-/* line 152, ../sass/_styles.scss */
-#playing-thumbnail.scroll {
-  position: fixed;
-  top: 120px;
+  border-color: #ff9a9a;
 }
 
-/* line 158, ../sass/_styles.scss */
+/* line 226, ../sass/_styles.scss */
 .song {
   margin-bottom: 60px;
   padding: 0 40px;
   position: relative;
 }
-/* line 164, ../sass/_styles.scss */
+/* line 232, ../sass/_styles.scss */
 .song:hover .actions, .song.playing .actions {
   right: 40px;
 }
-/* line 171, ../sass/_styles.scss */
+/* line 237, ../sass/_styles.scss */
+.song:last-child {
+  margin-bottom: 0;
+}
+/* line 243, ../sass/_styles.scss */
 .song.playing .flex-image {
   display: none;
 }
 
-/* line 177, ../sass/_styles.scss */
+/* line 249, ../sass/_styles.scss */
 .thumbnail {
   cursor: pointer;
   overflow: hidden;
 }
 
-/* line 182, ../sass/_styles.scss */
+/* line 254, ../sass/_styles.scss */
 .flex-media {
   background-color: #000;
   height: 0;
@@ -2547,12 +2632,12 @@ a {
   position: relative;
   z-index: 10;
 }
-/* line 189, ../sass/_styles.scss */
+/* line 261, ../sass/_styles.scss */
 .flex-media img {
   margin-top: -9.4%;
   width: 100%;
 }
-/* line 194, ../sass/_styles.scss */
+/* line 266, ../sass/_styles.scss */
 .flex-media iframe {
   height: 100%;
   left: 0;
@@ -2561,7 +2646,7 @@ a {
   width: 100%;
 }
 
-/* line 203, ../sass/_styles.scss */
+/* line 275, ../sass/_styles.scss */
 .rank {
   background-color: #fff;
   font-size: 20px;
@@ -2575,11 +2660,11 @@ a {
   z-index: 10;
 }
 
-/* line 216, ../sass/_styles.scss */
+/* line 288, ../sass/_styles.scss */
 .caption {
   padding: 15px;
 }
-/* line 219, ../sass/_styles.scss */
+/* line 291, ../sass/_styles.scss */
 .caption h2 {
   white-space: nowrap;
   overflow: hidden;
@@ -2587,17 +2672,17 @@ a {
   font-size: 18px;
   margin: 0 0 10px;
 }
-/* line 225, ../sass/_styles.scss */
+/* line 297, ../sass/_styles.scss */
 .caption p {
   color: #ccc;
   margin: 0 0 10px 0;
 }
-/* line 229, ../sass/_styles.scss */
+/* line 301, ../sass/_styles.scss */
 .caption p > span {
   margin-right: 10px;
 }
 
-/* line 235, ../sass/_styles.scss */
+/* line 307, ../sass/_styles.scss */
 .actions {
   position: absolute;
   right: 80px;
@@ -2609,7 +2694,7 @@ a {
   width: 0px;
   z-index: 1;
 }
-/* line 244, ../sass/_styles.scss */
+/* line 316, ../sass/_styles.scss */
 .actions button {
   background-color: #cccccc;
   border: 0;
@@ -2632,21 +2717,58 @@ a {
 .actions button:active {
   background-color: #ff8181;
 }
-/* line 248, ../sass/_styles.scss */
+/* line 320, ../sass/_styles.scss */
 .actions button .favorite-count {
   display: none;
   font-size: 18px;
   line-height: 40px;
 }
-/* line 254, ../sass/_styles.scss */
+/* line 326, ../sass/_styles.scss */
 .actions button.favorited {
   background-color: #9affcd;
 }
-/* line 257, ../sass/_styles.scss */
+/* line 329, ../sass/_styles.scss */
 .actions button.favorited .iconic {
   display: none;
 }
-/* line 261, ../sass/_styles.scss */
+/* line 333, ../sass/_styles.scss */
 .actions button.favorited .favorite-count {
   display: inline;
+}
+
+/* line 342, ../sass/_styles.scss */
+#directory {
+  overflow: hidden;
+  *zoom: 1;
+  margin: 0 0 40px 230px;
+  width: 770px;
+}
+
+/* line 348, ../sass/_styles.scss */
+.channel {
+  background-color: #fff;
+  display: block;
+  float: left;
+  margin: 0 0 20px 20px;
+  width: 236px;
+}
+/* line 355, ../sass/_styles.scss */
+.channel h2 {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+  min-height: 64px;
+  padding: 10px;
+}
+/* line 363, ../sass/_styles.scss */
+.channel img {
+  width: 100%;
+}
+/* line 367, ../sass/_styles.scss */
+.channel:hover {
+  background-color: #ff9a9a;
+}
+/* line 370, ../sass/_styles.scss */
+.channel:hover h2 {
+  color: #fff;
 }

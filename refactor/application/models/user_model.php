@@ -2,7 +2,7 @@
 
 class User_model extends CI_Model {
 
-    function getUser($userId) {
+    public function getUser($userId) {
         $query = $this->db->get_where('users', array('user_id' => $userId));
         if($query->num_rows() == 1) {
             $row = $query->row();
@@ -35,6 +35,35 @@ class User_model extends CI_Model {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function countFavorties($userId) {
+        $this->db->where('user_id', $userId);
+        return $this->db->count_all('favorites');
+    }
+
+    public function addFavorite($data) {
+        $this->db->insert('favorites', $data);
+        if($this->db->affected_rows() > 0) {
+            return true;
+        }
+    } 
+
+    public function removeFavorite($songId) {
+        $this->db->where('song_id', $songId);
+        $this->db->delete('favorites');
+        if($this->db->affected_rows() > 0) {
+            return true;
+        }
+    } 
+
+    public function checkFavorites($userId, $songId) {
+        $this->db->where('user_id', $userId);
+        $this->db->where('song_id', $songId);
+        $query = $this->db->get('favorites');
+        if($query->num_rows() !== 0){
+            return true;
         }
     }
 

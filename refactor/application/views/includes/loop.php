@@ -1,4 +1,4 @@
-<?php $i=0; foreach ($songs as $song) { ?>
+<?php $i=0; foreach ($songs as $song) : ?>
 	<article id="<?php echo $song->song_id ?>" class="song" data-song-slug="<?php echo $song->song_slug ?>" data-song-yt-id="<?php echo $song->song_yt_id ?>" data-song-favorites="<?php echo $song->song_favorites ?>">
 		<section class="content">
 			<section class="thumbnail">
@@ -20,21 +20,21 @@
 			if ($this->session->userdata('logged_in')) :	
 				$userId = $this->session->userdata('user_id');
 				$songId = $song->song_id;
-				$isFavorited = $this->Favoritemodel->checkFavorites($userId, $songId);
+				$isFavorited = $this->User_model->checkFavorites($userId, $songId);
 		?>
 
 			<?php if ($isFavorited) : ?>
 
 			<button class="favorite-song favorited">
 				<span class="favorite-count"><?php echo $song->song_favorites ?></span>
-				<span class="icon-pushpin"></span>
+				<span class="icon-heart"></span>
 			</button>
 
 			<?php else : ?>
 
 			<button class="favorite-song">
 				<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
-				<span class="icon-pushpin"></span>
+				<span class="icon-heart"></span>
 			</button>
 
 			<?php endif; ?>  
@@ -42,7 +42,7 @@
 		<?php else : ?>
 			<button class="favorite-song">
 				<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
-				<span class="icon-pushpin"></span>
+				<span class="icon-heart"></span>
 			</button>
 		<?php endif; ?>
 			<button class="share-song">
@@ -56,4 +56,4 @@
 			</button>
 		</section>
 	</article>
-<?php } ?>
+<?php endforeach; ?>
