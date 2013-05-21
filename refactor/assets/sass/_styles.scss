@@ -1,5 +1,9 @@
 * { @include box-sizing(border-box); }
 
+html, body {
+	background-color: #eee;
+}
+
 body {
 	background-color: #eee;
 	color: #666;
@@ -10,6 +14,11 @@ body {
 a {
 	color: $primary-color;
 	text-decoration: none;
+	@include transition(color .3s ease);
+
+	&:hover, &:focus {
+		color: darken($primary-color, 10%);
+	}
 }
 
 .left {
@@ -90,7 +99,8 @@ a {
 		}
 
 		&#account-name {
-			color: #ccc;
+			color: #999;
+			padding: 5px;
 		}
 	}
 }
@@ -326,7 +336,7 @@ a {
 		&.favorited {
 			background-color: $success-color;
 			
-			.iconic {
+			.icon-heart {
 				display: none;
 			}
 
@@ -374,4 +384,50 @@ a {
 }
 
 // LOGIN, REGISTER, SETTINGS
+#login, #join {
+	border-right: 1px solid #ccc;
+	float: left;
+}
+
+.button {
+	background-color: $primary-color;
+	border: none;
+	color: #fff;
+	display: block;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	width: 100%;
+}
+
+.form {
+	padding: 0 40px; 
+	width: 375px;
+
+	input[type="submit"] {
+		font-size: 16px;
+		margin-top: 30px;
+	}
+}
+
+.form-side {
+	float: left;
+	padding: 0 40px;
+	width: 375px;
+}
+
+input {
+	background-color: #fff;
+	display: block;
+	font-size: 14px;
+	margin-bottom: 20px;
+	padding: 10px;
+	width: 100%;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+}
 

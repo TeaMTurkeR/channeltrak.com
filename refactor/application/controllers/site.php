@@ -94,11 +94,17 @@ class Site extends CI_Controller {
     }
 
     public function join() {
-        $this->load->view('join');
+        $data['title'] = 'Join';
+        $data['subtitle'] = 'Create a ChannelTrak account';
+
+        $this->load->view('join', $data);
     }
 
     public function login() {
-        $this->load->view('login');
+        $data['title'] = 'Login';
+        $data['subtitle'] = 'Sign into your account';
+
+        $this->load->view('login', $data);
     }
 
     public function logout() {
@@ -107,6 +113,29 @@ class Site extends CI_Controller {
         $this->session->unset_userdata('logged_in');
         $this->session->sess_destroy();
         redirect($this->input->get('last_url'));
+    }
+
+    public function favorites() {
+        if ($this->session->userdata('user_id')) {
+
+            $userId = $this->session->userdata('user_id');
+
+            $data['pagination'] = 'favorites';
+            $data['title'] = 'Favorites';
+            $data['subtitle'] = 'Your favoirte songs on ChannelTrak';
+
+            if (!isset($_POST['offset'])) {
+                $data['songs'] = $this->Song_model->getFavorites($userId, $this->limit, $this->offset);
+                $this->load->view('main', $data);
+            } else {
+                $offset = $_POST['offset'];
+                $data['songs'] = $this->Song_model->getFavorites($userId, $this->limit, $this->offset);
+                $this->load->view('includes/loop', $data);
+            }
+
+        } else {
+            $this->load->view('login');
+        }
     }
 
     public function settings() {
@@ -130,9 +159,6 @@ class Site extends CI_Controller {
         $data['title'] = 'Admin';
         $this->load->view('admin', $data);
     }
-
-
-
 
 }
 

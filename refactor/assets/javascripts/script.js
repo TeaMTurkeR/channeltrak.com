@@ -79,7 +79,7 @@ function favorite(newCount, id, direction){
     console.log(data);
     $.ajax({
         type: 'POST',
-        url: 'http://channeltrak.com/song/favorite', 
+        url: 'http://localhost/channeltrak.com/refactor/index.php/user/favorite', 
         data: data,
         success: function() {
             console.log('success');
