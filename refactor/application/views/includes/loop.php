@@ -10,7 +10,7 @@
 				</div>
 			</section>
 			<footer class="caption">
-				<h2><a href="<?php echo base_url(); ?>index.php/song/<?php echo $song->song_slug ?>"><?php echo $song->song_title ?></a></h2>
+				<h2><a href="<?php echo base_url(); ?>index.php/song/<?php echo $song->song_slug ?>" title="<?php echo $song->song_title ?>"><?php echo $song->song_title ?></a></h2>
 				<p class="date"><span class="icon-calendar-empty"></span><?php echo date('F j Y', strtotime($song->song_uploaded)); ?></p>
 				<p class="source"><span class="icon-user"></span><a href="<?php echo base_url(); ?>index.php/channel/<?php echo $song->song_channel_slug ?>"><?php echo $song->song_channel_name ?></a></p>
 			</footer>
@@ -25,14 +25,14 @@
 
 			<?php if ($isFavorited) : ?>
 
-			<button class="favorite-song favorited">
+			<button class="favorite-song favorited" title="Add to Favorites">
 				<span class="favorite-count"><?php echo $song->song_favorites ?></span>
 				<span class="icon-heart"></span>
 			</button>
 
 			<?php else : ?>
 
-			<button class="favorite-song">
+			<button class="favorite-song" title="Add to Favorites">
 				<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
 				<span class="icon-heart"></span>
 			</button>
@@ -40,18 +40,18 @@
 			<?php endif; ?>  
 
 		<?php else : ?>
-			<button class="favorite-song">
+			<button class="favorite-song" title="Add to Favorites">
 				<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
 				<span class="icon-heart"></span>
 			</button>
 		<?php endif; ?>
-			<button class="share-song">
+			<button class="share-song" title="Post to Twitter">
 				<span class="icon-twitter"></span>
 			</button>
-			<button class="share-song">
+			<button class="share-song" title="Post to Facebook">
 				<span class="icon-facebook"></span>
 			</button>
-			<button class="share-song">
+			<button class="share-song" title="Permalink">
 				<span class="icon-link"></span>
 			</button>
 		</section>

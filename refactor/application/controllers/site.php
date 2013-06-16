@@ -64,16 +64,19 @@ class Site extends CI_Controller {
     }
 
 	public function channel($slug) { 
+        
+        $this->load->model('Channel_model');
 
 		$where = array(
        		'song_channel_slug' => $slug //GET CHANNEL BY SLUG
         );
 
 		$data['pagination'] = 'channel/' . $slug;
-		$data['title'] = ucwords(str_replace('-', ' ', $slug));
 
         if (!isset($_POST['offset'])) {
+            $data['channel'] = $this->Channel_model->getChannel('channel_slug', $slug);
             $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $this->offset);
+            $data['title'] = $data['channel']->channel_name;
             $this->load->view('main', $data);
         } else {
             $offset = $_POST['offset'];
@@ -88,7 +91,7 @@ class Site extends CI_Controller {
        		'song_slug' => $slug //GET CHANNEL BY SLUG
         );
 
-        $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $this->offset);
+        $data['song'] = $this->Song_model->getSongs($where);
         $this->load->view('song', $data);
 
     }
@@ -150,14 +153,32 @@ class Site extends CI_Controller {
     }
 
     public function submit() {
-        $this->load->view('submit');
+        $data['title'] = 'Submit';
+        $data['subtitle'] = 'Submit a new Youtube channel';
+
+        $this->load->view('submit', $data);
     }
 
     public function admin() {
-        $data['submitted'] = $this->Channel_model->getChannels('0');
+        $this->load->model('Channel_model');
         $data['approved'] = $this->Channel_model->getChannels('1');
-        $data['title'] = 'Admin';
-        $this->load->view('admin', $data);
+        $data['unapproved'] = $this->Channel_model->getChannels('0');
+        $data['title'] = 'Dashboard';
+        $this->load->view('admin/dashboard', $data);
+    }
+
+    public function edit($slug) {
+        $this->load->model('Channel_model');
+
+        $data['channel'] = $this->Channel_model->getChannel('channel_slug', $slug);
+
+        $where = array(
+            'song_channel_slug' => $data['channel']->channel_slug //GET CHANNEL BY SLUG
+        );
+
+        $data['songs'] = $this->Song_model->getSongs($where, 'song_favorites', '100000', $this->offset);
+        $data['title'] = 'Edit: '.$data['channel']->channel_name;
+        $this->load->view('admin/edit', $data);
     }
 
 }

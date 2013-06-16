@@ -15,6 +15,15 @@ class Song_model extends CI_Model {
         }
     }
 
+    public function getSong($array) {
+        $this->db->where($array);
+        $query = $this->db->get('songs');
+        if($query->num_rows() == 1) {
+            $row = $query->row();
+            return $row;
+        }
+    }
+
     public function getFavorites($userId, $limit, $offset) {
         $this->db->select('*');
         $this->db->from('songs');
@@ -39,6 +48,32 @@ class Song_model extends CI_Model {
             $row = $query->row();
             return $row->song_yt_id;
         }
+    }
+
+    public function addSong($data) {
+        $this->db->insert('songs', $data);
+        if($this->db->affected_rows() > 0) {
+            return true;
+        }
+    } 
+
+    public function deleteSong($array) {
+        $this->db->where($array);
+        $this->db->delete('songs'); 
+    }
+
+    public function checkDuplicates($ytId) {
+        $this->db->where('song_yt_id', $ytId);
+        $query = $this->db->get('songs');
+        if($query->num_rows() == 0){
+            return true;
+        }
+    }
+
+    public function songCount($slug) {
+        $this->db->where('song_channel_slug', $slug);
+        $query = $this->db->get('songs');
+        return $query->num_rows();
     }
 
 }

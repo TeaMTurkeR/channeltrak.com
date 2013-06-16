@@ -412,7 +412,7 @@ table {
   border-spacing: 0;
 }
 
-/* line 32, ../sass/_variables.scss */
+/* line 36, ../sass/_variables.scss */
 .hide-desktop {
   display: none !important;
 }
@@ -2336,13 +2336,13 @@ ul.icons-ul > li .icon-li {
 
 /* line 3, ../sass/_styles.scss */
 html, body {
-  background-color: #eee;
+  background-color: #eeeeee;
 }
 
 /* line 7, ../sass/_styles.scss */
 body {
-  background-color: #eee;
-  color: #666;
+  background-color: #eeeeee;
+  color: #666666;
   font-family: "jaf-facitweb", sans-serif;
   font-size: 1em;
 }
@@ -2378,7 +2378,7 @@ a:hover, a:focus {
   margin: 0 auto;
   min-height: 100%;
   position: relative;
-  width: 1000px;
+  width: 1250px;
 }
 
 /* line 40, ../sass/_styles.scss */
@@ -2433,7 +2433,7 @@ a:hover, a:focus {
 }
 /* line 84, ../sass/_styles.scss */
 .menu li a {
-  color: #666;
+  color: #666666;
   display: block;
   padding: 5px;
 }
@@ -2444,12 +2444,12 @@ a:hover, a:focus {
 /* line 94, ../sass/_styles.scss */
 .menu li a.active {
   background-color: #fff;
-  color: #666;
+  color: #666666;
   cursor: default;
 }
 /* line 101, ../sass/_styles.scss */
 .menu li#account-name {
-  color: #999;
+  color: #999999;
   padding: 5px;
 }
 
@@ -2469,7 +2469,7 @@ a:hover, a:focus {
 
 /* line 120, ../sass/_styles.scss */
 #page-subtitle {
-  color: #ccc;
+  color: #999999;
   font-size: 16px;
   font-weight: normal;
   margin: 0;
@@ -2531,7 +2531,7 @@ a:hover, a:focus {
 #load-more {
   border: none;
   background-color: #ff9a9a;
-  color: #666;
+  color: #666666;
   font-size: 20px;
   font-weight: bold;
   padding: 20px 40px;
@@ -2562,11 +2562,11 @@ a:hover, a:focus {
   position: absolute;
   z-index: 9999;
 }
-/* line 21, ../sass/_variables.scss */
+/* line 25, ../sass/_variables.scss */
 #controls button:hover {
   background-color: #ff9a9a;
 }
-/* line 25, ../sass/_variables.scss */
+/* line 29, ../sass/_variables.scss */
 #controls button:active {
   background-color: #ff6767;
 }
@@ -2680,23 +2680,32 @@ a:hover, a:focus {
 }
 /* line 301, ../sass/_styles.scss */
 .caption h2 {
+  color: #ff9a9a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 18px;
   margin: 0 0 10px;
+  -webkit-transition: color 0.3s ease;
+  -moz-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
-/* line 307, ../sass/_styles.scss */
+/* line 308, ../sass/_styles.scss */
+.caption h2:hover, .caption h2:focus {
+  color: #ff6767;
+}
+/* line 313, ../sass/_styles.scss */
 .caption p {
-  color: #ccc;
+  color: #999999;
   margin: 0 0 10px 0;
 }
-/* line 311, ../sass/_styles.scss */
+/* line 317, ../sass/_styles.scss */
 .caption p > span {
   margin-right: 10px;
 }
 
-/* line 317, ../sass/_styles.scss */
+/* line 323, ../sass/_styles.scss */
 .actions {
   position: absolute;
   right: 80px;
@@ -2708,7 +2717,7 @@ a:hover, a:focus {
   width: 0px;
   z-index: 1;
 }
-/* line 326, ../sass/_styles.scss */
+/* line 332, ../sass/_styles.scss */
 .actions button {
   background-color: #cccccc;
   border: 0;
@@ -2723,34 +2732,34 @@ a:hover, a:focus {
   width: 40px;
   margin-bottom: emCalc(16px/2);
 }
-/* line 21, ../sass/_variables.scss */
+/* line 25, ../sass/_variables.scss */
 .actions button:hover {
   background-color: #ff9a9a;
 }
-/* line 25, ../sass/_variables.scss */
+/* line 29, ../sass/_variables.scss */
 .actions button:active {
   background-color: #ff6767;
 }
-/* line 330, ../sass/_styles.scss */
+/* line 336, ../sass/_styles.scss */
 .actions button .favorite-count {
   display: none;
   font-size: 18px;
   line-height: 40px;
 }
-/* line 336, ../sass/_styles.scss */
+/* line 342, ../sass/_styles.scss */
 .actions button.favorited {
   background-color: #9affcd;
 }
-/* line 339, ../sass/_styles.scss */
+/* line 345, ../sass/_styles.scss */
 .actions button.favorited .icon-heart {
   display: none;
 }
-/* line 343, ../sass/_styles.scss */
+/* line 349, ../sass/_styles.scss */
 .actions button.favorited .favorite-count {
   display: inline;
 }
 
-/* line 352, ../sass/_styles.scss */
+/* line 358, ../sass/_styles.scss */
 #directory {
   overflow: hidden;
   *zoom: 1;
@@ -2758,7 +2767,7 @@ a:hover, a:focus {
   width: 770px;
 }
 
-/* line 358, ../sass/_styles.scss */
+/* line 364, ../sass/_styles.scss */
 .channel {
   background-color: #fff;
   display: block;
@@ -2766,34 +2775,34 @@ a:hover, a:focus {
   margin: 0 0 20px 20px;
   width: 236px;
 }
-/* line 365, ../sass/_styles.scss */
+/* line 371, ../sass/_styles.scss */
 .channel h2 {
-  color: #666;
+  color: #666666;
   font-size: 16px;
   margin: 0;
   min-height: 64px;
   padding: 10px;
 }
-/* line 373, ../sass/_styles.scss */
+/* line 379, ../sass/_styles.scss */
 .channel img {
   width: 100%;
 }
-/* line 377, ../sass/_styles.scss */
+/* line 383, ../sass/_styles.scss */
 .channel:hover {
   background-color: #ff9a9a;
 }
-/* line 380, ../sass/_styles.scss */
+/* line 386, ../sass/_styles.scss */
 .channel:hover h2 {
   color: #fff;
 }
 
-/* line 387, ../sass/_styles.scss */
-#login, #join {
-  border-right: 1px solid #ccc;
+/* line 393, ../sass/_styles.scss */
+#login, #join, #submit {
+  border-right: 1px solid #999999;
   float: left;
 }
 
-/* line 392, ../sass/_styles.scss */
+/* line 398, ../sass/_styles.scss */
 .button {
   background-color: #ff9a9a;
   border: none;
@@ -2806,25 +2815,29 @@ a:hover, a:focus {
   width: 100%;
 }
 
-/* line 404, ../sass/_styles.scss */
+/* line 410, ../sass/_styles.scss */
 .form {
   padding: 0 40px;
   width: 375px;
 }
-/* line 408, ../sass/_styles.scss */
+/* line 414, ../sass/_styles.scss */
 .form input[type="submit"] {
   font-size: 16px;
   margin-top: 30px;
 }
 
-/* line 414, ../sass/_styles.scss */
+/* line 420, ../sass/_styles.scss */
 .form-side {
   float: left;
   padding: 0 40px;
   width: 375px;
 }
+/* line 425, ../sass/_styles.scss */
+.form-side li {
+  margin-bottom: 5px;
+}
 
-/* line 420, ../sass/_styles.scss */
+/* line 430, ../sass/_styles.scss */
 input {
   background-color: #fff;
   display: block;
@@ -2834,7 +2847,7 @@ input {
   width: 100%;
 }
 
-/* line 429, ../sass/_styles.scss */
+/* line 439, ../sass/_styles.scss */
 label {
   display: block;
   margin-bottom: 5px;

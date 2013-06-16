@@ -7,16 +7,29 @@
 
 	<?php else : ?>
 
-	<h3 id="page-subtitle">Joined Jan 3 2013</h3>
+	<h3 id="page-subtitle">Joined <?php echo date('F j Y', strtotime($channel->channel_approved)); ?></h3>
 	<ul class="page-info">
-		<li>24 Tracks</li>
-		<li>2200 Favorites</li>
+		<li><?php echo $channel->channel_tracks ?> Tracks</li>
+		<li><?php echo $channel->channel_favorites ?> Favorites</li>
 	</ul>
 	<ul class="inline">
-		<li><a href=""><span class="icon-play-sign"></span> Youtube</a></li>
-		<li><a href=""><span class="icon-twitter"></span> Twitter</a></li>
-		<li><a href=""><span class="icon-facebook"></span> Facebook</a></li>
-		<li><a href=""><span class="icon-external-link"></span> Website</a></li>
+
+		<?php if ($channel->channel_yt_url != NULL) : ?>
+			<li><a href="<?php echo $channel->channel_yt_url ?>"><span class="icon-play-sign"></span> Youtube</a></li>
+		<?php endif; ?>
+
+		<?php if ($channel->channel_tw_url != NULL) : ?>
+			<li><a href="<?php echo $channel->channel_tw_url ?>"><span class="icon-twitter"></span> Twitter</a></li>
+		<?php endif; ?>
+
+		<?php if ($channel->channel_fb_url != NULL) : ?>
+			<li><a href="<?php echo $channel->channel_fb_url ?>"><span class="icon-facebook"></span> Facebook</a></li>
+		<?php endif; ?>
+
+		<?php if ($channel->channel_web_url != NULL) : ?>
+			<li><a href="<?php echo $channel->channel_web_url ?>"><span class="icon-external-link"></span> Website</a></li>
+		<?php endif; ?>
+		
 	</ul>
 	<?php endif; ?>
 </section>

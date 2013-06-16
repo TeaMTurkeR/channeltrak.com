@@ -54,11 +54,15 @@ $route['login'] = 'site/login';
 $route['logout'] = 'site/logout';
 $route['submit'] = 'site/submit';
 $route['admin'] = 'site/admin';
+$route['edit/(:any)'] = 'site/edit/$1';
 
 $route['channel/submit'] = 'channel/submit';
 $route['channel/approve'] = 'channel/approve';
 $route['channel/import'] = 'channel/import';
+$route['channel/update'] = 'channel/update';
+$route['channel/delete/(:any)'] = 'channel/delete/$1';
 
+$route['song/delete/(:any)'] = 'song/delete/$1';
 $route['song/favorite'] = 'song/favorite';
 
 $route['channel/(:any)'] = 'site/channel/$1';

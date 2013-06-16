@@ -1,12 +1,12 @@
 * { @include box-sizing(border-box); }
 
 html, body {
-	background-color: #eee;
+	background-color: $ultra-light-gray;
 }
 
 body {
-	background-color: #eee;
-	color: #666;
+	background-color: $ultra-light-gray;
+	color: $gray;
 	font-family: "jaf-facitweb", sans-serif;
 	font-size: 1em;
 }
@@ -34,7 +34,7 @@ a {
 	margin: 0 auto;
 	min-height: 100%;
 	position: relative;
-	width: 1000px;
+	width: 1250px;
 }
 
 .inner {
@@ -82,24 +82,24 @@ a {
 
 	li {
 		a {
-			color: #666;
+			color: $gray;
 			display: block;
 			padding: 5px;
 
 			&:hover {
 				background-color: #e0e0e0;
-				//color: #666;
+				//color: $gray;
 			} 
 
 			&.active {
 				background-color: #fff;
-				color: #666;
+				color: $gray;
 				cursor: default;
 			}
 		}
 
 		&#account-name {
-			color: #999;
+			color: $light-gray;
 			padding: 5px;
 		}
 	}
@@ -118,7 +118,7 @@ a {
 }
 
 #page-subtitle {
-	color: #ccc;
+	color: $light-gray;
 	font-size: 16px;
 	font-weight: normal;
 	margin: 0;
@@ -173,7 +173,7 @@ a {
 #load-more {
 	border: none;
 	background-color: $primary-color;
-	color: #666;
+	color: $gray;
 	font-size: 20px;
 	font-weight: bold;
 	padding: 20px 40px;
@@ -299,13 +299,19 @@ a {
 	padding: 15px;
 
 	h2 {
+		color: $primary-color;
 		@include ellipsis;
 		font-size: 18px;
 		margin: 0 0 10px;
+		@include transition(color .3s ease);
+
+		&:hover, &:focus {
+			color: darken($primary-color, 10%);
+		}
 	}
 
 	p {
-		color: #ccc;
+		color: $light-gray;
 		margin: 0 0 10px 0;
 
 		>span {
@@ -363,7 +369,7 @@ a {
 	width: 236px;
 
 	h2 {
-		color: #666;
+		color: $gray;
 		font-size: 16px;
 		margin: 0;
 		min-height: 64px;
@@ -384,8 +390,8 @@ a {
 }
 
 // LOGIN, REGISTER, SETTINGS
-#login, #join {
-	border-right: 1px solid #ccc;
+#login, #join, #submit {
+	border-right: 1px solid $light-gray;
 	float: left;
 }
 
@@ -415,6 +421,10 @@ a {
 	float: left;
 	padding: 0 40px;
 	width: 375px;
+
+	li {
+		margin-bottom: 5px;
+	}
 }
 
 input {

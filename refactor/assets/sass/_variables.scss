@@ -2,6 +2,10 @@ $primary-color:  #ff9a9a;
 $secondary-color: #cccccc;
 $success-color: #9affcd;
 
+$ultra-light-gray: #eee;
+$light-gray: #999;
+$gray: #666;
+
 @mixin ellipsis {
 	white-space: nowrap;
 	overflow: hidden;
