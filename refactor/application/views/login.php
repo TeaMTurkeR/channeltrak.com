@@ -8,8 +8,8 @@
 	<section id="main">
 		<?php echo form_open('index.php/user/login', 'id=login class=form' ); ?>
 
-			<label for="email">Email</label>
-			<input type="text" name="email">
+			<label for="name">Username</label>
+			<input type="text" name="name">
 			
 			<label for="password">Password</label>
 			<input type="password" name="password">

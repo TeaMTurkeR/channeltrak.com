@@ -2653,6 +2653,7 @@ a:hover, a:focus {
 }
 /* line 276, ../sass/_styles.scss */
 .flex-media iframe {
+  border: none;
   height: 100%;
   left: 0;
   position: absolute;
@@ -2660,7 +2661,7 @@ a:hover, a:focus {
   width: 100%;
 }
 
-/* line 285, ../sass/_styles.scss */
+/* line 286, ../sass/_styles.scss */
 .rank {
   background-color: #fff;
   font-size: 20px;
@@ -2674,11 +2675,11 @@ a:hover, a:focus {
   z-index: 10;
 }
 
-/* line 298, ../sass/_styles.scss */
+/* line 299, ../sass/_styles.scss */
 .caption {
   padding: 15px;
 }
-/* line 301, ../sass/_styles.scss */
+/* line 302, ../sass/_styles.scss */
 .caption h2 {
   color: #ff9a9a;
   white-space: nowrap;
@@ -2691,21 +2692,21 @@ a:hover, a:focus {
   -o-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
-/* line 308, ../sass/_styles.scss */
+/* line 309, ../sass/_styles.scss */
 .caption h2:hover, .caption h2:focus {
   color: #ff6767;
 }
-/* line 313, ../sass/_styles.scss */
+/* line 314, ../sass/_styles.scss */
 .caption p {
   color: #999999;
   margin: 0 0 10px 0;
 }
-/* line 317, ../sass/_styles.scss */
+/* line 318, ../sass/_styles.scss */
 .caption p > span {
   margin-right: 10px;
 }
 
-/* line 323, ../sass/_styles.scss */
+/* line 324, ../sass/_styles.scss */
 .actions {
   position: absolute;
   right: 80px;
@@ -2717,7 +2718,7 @@ a:hover, a:focus {
   width: 0px;
   z-index: 1;
 }
-/* line 332, ../sass/_styles.scss */
+/* line 333, ../sass/_styles.scss */
 .actions button {
   background-color: #cccccc;
   border: 0;
@@ -2740,26 +2741,41 @@ a:hover, a:focus {
 .actions button:active {
   background-color: #ff6767;
 }
-/* line 336, ../sass/_styles.scss */
+/* line 337, ../sass/_styles.scss */
 .actions button .favorite-count {
   display: none;
   font-size: 18px;
   line-height: 40px;
 }
-/* line 342, ../sass/_styles.scss */
+/* line 343, ../sass/_styles.scss */
 .actions button.favorited {
   background-color: #9affcd;
 }
-/* line 345, ../sass/_styles.scss */
+/* line 346, ../sass/_styles.scss */
 .actions button.favorited .icon-heart {
   display: none;
 }
-/* line 349, ../sass/_styles.scss */
+/* line 350, ../sass/_styles.scss */
 .actions button.favorited .favorite-count {
   display: inline;
 }
 
-/* line 358, ../sass/_styles.scss */
+/* line 359, ../sass/_styles.scss */
+#single {
+  background-color: #fff;
+  margin: 40px 0 40px 250px;
+  min-height: 100%;
+  overflow: auto;
+  padding: 40px 0;
+  position: relative;
+  width: 1000px;
+}
+/* line 368, ../sass/_styles.scss */
+#single .actions {
+  right: 40px;
+}
+
+/* line 375, ../sass/_styles.scss */
 #directory {
   overflow: hidden;
   *zoom: 1;
@@ -2767,7 +2783,7 @@ a:hover, a:focus {
   width: 770px;
 }
 
-/* line 364, ../sass/_styles.scss */
+/* line 381, ../sass/_styles.scss */
 .channel {
   background-color: #fff;
   display: block;
@@ -2775,7 +2791,7 @@ a:hover, a:focus {
   margin: 0 0 20px 20px;
   width: 236px;
 }
-/* line 371, ../sass/_styles.scss */
+/* line 388, ../sass/_styles.scss */
 .channel h2 {
   color: #666666;
   font-size: 16px;
@@ -2783,26 +2799,37 @@ a:hover, a:focus {
   min-height: 64px;
   padding: 10px;
 }
-/* line 379, ../sass/_styles.scss */
+/* line 396, ../sass/_styles.scss */
 .channel img {
   width: 100%;
 }
-/* line 383, ../sass/_styles.scss */
+/* line 400, ../sass/_styles.scss */
 .channel:hover {
   background-color: #ff9a9a;
 }
-/* line 386, ../sass/_styles.scss */
+/* line 403, ../sass/_styles.scss */
 .channel:hover h2 {
   color: #fff;
 }
 
-/* line 393, ../sass/_styles.scss */
+/* line 410, ../sass/_styles.scss */
 #login, #join, #submit {
   border-right: 1px solid #999999;
   float: left;
 }
 
-/* line 398, ../sass/_styles.scss */
+/* line 415, ../sass/_styles.scss */
+.settings {
+  background-color: #fff;
+  margin: 0 0 40px 250px;
+  min-height: 100%;
+  overflow: auto;
+  padding: 40px 0;
+  position: relative;
+  width: 750px;
+}
+
+/* line 425, ../sass/_styles.scss */
 .button {
   background-color: #ff9a9a;
   border: none;
@@ -2815,29 +2842,29 @@ a:hover, a:focus {
   width: 100%;
 }
 
-/* line 410, ../sass/_styles.scss */
+/* line 437, ../sass/_styles.scss */
 .form {
   padding: 0 40px;
   width: 375px;
 }
-/* line 414, ../sass/_styles.scss */
+/* line 441, ../sass/_styles.scss */
 .form input[type="submit"] {
   font-size: 16px;
   margin-top: 30px;
 }
 
-/* line 420, ../sass/_styles.scss */
+/* line 447, ../sass/_styles.scss */
 .form-side {
   float: left;
   padding: 0 40px;
   width: 375px;
 }
-/* line 425, ../sass/_styles.scss */
+/* line 452, ../sass/_styles.scss */
 .form-side li {
   margin-bottom: 5px;
 }
 
-/* line 430, ../sass/_styles.scss */
+/* line 457, ../sass/_styles.scss */
 input {
   background-color: #fff;
   display: block;
@@ -2847,7 +2874,7 @@ input {
   width: 100%;
 }
 
-/* line 439, ../sass/_styles.scss */
+/* line 466, ../sass/_styles.scss */
 label {
   display: block;
   margin-bottom: 5px;

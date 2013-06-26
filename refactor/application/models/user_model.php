@@ -15,10 +15,10 @@ class User_model extends CI_Model {
         return;
     } 
 
-    public function loginUser($email, $password) {
+    public function loginUser($name, $password) {
         $this->db->select('user_id, user_name');
         $this->db->from('users');
-        $this->db->where('user_email', $email);
+        $this->db->where('user_name', $name);
         $this->db->where('user_password', sha1($password));
         $this->db->limit(1);
 

@@ -91,7 +91,7 @@ class Site extends CI_Controller {
        		'song_slug' => $slug //GET CHANNEL BY SLUG
         );
 
-        $data['song'] = $this->Song_model->getSongs($where);
+        $data['song'] = $this->Song_model->getSong($where);
         $this->load->view('song', $data);
 
     }
@@ -143,9 +143,14 @@ class Site extends CI_Controller {
 
     public function settings() {
         if ($this->session->userdata('user_id')) {
+
+            $this->load->model('User_model');
             $userId = $this->session->userdata('user_id');
-            $data['row'] = $this->User_model->getUser($userId);
+
+            $data['user'] = $this->User_model->getUser($userId);
             $data['title'] = 'Settings';
+            $data['subtitle'] = 'Your account settings';
+
             $this->load->view('settings', $data);
         } else {
             $this->load->view('login');

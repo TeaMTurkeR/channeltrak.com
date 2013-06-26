@@ -31,7 +31,7 @@
 				<li>High quality visuals<br>(extra points for animations and actual videos)</li>
 				<li>Posts that don't get taken down</li>
 			</ul>
-			<p>Keep an eye on our <a href="http://twitter.com/channeltrak">twitter</a> to see if you've been selected.</p>
+			<p>Keep an eye on our <a href="http://twitter.com/channeltrak">twitter</a> to see if your submission has be selected.</p>
 		</div>
 	</section>
 

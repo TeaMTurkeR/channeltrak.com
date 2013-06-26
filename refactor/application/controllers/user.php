@@ -26,9 +26,9 @@ class User extends CI_Controller {
     }
 
     public function login() {
-        $email = $this->input->post('email');
+        $name = $this->input->post('name');
         $password = $this->input->post('password');
-        $loggedIn = $this->User_model->loginUser($email, $password);
+        $loggedIn = $this->User_model->loginUser($name, $password);
         
         if($loggedIn) {
             redirect('/', 'refresh');
