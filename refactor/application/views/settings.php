@@ -31,9 +31,8 @@
 		<?php echo form_close(); ?>
 	</section>
 
-	<section class="settings">		
-		<input type="text">
-		<a href="" class="button">Delete Account</a>
+	<section id="delete-account" class="settings">		
+		<button class="button">Completely Delete Account!</button>
 	</section>
 
 	<?php $this->load->view('includes/links'); ?>

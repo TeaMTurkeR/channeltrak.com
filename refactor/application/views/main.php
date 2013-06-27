@@ -12,7 +12,7 @@
 
 	<?php if (isset($pagination)) : ?>
 	<section id="pagination">
-		<button id="load-more" data-offset="0">Load More</button>
+		<button id="load-more" class="button" data-offset="0">Load More</button>
 	</section>
 	<?php endif; ?>
 

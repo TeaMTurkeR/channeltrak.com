@@ -25,6 +25,9 @@
 		<li><a href="<?php echo base_url(); ?>index.php/favorites">Favorites</a></li>
 		<li><a href="<?php echo base_url(); ?>index.php/settings">Settings</a></li>
 		<li><a href="<?php echo base_url(); ?>index.php/submit">Submit</a></li>
+		<?php if ($this->session->userdata('user_name') == 'Admin') : ?>
+		<li><a href="<?php echo base_url(); ?>index.php/admin">Admin</a></li>
+		<?php endif; ?>
 		<li><a href="<?php echo base_url(); ?>index.php/logout">Logout</a></li>
 
 		<?php else : ?>

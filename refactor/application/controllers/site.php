@@ -125,7 +125,7 @@ class Site extends CI_Controller {
 
             $data['pagination'] = 'favorites';
             $data['title'] = 'Favorites';
-            $data['subtitle'] = 'Your favoirte songs on ChannelTrak';
+            $data['subtitle'] = 'Your favorites songs on ChannelTrak';
 
             if (!isset($_POST['offset'])) {
                 $data['songs'] = $this->Song_model->getFavorites($userId, $this->limit, $this->offset);
@@ -165,11 +165,15 @@ class Site extends CI_Controller {
     }
 
     public function admin() {
-        $this->load->model('Channel_model');
-        $data['approved'] = $this->Channel_model->getChannels('1');
-        $data['unapproved'] = $this->Channel_model->getChannels('0');
-        $data['title'] = 'Dashboard';
-        $this->load->view('admin/dashboard', $data);
+        if ($this->session->userdata('user_name') == 'Admin') {
+            $this->load->model('Channel_model');
+            $data['approved'] = $this->Channel_model->getChannels('1');
+            $data['unapproved'] = $this->Channel_model->getChannels('0');
+            $data['title'] = 'Dashboard';
+            $this->load->view('admin/dashboard', $data);
+        } else {
+            redirect('index.php/latest');
+        }
     }
 
     public function edit($slug) {

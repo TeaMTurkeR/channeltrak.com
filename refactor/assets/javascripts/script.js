@@ -353,6 +353,7 @@ $(function(){
     $('#load-more').click(function(){
 
         var $this = $('#load-more');
+        $this.html('<span class="icon-spinner icon-spin"></span> Loading');
         var offset = parseInt($this.attr('data-offset'))+20;
         var data = 'offset='+offset;
 
@@ -365,10 +366,15 @@ $(function(){
             }
         }).done(function(html) {
             $('#playlist').append(html);
+            $this.html('Load More');
             paginationCallback();
         });
 
         $this.attr('data-offset', offset);
 
+    });
+
+    $('.form').validate({
+        debug: true
     });
 });

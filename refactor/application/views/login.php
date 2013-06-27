@@ -9,10 +9,10 @@
 		<?php echo form_open('index.php/user/login', 'id=login class=form' ); ?>
 
 			<label for="name">Username</label>
-			<input type="text" name="name">
+			<input type="text" name="name" required>
 			
 			<label for="password">Password</label>
-			<input type="password" name="password">
+			<input type="password" name="password" required>
 
 			<input class="button" type="submit" value="Login">
 

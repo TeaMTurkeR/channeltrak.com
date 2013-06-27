@@ -5,6 +5,7 @@ class User extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Favorite_model');
     }
 
 	public function register() {
@@ -18,7 +19,7 @@ class User extends CI_Controller {
                 'user_password' => sha1($password),
                 'user_registered' => date('Y-m-d H:i:s')
             );
-        	$this->Usermodel->registerUser($data);
+        	$this->User_model->registerUser($data);
         	redirect('/', 'refresh');
         } else {
             print 'passwords do not match...bro';
@@ -38,7 +39,7 @@ class User extends CI_Controller {
     }
 
     public function favorite() {
-        if (isset($_POST['songId']) && isset($_POST['newCount']) && isset($_POST['favorite'])) { 
+        if (isset($_POST['newCount']) && isset($_POST['songId']) && isset($_POST['favorite'])) { 
             
             $favorite = $this->input->post('favorite');
 

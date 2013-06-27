@@ -76,6 +76,11 @@ class Song_model extends CI_Model {
         return $query->num_rows();
     }
 
+    public function updateSong($songId, $data) {
+        $this->db->where('song_id', $songId);
+        $this->db->update('songs', $data);
+    }
+
 }
 
 ?>

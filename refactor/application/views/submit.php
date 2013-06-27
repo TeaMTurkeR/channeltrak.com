@@ -7,10 +7,10 @@
 	<section id="main">		
 		<?php echo form_open('index.php/channel/submit', 'id=submit class=form' ); ?>
 			<label for="name">Channel Name</label>
-			<input type="text" name="name">
+			<input type="text" name="name" required>
 
 			<label for="youtube">Youtube URL</label>
-			<input type="text" name="youtube">
+			<input type="text" name="youtube" required>
 			
 			<label for="twitter">Twitter URL (optional)</label>
 			<input type="text" name="twitter">

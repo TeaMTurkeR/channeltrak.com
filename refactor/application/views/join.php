@@ -7,16 +7,16 @@
 	<section id="main">		
 		<?php echo form_open('user/register', 'id=join class=form' ); ?>
 			<label for="name">Username</label>
-			<input type="text" name="name">
+			<input type="text" name="name" required>
 
 			<label for="email">Email (optional)</label>
 			<input type="text" name="email">
 			
 			<label for="password">Password</label>
-			<input type="password" name="password">
+			<input type="password" name="password" required>
 
 			<label for="confirm-passowrd">Confirm Password</label>
-			<input type="password" name="confirm-password">
+			<input type="password" name="confirm-password" required>
 
 			<input class="button" type="submit" value="Join">
 		<?php echo form_close(); ?>

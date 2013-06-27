@@ -89,6 +89,7 @@ a {
 			&:hover {
 				background-color: #e0e0e0;
 				//color: $gray;
+				@include transition(background-color .3s ease, color .3s ease);
 			} 
 
 			&.active {
@@ -171,13 +172,8 @@ a {
 }
 
 #load-more {
-	border: none;
-	background-color: $primary-color;
-	color: $gray;
 	font-size: 20px;
-	font-weight: bold;
 	padding: 20px 40px;
-	width: 100%;
 }
 
 #controls {
@@ -399,6 +395,7 @@ a {
 
 	&:hover {
 		background-color: $primary-color;
+		@include transition(background-color .3s ease, color .3s ease);
 
 		h2 {
 			color: #fff;
@@ -431,7 +428,12 @@ a {
 	margin: 0;
 	padding: 10px;
 	text-align: center;
+	@include transition(background-color .3s ease);
 	width: 100%;
+
+	&:hover {
+		background-color: darken($primary-color, 10%);
+	}
 }
 
 .form {
@@ -461,10 +463,33 @@ input {
 	margin-bottom: 20px;
 	padding: 10px;
 	width: 100%;
+
+	&.error {
+		border: 1px solid red;
+		margin-bottom: 0;
+	}
 }
 
 label {
 	display: block;
 	margin-bottom: 5px;
+
+	&.error {
+		color: red;
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
+}
+
+#delete-account {
+	padding: 40px;
+
+	.button {
+		background-color: red;
+
+		&:hover {
+			background-color: darken(red, 10%);
+		}
+	}
 }
 

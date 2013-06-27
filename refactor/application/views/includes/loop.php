@@ -18,24 +18,25 @@
 		<section class="actions">
 		<?php 
 			if ($this->session->userdata('logged_in')) :	
+				$this->load->model('User_model');
 				$userId = $this->session->userdata('user_id');
 				$songId = $song->song_id;
-				$isFavorited = $this->User_model->checkFavorites($userId, $songId);
+				$isFavorited = User_model::checkFavorites($userId, $songId);
 		?>
 
 			<?php if ($isFavorited) : ?>
 
-			<button class="favorite-song favorited" title="Add to Favorites">
-				<span class="favorite-count"><?php echo $song->song_favorites ?></span>
-				<span class="icon-heart"></span>
-			</button>
+				<button class="favorite-song favorited" title="Add to Favorites">
+					<span class="favorite-count"><?php echo $song->song_favorites ?></span>
+					<span class="icon-heart"></span>
+				</button>
 
 			<?php else : ?>
 
-			<button class="favorite-song" title="Add to Favorites">
-				<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
-				<span class="icon-heart"></span>
-			</button>
+				<button class="favorite-song" title="Add to Favorites">
+					<span class="favorite-count"><?php echo ++$song->song_favorites ?></span>
+					<span class="icon-heart"></span>
+				</button>
 
 			<?php endif; ?>  
 
