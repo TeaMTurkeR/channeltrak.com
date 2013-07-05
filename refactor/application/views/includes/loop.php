@@ -3,7 +3,8 @@
 		<section class="content">
 			<section class="thumbnail">
 				<div class="flex-media">
-					<img src="http://localhost/channeltrak.com/refactor/assets/images/placeholder.png" data-original="http://img.youtube.com/vi/<?php echo $song->song_yt_id ?>/hqdefault.jpg">
+					<img src="<?php echo base_url(); ?>assets/images/placeholder.png" data-original="http://img.youtube.com/vi/<?php echo $song->song_yt_id ?>/hqdefault.jpg">
+					<!-- <img src="http://localhost/channeltrak.com/refactor/assets/images/placeholder.png" data-original="http://img.youtube.com/vi/<?php echo $song->song_yt_id ?>/hqdefault.jpg"> -->
 					<?php if (isset($rank)) : ?>
 					<div class="rank"><?php echo ++$i; ?></div>
 					<?php endif; ?>

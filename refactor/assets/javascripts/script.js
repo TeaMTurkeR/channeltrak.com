@@ -54,29 +54,6 @@ function playerEvents(event) {
     }
 }
 
-function submitForm(element){
-    element.type = 'hidden';
-
-    while(element.className != 'form')
-        element = element.parentNode;
-        
-    var form = document.getElementById('update');
-    
-    var inputs = element.getElementsByTagName('input');
-    while(inputs.length > 0) 
-        form.appendChild(inputs[0]);
-        
-    var selects = element.getElementsByTagName('select');
-    while(selects.length > 0) 
-        form.appendChild(selects[0]);
-        
-    var textareas = element.getElementsByTagName('textarea');
-    while(textareas.length > 0) 
-        form.appendChild(textareas[0]);
-    
-    form.submit();
-}
-
 function favorite(newCount, id, direction){ 
     var data = 'newCount='+newCount+'&songId='+id+'&favorite='+direction;
     console.log(data);
@@ -96,7 +73,7 @@ function setPlayingInfo(){
 
         var id = $('.playing').attr('id');
         var title = $('.playing h2').text();
-        var img = $('.playing').find('img').attr('src');
+        var img = $('.playing').find('img').attr('data-original');
 
         $('#playing-thumbnail a').attr('href', '#'+id);
         $('#playing-thumbnail img').attr('src', img);
@@ -107,7 +84,7 @@ function setPlayingInfo(){
 
         var id = $('.song').attr('id');
         var title = $('.song').first().find('h2').text();
-        var img = $('.song').first().find('img').attr('src');
+        var img = $('.song').first().find('img').attr('data-original');
 
         $('#playing-thumbnail a').attr('href', '#'+id);
         $('#playing-thumbnail img').attr('src', img);
@@ -118,9 +95,7 @@ function setPlayingInfo(){
 
 function paginationCallback(){
 
-    $('.flex-media img').lazyload({
-        effect : "fadeIn"
-    });
+    $('.flex-media img').lazyload(); 
 
     $('.song .thumbnail').click(function(){
 
@@ -217,9 +192,7 @@ $(function(){
         $.scrollTo('.playing', 500, {offset:-80} );
     });
 
-    $('.flex-media img').lazyload({
-        effect : "fadeIn"
-    });
+    $('.flex-media img').lazyload();
 
     $('#play').click(function(){
         if ($('.song').hasClass('playing')) {

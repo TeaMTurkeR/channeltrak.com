@@ -1,6 +1,7 @@
 <?php $this->load->view('includes/header'); ?>
 <div id="page">
 	<?php $this->load->view('includes/side'); ?>
+	<?php $this->load->view('includes/ads'); ?>
 	
 	<?php $this->load->view('includes/info'); ?>
 

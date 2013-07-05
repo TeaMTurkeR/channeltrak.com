@@ -54,6 +54,16 @@ a {
 	top: 20px;
 }
 
+#ads {
+	position: absolute;
+	right: 200px;
+	top: 40px;
+
+	img {
+		position: fixed;
+	}
+}
+
 #footer {
 	background-color: #fff;
 	@include clearfix();

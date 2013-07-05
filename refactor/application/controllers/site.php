@@ -37,11 +37,11 @@ class Site extends CI_Controller {
 	public function popular() {
 
 		$where = array(
-       		'song_uploaded >' => date('Y-m-d H:i:s', strtotime('-100 days')) //GET SONGS FROM LAST WEEK
+       		'song_uploaded >' => date('Y-m-d H:i:s', strtotime('-7 days')) //GET SONGS FROM LAST 7 DAYS
         );
 
         $order = 'song_favorites';
-        $limit = '10';
+        $limit = '20';
 
         $data['rank'] = TRUE;
         $data['title'] = 'Popular';

@@ -72,7 +72,6 @@ class Song_model extends CI_Model {
     }
 
     public function updateSongChannel($current, $data) {
-        var_dump($current);
         $this->db->where('song_channel_name', $current);
         $this->db->update('songs', $data);
     }

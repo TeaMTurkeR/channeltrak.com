@@ -2402,6 +2402,17 @@ a:hover, a:focus {
 }
 
 /* line 57, ../sass/_styles.scss */
+#ads {
+  position: absolute;
+  right: 200px;
+  top: 40px;
+}
+/* line 62, ../sass/_styles.scss */
+#ads img {
+  position: fixed;
+}
+
+/* line 67, ../sass/_styles.scss */
 #footer {
   background-color: #fff;
   overflow: hidden;
@@ -2410,12 +2421,12 @@ a:hover, a:focus {
   padding: 40px;
   width: 750px;
 }
-/* line 64, ../sass/_styles.scss */
+/* line 74, ../sass/_styles.scss */
 #footer .inline {
   margin: 0;
 }
 
-/* line 69, ../sass/_styles.scss */
+/* line 79, ../sass/_styles.scss */
 #logo {
   font-family: "jaf-lapture", serif;
   font-size: 30px;
@@ -2425,19 +2436,19 @@ a:hover, a:focus {
   text-transform: lowercase;
 }
 
-/* line 78, ../sass/_styles.scss */
+/* line 88, ../sass/_styles.scss */
 .menu {
   list-style: none;
   margin: 0 0 40px;
   padding: 0;
 }
-/* line 84, ../sass/_styles.scss */
+/* line 94, ../sass/_styles.scss */
 .menu li a {
   color: #666666;
   display: block;
   padding: 5px;
 }
-/* line 89, ../sass/_styles.scss */
+/* line 99, ../sass/_styles.scss */
 .menu li a:hover {
   background-color: #e0e0e0;
   -webkit-transition: background-color 0.3s ease, color 0.3s ease;
@@ -2445,19 +2456,19 @@ a:hover, a:focus {
   -o-transition: background-color 0.3s ease, color 0.3s ease;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* line 95, ../sass/_styles.scss */
+/* line 105, ../sass/_styles.scss */
 .menu li a.active {
   background-color: #fff;
   color: #666666;
   cursor: default;
 }
-/* line 102, ../sass/_styles.scss */
+/* line 112, ../sass/_styles.scss */
 .menu li#account-name {
   color: #999999;
   padding: 5px;
 }
 
-/* line 109, ../sass/_styles.scss */
+/* line 119, ../sass/_styles.scss */
 #info {
   background-color: #fff;
   margin: 40px 0 40px 250px;
@@ -2465,32 +2476,32 @@ a:hover, a:focus {
   width: 750px;
 }
 
-/* line 116, ../sass/_styles.scss */
+/* line 126, ../sass/_styles.scss */
 #page-title {
   line-height: 30px;
   margin: 0;
 }
 
-/* line 121, ../sass/_styles.scss */
+/* line 131, ../sass/_styles.scss */
 #page-subtitle {
   color: #999999;
   font-size: 16px;
   font-weight: normal;
   margin: 0;
 }
-/* line 127, ../sass/_styles.scss */
+/* line 137, ../sass/_styles.scss */
 #page-subtitle span {
   margin-right: 20px;
 }
 
-/* line 132, ../sass/_styles.scss */
+/* line 142, ../sass/_styles.scss */
 .page-info {
   list-style: none;
   margin-bottom: 0;
   padding: 0;
 }
 
-/* line 138, ../sass/_styles.scss */
+/* line 148, ../sass/_styles.scss */
 .inline {
   overflow: hidden;
   *zoom: 1;
@@ -2498,22 +2509,22 @@ a:hover, a:focus {
   margin-bottom: 0;
   padding: 0;
 }
-/* line 144, ../sass/_styles.scss */
+/* line 154, ../sass/_styles.scss */
 .inline li {
   float: left;
   margin-right: 20px;
 }
-/* line 149, ../sass/_styles.scss */
+/* line 159, ../sass/_styles.scss */
 .inline li:last-child {
   margin: 0;
 }
 
-/* line 154, ../sass/_styles.scss */
+/* line 164, ../sass/_styles.scss */
 #total-favorites {
   margin-right: 40px;
 }
 
-/* line 158, ../sass/_styles.scss */
+/* line 168, ../sass/_styles.scss */
 #playlist, #main {
   background-color: #fff;
   margin: 0 0 40px 250px;
@@ -2524,27 +2535,27 @@ a:hover, a:focus {
   width: 750px;
 }
 
-/* line 168, ../sass/_styles.scss */
+/* line 178, ../sass/_styles.scss */
 #pagination {
   background-color: #fff;
   margin: 0 0 40px 250px;
   width: 750px;
 }
 
-/* line 174, ../sass/_styles.scss */
+/* line 184, ../sass/_styles.scss */
 #load-more {
   font-size: 20px;
   padding: 20px 40px;
 }
 
-/* line 179, ../sass/_styles.scss */
+/* line 189, ../sass/_styles.scss */
 #controls {
   position: absolute;
   right: 40px;
   top: 0px;
   width: 191px;
 }
-/* line 185, ../sass/_styles.scss */
+/* line 195, ../sass/_styles.scss */
 #controls button {
   background-color: #cccccc;
   border: 0;
@@ -2569,26 +2580,26 @@ a:hover, a:focus {
 #controls button:active {
   background-color: #ff6767;
 }
-/* line 191, ../sass/_styles.scss */
+/* line 201, ../sass/_styles.scss */
 #controls button#prev {
   margin-left: 71px;
 }
-/* line 195, ../sass/_styles.scss */
+/* line 205, ../sass/_styles.scss */
 #controls button#play {
   font-size: 14px;
   margin-left: 111px;
 }
-/* line 199, ../sass/_styles.scss */
+/* line 209, ../sass/_styles.scss */
 #controls button#next {
   margin-left: 151px;
 }
-/* line 205, ../sass/_styles.scss */
+/* line 215, ../sass/_styles.scss */
 #controls.sticky button, #controls.sticky #playing-thumbnail {
   position: fixed;
   top: 40px;
 }
 
-/* line 212, ../sass/_styles.scss */
+/* line 222, ../sass/_styles.scss */
 #playing-thumbnail {
   border: 2px solid #cccccc;
   cursor: pointer;
@@ -2602,42 +2613,42 @@ a:hover, a:focus {
   width: 71px;
   z-index: 9999;
 }
-/* line 222, ../sass/_styles.scss */
+/* line 232, ../sass/_styles.scss */
 #playing-thumbnail img {
   margin-top: -7px;
   width: 100%;
 }
-/* line 227, ../sass/_styles.scss */
+/* line 237, ../sass/_styles.scss */
 #playing-thumbnail:hover {
   border-color: #ff9a9a;
 }
 
-/* line 232, ../sass/_styles.scss */
+/* line 242, ../sass/_styles.scss */
 .song {
   margin-bottom: 60px;
   padding: 0 40px;
   position: relative;
 }
-/* line 238, ../sass/_styles.scss */
+/* line 248, ../sass/_styles.scss */
 .song:hover .actions, .song.playing .actions {
   right: 40px;
 }
-/* line 243, ../sass/_styles.scss */
+/* line 253, ../sass/_styles.scss */
 .song:last-child {
   margin-bottom: 0;
 }
-/* line 249, ../sass/_styles.scss */
+/* line 259, ../sass/_styles.scss */
 .song.playing .flex-image {
   display: none;
 }
 
-/* line 255, ../sass/_styles.scss */
+/* line 265, ../sass/_styles.scss */
 .thumbnail {
   cursor: pointer;
   overflow: hidden;
 }
 
-/* line 260, ../sass/_styles.scss */
+/* line 270, ../sass/_styles.scss */
 .flex-media {
   background-color: #000;
   height: 0;
@@ -2645,12 +2656,12 @@ a:hover, a:focus {
   position: relative;
   z-index: 10;
 }
-/* line 267, ../sass/_styles.scss */
+/* line 277, ../sass/_styles.scss */
 .flex-media img {
   margin-top: -9.4%;
   width: 100%;
 }
-/* line 272, ../sass/_styles.scss */
+/* line 282, ../sass/_styles.scss */
 .flex-media iframe {
   border: none;
   height: 100%;
@@ -2660,7 +2671,7 @@ a:hover, a:focus {
   width: 100%;
 }
 
-/* line 282, ../sass/_styles.scss */
+/* line 292, ../sass/_styles.scss */
 .rank {
   background-color: #fff;
   font-size: 20px;
@@ -2674,11 +2685,11 @@ a:hover, a:focus {
   z-index: 10;
 }
 
-/* line 295, ../sass/_styles.scss */
+/* line 305, ../sass/_styles.scss */
 .caption {
   padding: 15px;
 }
-/* line 298, ../sass/_styles.scss */
+/* line 308, ../sass/_styles.scss */
 .caption h2 {
   color: #ff9a9a;
   white-space: nowrap;
@@ -2691,21 +2702,21 @@ a:hover, a:focus {
   -o-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
-/* line 305, ../sass/_styles.scss */
+/* line 315, ../sass/_styles.scss */
 .caption h2:hover, .caption h2:focus {
   color: #ff6767;
 }
-/* line 310, ../sass/_styles.scss */
+/* line 320, ../sass/_styles.scss */
 .caption p {
   color: #999999;
   margin: 0 0 10px 0;
 }
-/* line 314, ../sass/_styles.scss */
+/* line 324, ../sass/_styles.scss */
 .caption p > span {
   margin-right: 10px;
 }
 
-/* line 320, ../sass/_styles.scss */
+/* line 330, ../sass/_styles.scss */
 .actions {
   position: absolute;
   right: 80px;
@@ -2717,7 +2728,7 @@ a:hover, a:focus {
   width: 0px;
   z-index: 1;
 }
-/* line 329, ../sass/_styles.scss */
+/* line 339, ../sass/_styles.scss */
 .actions button {
   background-color: #cccccc;
   border: 0;
@@ -2740,26 +2751,26 @@ a:hover, a:focus {
 .actions button:active {
   background-color: #ff6767;
 }
-/* line 333, ../sass/_styles.scss */
+/* line 343, ../sass/_styles.scss */
 .actions button .favorite-count {
   display: none;
   font-size: 18px;
   line-height: 40px;
 }
-/* line 339, ../sass/_styles.scss */
+/* line 349, ../sass/_styles.scss */
 .actions button.favorited {
   background-color: #9affcd;
 }
-/* line 342, ../sass/_styles.scss */
+/* line 352, ../sass/_styles.scss */
 .actions button.favorited .icon-heart {
   display: none;
 }
-/* line 346, ../sass/_styles.scss */
+/* line 356, ../sass/_styles.scss */
 .actions button.favorited .favorite-count {
   display: inline;
 }
 
-/* line 355, ../sass/_styles.scss */
+/* line 365, ../sass/_styles.scss */
 #single {
   background-color: #fff;
   margin: 40px 0 40px 250px;
@@ -2769,12 +2780,12 @@ a:hover, a:focus {
   position: relative;
   width: 1000px;
 }
-/* line 364, ../sass/_styles.scss */
+/* line 374, ../sass/_styles.scss */
 #single .actions {
   right: 40px;
 }
 
-/* line 371, ../sass/_styles.scss */
+/* line 381, ../sass/_styles.scss */
 #directory {
   overflow: hidden;
   *zoom: 1;
@@ -2782,7 +2793,7 @@ a:hover, a:focus {
   width: 770px;
 }
 
-/* line 377, ../sass/_styles.scss */
+/* line 387, ../sass/_styles.scss */
 .channel {
   background-color: #fff;
   display: block;
@@ -2790,7 +2801,7 @@ a:hover, a:focus {
   margin: 0 0 20px 20px;
   width: 236px;
 }
-/* line 384, ../sass/_styles.scss */
+/* line 394, ../sass/_styles.scss */
 .channel h2 {
   color: #666666;
   font-size: 16px;
@@ -2798,11 +2809,11 @@ a:hover, a:focus {
   min-height: 64px;
   padding: 10px;
 }
-/* line 392, ../sass/_styles.scss */
+/* line 402, ../sass/_styles.scss */
 .channel img {
   width: 100%;
 }
-/* line 396, ../sass/_styles.scss */
+/* line 406, ../sass/_styles.scss */
 .channel:hover {
   background-color: #ff9a9a;
   -webkit-transition: background-color 0.3s ease, color 0.3s ease;
@@ -2810,30 +2821,30 @@ a:hover, a:focus {
   -o-transition: background-color 0.3s ease, color 0.3s ease;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* line 400, ../sass/_styles.scss */
+/* line 410, ../sass/_styles.scss */
 .channel:hover h2 {
   color: #fff;
 }
 
-/* line 407, ../sass/_styles.scss */
+/* line 417, ../sass/_styles.scss */
 #login, #join, #submit {
   border-right: 1px solid #999999;
   float: left;
 }
 
-/* line 412, ../sass/_styles.scss */
+/* line 422, ../sass/_styles.scss */
 .error {
   color: red;
   margin-top: 0;
 }
 
-/* line 417, ../sass/_styles.scss */
+/* line 427, ../sass/_styles.scss */
 .success {
   color: green;
   margin-top: 0;
 }
 
-/* line 422, ../sass/_styles.scss */
+/* line 432, ../sass/_styles.scss */
 .settings {
   background-color: #fff;
   margin: 0 0 40px 250px;
@@ -2844,7 +2855,7 @@ a:hover, a:focus {
   width: 750px;
 }
 
-/* line 432, ../sass/_styles.scss */
+/* line 442, ../sass/_styles.scss */
 .button {
   background-color: #ff9a9a;
   border: none;
@@ -2860,34 +2871,34 @@ a:hover, a:focus {
   transition: background-color 0.3s ease;
   width: 100%;
 }
-/* line 444, ../sass/_styles.scss */
+/* line 454, ../sass/_styles.scss */
 .button:hover {
   background-color: #ff6767;
 }
 
-/* line 449, ../sass/_styles.scss */
+/* line 459, ../sass/_styles.scss */
 .form {
   padding: 0 40px;
   width: 375px;
 }
-/* line 453, ../sass/_styles.scss */
+/* line 463, ../sass/_styles.scss */
 .form input[type="submit"] {
   font-size: 16px;
   margin-top: 30px;
 }
 
-/* line 459, ../sass/_styles.scss */
+/* line 469, ../sass/_styles.scss */
 .form-side {
   float: left;
   padding: 0 40px;
   width: 375px;
 }
-/* line 464, ../sass/_styles.scss */
+/* line 474, ../sass/_styles.scss */
 .form-side li {
   margin-bottom: 5px;
 }
 
-/* line 469, ../sass/_styles.scss */
+/* line 479, ../sass/_styles.scss */
 input {
   background-color: #fff;
   display: block;
@@ -2896,38 +2907,38 @@ input {
   padding: 10px;
   width: 100%;
 }
-/* line 477, ../sass/_styles.scss */
+/* line 487, ../sass/_styles.scss */
 input.error {
   border: 1px solid red;
   margin-bottom: 0;
 }
 
-/* line 483, ../sass/_styles.scss */
+/* line 493, ../sass/_styles.scss */
 label {
   display: block;
   margin-bottom: 5px;
 }
-/* line 487, ../sass/_styles.scss */
+/* line 497, ../sass/_styles.scss */
 label.error {
   color: red;
   font-size: 13px;
   margin-bottom: 10px;
 }
 
-/* line 494, ../sass/_styles.scss */
+/* line 504, ../sass/_styles.scss */
 #delete-account {
   padding: 40px;
 }
-/* line 497, ../sass/_styles.scss */
+/* line 507, ../sass/_styles.scss */
 #delete-account .button {
   background-color: red;
 }
-/* line 500, ../sass/_styles.scss */
+/* line 510, ../sass/_styles.scss */
 #delete-account .button:hover {
   background-color: #cc0000;
 }
 
-/* line 506, ../sass/_styles.scss */
+/* line 516, ../sass/_styles.scss */
 #login-modal {
   background-color: #fff;
   border: 1px solid #999999;
@@ -2939,18 +2950,18 @@ label.error {
   width: 500px;
   z-index: 9999;
 }
-/* line 517, ../sass/_styles.scss */
+/* line 527, ../sass/_styles.scss */
 #login-modal h3 {
   margin-top: 0;
   text-align: center;
 }
-/* line 522, ../sass/_styles.scss */
+/* line 532, ../sass/_styles.scss */
 #login-modal a {
   color: #fff;
   float: left;
   width: 190px;
 }
-/* line 529, ../sass/_styles.scss */
+/* line 539, ../sass/_styles.scss */
 #login-modal p {
   float: left;
   line-height: 40px;
@@ -2959,7 +2970,7 @@ label.error {
   width: 38px;
 }
 
-/* line 538, ../sass/_styles.scss */
+/* line 548, ../sass/_styles.scss */
 #overlay {
   background-color: #000;
   opacity: .5;
