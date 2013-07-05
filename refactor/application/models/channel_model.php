@@ -32,6 +32,15 @@ class Channel_model extends CI_Model {
         }
     }
 
+    public function getChannelImage($id) {
+        $this->db->where('song_id', $id);
+        $query = $this->db->get('songs');
+        if($query->num_rows() == 1) {
+            $row = $query->row();
+            return $row->song_yt_id;
+        }
+    }
+
     public function submitChannel($data) {
         $this->db->insert('channels', $data);
         return;

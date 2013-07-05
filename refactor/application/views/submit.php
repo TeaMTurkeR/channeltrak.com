@@ -6,6 +6,10 @@
 
 	<section id="main">		
 		<?php echo form_open('channel/submit', 'id=submit class=form' ); ?>
+			<?php if(isset($success)) : ?>
+			<p class="success"><?php echo $success ?></p>
+			<?php endif ?>
+
 			<label for="name">Channel Name</label>
 			<input type="text" name="name" required>
 

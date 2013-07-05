@@ -13,6 +13,7 @@
 				
 				<?php echo form_open('channel/approve', 'id=edit class=form' ); ?>
 					<input type="hidden" name="id" value="<?php echo $channel->channel_id ?>">
+					<input type="hidden" name="current" value="<?php echo $channel->channel_name ?>">
 
 					<label for="name">Channel Name</label>
 					<input class="input-xlarge" type="text" name="name" value="<?php echo $channel->channel_name ?>">
@@ -20,8 +21,11 @@
 					<label for="slug">Channel Slug</label>
 					<input class="input-xlarge" type="text" name="slug" value="<?php echo $channel->channel_slug ?>" disabled>
 
-					<label for="id">Youtube ID</label>
+					<label for="yt-id">Youtube ID</label>
 					<input class="input-large" type="text" name="yt-id" value="<?php echo $channel->channel_yt_id ?>" value="">
+
+					<label for="cover-id">Cover Song ID</label>
+					<input class="input-large" type="text" name="cover-id" value="<?php echo $channel->channel_cover_song_id ?>" value="">
 
 					<label for="youtube">Youtube URL</label>
 					<input class="input-xxlarge" type="text" name="youtube" value="<?php echo $channel->channel_yt_url ?>">
@@ -45,6 +49,7 @@
 
 				<?php echo form_open('channel/update', 'id=edit class=form' ); ?>
 					<input type="hidden" name="id" value="<?php echo $channel->channel_id ?>">
+					<input type="hidden" name="current" value="<?php echo $channel->channel_name ?>">
 
 					<label for="name">Channel Name</label>
 					<input class="input-xlarge" type="text" name="name" value="<?php echo $channel->channel_name ?>">
@@ -54,6 +59,9 @@
 
 					<label for="id">Youtube ID</label>
 					<input class="input-large" type="text" name="yt-id" value="<?php echo $channel->channel_yt_id ?>" value="">
+
+					<label for="cover-id">Cover Song ID</label>
+					<input class="input-large" type="text" name="cover-id" value="<?php echo $channel->channel_cover_song_id ?>" value="">
 
 					<label for="youtube">Youtube URL</label>
 					<input class="input-xxlarge" type="text" name="youtube" value="<?php echo $channel->channel_yt_url ?>">

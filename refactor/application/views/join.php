@@ -6,10 +6,15 @@
 
 	<section id="main">		
 		<?php echo form_open('user/register', 'id=join class=form' ); ?>
-			<label for="name">Username</label>
-			<input type="text" name="name" required>
+			
+			<?php if(isset($error)) : ?>
+			<p class="error"><?php echo $error ?></p>
+			<?php endif ?>
 
-			<label for="email">Email (optional)</label>
+			<label for="name">Username</label>
+			<input type="text" name="name" required value="<?php if(isset($username)){ echo $username; } ?>">
+
+			<label for="email">Email (optional)</label value="<?php if(isset($email)){ echo $email; } ?>">
 			<input type="text" name="email">
 			
 			<label for="password">Password</label>

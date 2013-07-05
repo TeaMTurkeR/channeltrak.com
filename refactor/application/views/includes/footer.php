@@ -14,8 +14,11 @@
 	<script src="http://www.youtube.com/iframe_api"></script>
 	<?php endif; ?>
 
-	<?php echo script_tag(base_url().'assets/javascripts/vendor/plugins.js'); ?>
-  	<?php echo script_tag(base_url().'assets/javascripts/script.js'); ?>
+	<script src="http://localhost/channeltrak.com/refactor/assets/javascripts/vendor/plugins.js" language="javascript" type="text/javascript" /></script>
+  	<script src="http://localhost/channeltrak.com/refactor/assets/javascripts/script.js" language="javascript" type="text/javascript" /></script>
+
+<!-- 	<?php echo script_tag(base_url().'assets/javascripts/vendor/plugins.js'); ?>
+  	<?php echo script_tag(base_url().'assets/javascripts/script.js'); ?> -->
 
   	<?php if (isset($splash)) : ?>
 	<script>

@@ -118,6 +118,10 @@ function setPlayingInfo(){
 
 function paginationCallback(){
 
+    $('.flex-media img').lazyload({
+        effect : "fadeIn"
+    });
+
     $('.song .thumbnail').click(function(){
 
         var $this = $(this);
@@ -211,6 +215,10 @@ $(function(){
 
     $('#playing-thumbnail').click(function(){
         $.scrollTo('.playing', 500, {offset:-80} );
+    });
+
+    $('.flex-media img').lazyload({
+        effect : "fadeIn"
     });
 
     $('#play').click(function(){

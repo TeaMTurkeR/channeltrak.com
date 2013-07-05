@@ -2822,6 +2822,18 @@ a:hover, a:focus {
 }
 
 /* line 412, ../sass/_styles.scss */
+.error {
+  color: red;
+  margin-top: 0;
+}
+
+/* line 417, ../sass/_styles.scss */
+.success {
+  color: green;
+  margin-top: 0;
+}
+
+/* line 422, ../sass/_styles.scss */
 .settings {
   background-color: #fff;
   margin: 0 0 40px 250px;
@@ -2832,7 +2844,7 @@ a:hover, a:focus {
   width: 750px;
 }
 
-/* line 422, ../sass/_styles.scss */
+/* line 432, ../sass/_styles.scss */
 .button {
   background-color: #ff9a9a;
   border: none;
@@ -2848,34 +2860,34 @@ a:hover, a:focus {
   transition: background-color 0.3s ease;
   width: 100%;
 }
-/* line 434, ../sass/_styles.scss */
+/* line 444, ../sass/_styles.scss */
 .button:hover {
   background-color: #ff6767;
 }
 
-/* line 439, ../sass/_styles.scss */
+/* line 449, ../sass/_styles.scss */
 .form {
   padding: 0 40px;
   width: 375px;
 }
-/* line 443, ../sass/_styles.scss */
+/* line 453, ../sass/_styles.scss */
 .form input[type="submit"] {
   font-size: 16px;
   margin-top: 30px;
 }
 
-/* line 449, ../sass/_styles.scss */
+/* line 459, ../sass/_styles.scss */
 .form-side {
   float: left;
   padding: 0 40px;
   width: 375px;
 }
-/* line 454, ../sass/_styles.scss */
+/* line 464, ../sass/_styles.scss */
 .form-side li {
   margin-bottom: 5px;
 }
 
-/* line 459, ../sass/_styles.scss */
+/* line 469, ../sass/_styles.scss */
 input {
   background-color: #fff;
   display: block;
@@ -2884,38 +2896,38 @@ input {
   padding: 10px;
   width: 100%;
 }
-/* line 467, ../sass/_styles.scss */
+/* line 477, ../sass/_styles.scss */
 input.error {
   border: 1px solid red;
   margin-bottom: 0;
 }
 
-/* line 473, ../sass/_styles.scss */
+/* line 483, ../sass/_styles.scss */
 label {
   display: block;
   margin-bottom: 5px;
 }
-/* line 477, ../sass/_styles.scss */
+/* line 487, ../sass/_styles.scss */
 label.error {
   color: red;
   font-size: 13px;
   margin-bottom: 10px;
 }
 
-/* line 484, ../sass/_styles.scss */
+/* line 494, ../sass/_styles.scss */
 #delete-account {
   padding: 40px;
 }
-/* line 487, ../sass/_styles.scss */
+/* line 497, ../sass/_styles.scss */
 #delete-account .button {
   background-color: red;
 }
-/* line 490, ../sass/_styles.scss */
+/* line 500, ../sass/_styles.scss */
 #delete-account .button:hover {
   background-color: #cc0000;
 }
 
-/* line 496, ../sass/_styles.scss */
+/* line 506, ../sass/_styles.scss */
 #login-modal {
   background-color: #fff;
   border: 1px solid #999999;
@@ -2927,18 +2939,18 @@ label.error {
   width: 500px;
   z-index: 9999;
 }
-/* line 507, ../sass/_styles.scss */
+/* line 517, ../sass/_styles.scss */
 #login-modal h3 {
   margin-top: 0;
   text-align: center;
 }
-/* line 512, ../sass/_styles.scss */
+/* line 522, ../sass/_styles.scss */
 #login-modal a {
   color: #fff;
   float: left;
   width: 190px;
 }
-/* line 519, ../sass/_styles.scss */
+/* line 529, ../sass/_styles.scss */
 #login-modal p {
   float: left;
   line-height: 40px;
@@ -2947,7 +2959,7 @@ label.error {
   width: 38px;
 }
 
-/* line 528, ../sass/_styles.scss */
+/* line 538, ../sass/_styles.scss */
 #overlay {
   background-color: #000;
   opacity: .5;

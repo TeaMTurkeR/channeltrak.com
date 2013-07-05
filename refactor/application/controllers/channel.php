@@ -24,7 +24,11 @@ class Channel extends CI_Controller {
             'channel_web_url' => $website
         );
         $this->Channel_model->submitChannel($data);
-        redirect('/submit', 'refresh');
+
+        $data['title'] = 'Submit';
+        $data['subtitle'] = 'Submit a new Youtube channel';
+        $data['success'] = 'Channel submitted successfully!';
+        $this->load->view('submit', $data);
     }
 
     public function approve() {
@@ -55,22 +59,50 @@ class Channel extends CI_Controller {
 
     public function update() {
         if ($this->session->userdata('user_name') == 'Admin') {
+            
             $id = $this->input->post('id');
+            $current = $this->input->post('current');
+            $name = $this->input->post('name');
             $slug = url_title($this->input->post('name'), 'dash', true);
             $ytId = $this->input->post('yt-id');
 
-            $data = array(
-                'channel_name' => $this->input->post('name'),
-                'channel_slug' => $slug,
-                'channel_yt_id' => $ytId,
-                'channel_yt_url' => $this->input->post('youtube'),
-                'channel_fb_url' => $this->input->post('facebook'),
-                'channel_tw_url' => $this->input->post('twitter'),
-                'channel_web_url' => $this->input->post('website'),
-                'channel_approved' => date('Y-m-d H:i:s')
-            );
+            if ( $current == $name ) {
 
-            $this->Channel_model->updateChannel($id, $data);
+                $data = array(
+                    'channel_yt_id' => $ytId,
+                    'channel_yt_url' => $this->input->post('youtube'),
+                    'channel_fb_url' => $this->input->post('facebook'),
+                    'channel_tw_url' => $this->input->post('twitter'),
+                    'channel_web_url' => $this->input->post('website'),
+                    'channel_cover_song_id' => $this->input->post('cover-id'),
+                    'channel_approved' => date('Y-m-d H:i:s')
+                );
+
+                $this->Channel_model->updateChannel($id, $data);
+
+            } else {
+
+                $data = array(
+                    'channel_name' => $name,
+                    'channel_slug' => $slug,
+                    'channel_yt_id' => $ytId,
+                    'channel_yt_url' => $this->input->post('youtube'),
+                    'channel_fb_url' => $this->input->post('facebook'),
+                    'channel_tw_url' => $this->input->post('twitter'),
+                    'channel_web_url' => $this->input->post('website'),
+                    'channel_cover_song_id' => $this->input->post('cover-id'),
+                    'channel_approved' => date('Y-m-d H:i:s')
+                );
+
+                $song = array(
+                    'song_channel_name' => $name,
+                    'song_channel_slug' => $slug
+                );
+
+                $this->Channel_model->updateChannel($id, $data);
+                $this->Song_model->updateSongChannel($current, $song);
+
+            }
 
             redirect('edit/'.$slug, 'refresh');
         } else {
@@ -135,7 +167,7 @@ class Channel extends CI_Controller {
                         }
                     }
                 } else {
-                    print '<h1>Nothing to new...</h1>';
+                    print '<p style="color:red">Nothing from: '.$channelName.'</p>';
                     break;
                 }
             }

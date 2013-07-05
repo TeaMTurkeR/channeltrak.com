@@ -11,7 +11,7 @@ class Site extends CI_Controller {
     public $offset = 0; //DEFAULT OFFSET
 
     public function index() {
-    	redirect('latest');
+    	redirect('popular');
 	}
 
 	public function latest() {
@@ -45,7 +45,7 @@ class Site extends CI_Controller {
 
         $data['rank'] = TRUE;
         $data['title'] = 'Popular';
-        $data['subtitle'] = 'The most popular songs this week';
+        $data['subtitle'] = 'The most popular songs right now';
 
         $data['songs'] = $this->Song_model->getSongs($where, $order, $limit, $this->offset);
         $this->load->view('main', $data);

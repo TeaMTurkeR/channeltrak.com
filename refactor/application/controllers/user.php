@@ -11,6 +11,7 @@ class User extends CI_Controller {
 	public function register() {
         $submittedPassword = $this->input->post('password');
         $confirmPassword = $this->input->post('confirm');
+        $email = $this->input->post('email');
         
         if ( $submittedPassword == $confirmPassword ) {
             
@@ -21,7 +22,7 @@ class User extends CI_Controller {
 
                 $data = array(
                 	'user_name' => $name,
-                    'user_email' => $this->input->post('email'),
+                    'user_email' => $email,
                     'user_password' => $password,
                     'user_registered' => date('Y-m-d H:i:s')
                 );
@@ -32,11 +33,21 @@ class User extends CI_Controller {
             	redirect('/', 'refresh');
 
             } else {
-                print 'That username is taken...';
+                $data['title'] = 'Join';
+                $data['subtitle'] = 'Create a ChannelTrak account';
+                $data['error'] = 'That username is taken...';
+                $data['username'] = $name;
+                $data['email'] = $email;
+                $this->load->view('join', $data);
             }
 
         } else {
-            print 'Passwords do not match...';
+            $data['title'] = 'Join';
+            $data['subtitle'] = 'Create a ChannelTrak account';
+            $data['error'] = 'Passwords don\'t match...';
+            $data['username'] = $name;
+            $data['email'] = $email;
+            $this->load->view('join', $data);
         }
     }
 
@@ -44,12 +55,30 @@ class User extends CI_Controller {
         $name = $this->input->post('name');
         $password = sha1($this->input->post('password'));
         $loggedIn = $this->User_model->loginUser($name, $password);
+        if ($this->User_model->checkUsername($name)) {
 
-        if($loggedIn) {
-            redirect('/', 'refresh');
+            if($loggedIn) {
+
+                redirect('/', 'refresh');
+
+            } else {
+
+                $data['title'] = 'Login';
+                $data['subtitle'] = 'Sign into your account';
+                $data['error'] = 'That\'s the wrong password...';
+                $data['username'] = $name;
+                $this->load->view('login', $data);
+
+            } 
+
         } else {
-            print 'invalid username or password';
-        } 
+
+            $data['title'] = 'Login';
+            $data['subtitle'] = 'Sign into your account';
+            $data['error'] = 'That username doesn\'t exist...';
+            $this->load->view('login', $data);
+
+        }
     }
 
     public function updateSettings () {

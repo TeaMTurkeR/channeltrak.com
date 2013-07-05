@@ -10,7 +10,7 @@
 		<a class="channel" href="<?php echo base_url(); ?>channel/<?php echo $channel->channel_slug ?>">
 			<div class="thumbnail">
 				<div class="flex-media">
-					<img src="http://img.youtube.com/vi/<?php echo $this->Song_model->getChannelImage($channel->channel_slug) ?>/hqdefault.jpg" alt="<?php echo $channel->channel_name ?>">
+					<img src="http://img.youtube.com/vi/<?php echo $this->Channel_model->getChannelImage($channel->channel_cover_song_id) ?>/hqdefault.jpg" alt="<?php echo $channel->channel_name ?>">
 				</div>
 			</div>
 			<h2><?php echo $channel->channel_name ?></h2>

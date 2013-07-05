@@ -13,8 +13,9 @@
 
 	<link rel="icon" href="<?=base_url()?>favicon.ico" type="image/ico">
 
-	<?php echo link_tag(base_url().'assets/stylesheets/admin.css'); ?>
-		
+<!-- 	<?php echo link_tag(base_url().'assets/stylesheets/admin.css'); ?>
+ -->	<link href="http://localhost/channeltrak.com/refactor/assets/stylesheets/admin.css" rel="stylesheet" type="text/css" />	
+
 	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<!--[if lt IE 9]>

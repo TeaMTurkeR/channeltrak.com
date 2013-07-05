@@ -40,16 +40,6 @@ class Song_model extends CI_Model {
         }
     }
 
-    public function getChannelImage($slug) {
-        $this->db->where('song_channel_slug', $slug);
-        $this->db->limit(1);
-        $query = $this->db->get('songs');
-        if($query->num_rows() == 1) {
-            $row = $query->row();
-            return $row->song_yt_id;
-        }
-    }
-
     public function addSong($data) {
         $this->db->insert('songs', $data);
         if($this->db->affected_rows() > 0) {
@@ -78,6 +68,12 @@ class Song_model extends CI_Model {
 
     public function updateSong($songId, $data) {
         $this->db->where('song_id', $songId);
+        $this->db->update('songs', $data);
+    }
+
+    public function updateSongChannel($current, $data) {
+        var_dump($current);
+        $this->db->where('song_channel_name', $current);
         $this->db->update('songs', $data);
     }
 

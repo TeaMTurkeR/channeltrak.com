@@ -7,9 +7,13 @@
 
 	<section id="main">
 		<?php echo form_open('user/login', 'id=login class=form' ); ?>
+			
+			<?php if(isset($error)) : ?>
+			<p class="error"><?php echo $error ?></p>
+			<?php endif ?>
 
 			<label for="name">Username</label>
-			<input type="text" name="name" required>
+			<input type="text" name="name" required value="<?php if(isset($username)){ echo $username; } ?>">
 			
 			<label for="password">Password</label>
 			<input type="password" name="password" required>
