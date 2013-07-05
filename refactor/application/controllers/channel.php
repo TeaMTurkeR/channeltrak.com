@@ -95,56 +95,51 @@ class Channel extends CI_Controller {
     }
 
     public function import() {
-        if ($this->session->userdata('user_name') == 'Admin') {
-            $channel = $this->Channel_model->getChannels('1');
-            foreach ($channel as $channel){
-            
-                $channelName = $channel->channel_name;
-                $channelSlug = $channel->channel_slug;
+        $channel = $this->Channel_model->getChannels('1');
+        foreach ($channel as $channel){
+        
+            $channelName = $channel->channel_name;
+            $channelSlug = $channel->channel_slug;
 
-                for ( $i = 1; $i <= 1000; $i += 50) {
+            for ( $i = 1; $i <= 1000; $i += 50) {
 
-                    $url = "http://gdata.youtube.com/feeds/api/users/".$channel->channel_yt_id."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
-                    $json = file_get_contents($url);
-                    $jsonOutput = json_decode($json);
+                $url = "http://gdata.youtube.com/feeds/api/users/".$channel->channel_yt_id."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
+                $json = file_get_contents($url);
+                $jsonOutput = json_decode($json);
 
-                    if (isset($jsonOutput->data->items)) {
+                if (isset($jsonOutput->data->items)) {
 
-                        $this->load->model('Song_model');
+                    $this->load->model('Song_model');
 
-                        foreach ( $jsonOutput->data->items as $song ){
+                    foreach ( $jsonOutput->data->items as $song ){
 
-                            $unique = $this->Song_model->checkDuplicates($song->id);
+                        $unique = $this->Song_model->checkDuplicates($song->id);
 
-                            if ($unique) {
-                                $slug = url_title($song->title, 'dash', true);
+                        if ($unique) {
+                            $slug = url_title($song->title, 'dash', true);
 
-                                $data = array(
-                                    'song_slug' => $slug,
-                                    'song_title' => $song->title,
-                                    'song_yt_id' => $song->id,
-                                    'song_channel_name' => $channelName,
-                                    'song_channel_slug' => $channelSlug,
-                                    'song_uploaded' => $song->uploaded,
-                                    'song_imported' => date('Y-m-d H:i:s')
-                                );
-                                
-                                $this->Song_model->addSong($data);
-                                print '<p style="color:green">New: '.$song->title.' - '.$channelName.'</p>';
-                            } else {
-                                break;
-                            }
+                            $data = array(
+                                'song_slug' => $slug,
+                                'song_title' => $song->title,
+                                'song_yt_id' => $song->id,
+                                'song_channel_name' => $channelName,
+                                'song_channel_slug' => $channelSlug,
+                                'song_uploaded' => $song->uploaded,
+                                'song_imported' => date('Y-m-d H:i:s')
+                            );
+                            
+                            $this->Song_model->addSong($data);
+                            print '<p style="color:green">New: '.$song->title.' - '.$channelName.'</p>';
+                        } else {
+                            break;
                         }
-                    } else {
-                        print '<h1>Nothing to new...</h1>';
-                        break;
                     }
+                } else {
+                    print '<h1>Nothing to new...</h1>';
+                    break;
                 }
             }
-        } else {
-            redirect('latest');
         }
-
     }
 }
 

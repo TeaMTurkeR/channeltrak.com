@@ -92,6 +92,7 @@ class Site extends CI_Controller {
         );
 
         $data['song'] = $this->Song_model->getSong($where);
+        $data['title'] = $data['song']->song_title;
         $this->load->view('song', $data);
 
     }
