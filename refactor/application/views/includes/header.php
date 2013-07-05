@@ -12,9 +12,9 @@
 
 	<link rel="icon" href="<?=base_url()?>favicon.ico" type="image/ico">
 
-	<link href="http://localhost/channeltrak.com/refactor/assets/stylesheets/channeltrak.css" rel="stylesheet" type="text/css" />	
-<!-- 	<?php echo link_tag(base_url().'assets/stylesheets/channeltrak.css'); ?>
- -->		
+	<!-- <link href="http://localhost/channeltrak.com/refactor/assets/stylesheets/channeltrak.css" rel="stylesheet" type="text/css" /> -->
+	<?php echo link_tag(base_url().'assets/stylesheets/channeltrak.css'); ?>
+	
 	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<!--[if lt IE 9]>
