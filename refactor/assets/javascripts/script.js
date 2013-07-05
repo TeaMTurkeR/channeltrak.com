@@ -21,6 +21,9 @@ function playerEvents(event) {
     if (event.data == YT.PlayerState.PLAYING) {
 
         $('#play').children('span').removeClass('icon-play icon-spinner icon-spin').addClass('icon-pause');
+        
+        var songTitle = $('.playing h2 a').attr('title');
+        $('#html-title').text(songTitle + ' | Channeltrak');
 
     } else if (event.data == YT.PlayerState.ENDED) {
         
@@ -79,7 +82,7 @@ function favorite(newCount, id, direction){
     console.log(data);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/channeltrak.com/refactor/index.php/user/favorite', 
+        url: 'http://channeltrak.com/user/favorite', 
         data: data,
         success: function() {
             console.log('success');
@@ -173,7 +176,7 @@ function paginationCallback(){
     $('.share-song').click(function(){
 
         var songSlug = $(this).parents('.song').attr('data-song-slug');
-        var url = 'http://localhost/channeltrak.com/refactor/index.php/song/'+songSlug;
+        var url = 'http://channeltrak.com/song/'+songSlug;
 
         var width  = 575,
             height = 400,
@@ -323,16 +326,20 @@ $(function(){
 
         } else {
 
-            alert('login please');
+            $('#login-modal, #overlay').fadeIn();
 
         }
 
     });
 
+    $('#overlay').click(function(){
+        $('#login-modal, #overlay').fadeOut();
+    });
+
     $('.share-song').click(function(){
 
         var songSlug = $(this).parents('.song').attr('data-song-slug');
-        var url = 'http://localhost/channeltrak.com/3.0/index.php/song/'+songSlug;
+        var url = 'http://channeltrak.com/song/'+songSlug;
 
         var width  = 575,
             height = 400,
@@ -344,8 +351,18 @@ $(function(){
                      ',top='    + top    +
                      ',left='   + left;
         
-        window.open('http://twitter.com/share?text=Listening%20to%20'+url+'%20on%20@channeltrak', 'twitter', opts);
-     
+        if ( $(this).children('span').hasClass('icon-twitter') ) {
+
+            window.open('http://twitter.com/share?text=Listening%20to%20'+url+'%20on%20@channeltrak', 'twitter', opts);
+
+        } else if ( $(this).children('span').hasClass('icon-facebook') ) {
+
+            window.open('https://www.facebook.com/sharer/sharer.php?u='+url, 'facebook', opts);
+
+        } else {
+            window.prompt ("Copy to clipboard: Ctrl+C, Enter", url);
+        }
+
         return false;
         
     });
@@ -375,6 +392,14 @@ $(function(){
     });
 
     $('.form').validate({
-        debug: true
+        rules : {
+            new : {
+                minlength : 5
+            },
+            confirm : {
+                minlength : 5,
+                equalTo : "#password"
+            }
+        }
     });
 });

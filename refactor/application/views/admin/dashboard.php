@@ -28,7 +28,7 @@
 							<td style="color:red">Unapproved</td>
 							<td>N/A</td>
 							<td>N/A</td>
-							<td><a class="btn" href="<?php echo base_url(); ?>index.php/edit/<?php echo $channel->channel_slug ?>">Edit</a></td>
+							<td><a class="btn" href="<?php echo base_url(); ?>edit/<?php echo $channel->channel_slug ?>">Edit</a></td>
 						</tr>
 
 					<?php endforeach; ?>
@@ -42,7 +42,7 @@
 							<td style="color:green">Approved</td>
 							<td><?php echo $channel->channel_tracks ?></td>
 							<td><?php echo $channel->channel_favorites ?></td>
-							<td><a class="btn" href="<?php echo base_url(); ?>index.php/edit/<?php echo $channel->channel_slug ?>">Edit</a></td>
+							<td><a class="btn" href="<?php echo base_url(); ?>edit/<?php echo $channel->channel_slug ?>">Edit</a></td>
 						</tr>
 
 					<?php endforeach; ?>
@@ -51,7 +51,7 @@
 					</tbody>
 				</table>
 				
-				<a class="btn btn-primary btn-block" href="<?php echo base_url(); ?>index.php/channel/import">Import Posts</a>
+				<a class="btn btn-primary btn-block" href="<?php echo base_url(); ?>channel/import">Import Posts</a>
 
 			</div>
 

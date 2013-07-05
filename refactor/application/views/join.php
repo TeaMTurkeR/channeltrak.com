@@ -13,10 +13,10 @@
 			<input type="text" name="email">
 			
 			<label for="password">Password</label>
-			<input type="password" name="password" required>
+			<input id="password" name="password" type="password" name="new" required>
 
 			<label for="confirm-passowrd">Confirm Password</label>
-			<input type="password" name="confirm-password" required>
+			<input type="password" name="confirm" required>
 
 			<input class="button" type="submit" value="Join">
 		<?php echo form_close(); ?>

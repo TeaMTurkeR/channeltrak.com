@@ -11,7 +11,7 @@ class Site extends CI_Controller {
     public $offset = 0; //DEFAULT OFFSET
 
     public function index() {
-    	redirect('index.php/latest');
+    	redirect('latest');
 	}
 
 	public function latest() {
@@ -119,7 +119,7 @@ class Site extends CI_Controller {
     }
 
     public function favorites() {
-        if ($this->session->userdata('user_id')) {
+        if ($this->session->userdata('logged_in')) {
 
             $userId = $this->session->userdata('user_id');
 
@@ -137,12 +137,12 @@ class Site extends CI_Controller {
             }
 
         } else {
-            $this->load->view('login');
+            redirect('login');
         }
     }
 
     public function settings() {
-        if ($this->session->userdata('user_id')) {
+        if ($this->session->userdata('logged_in')) {
 
             $this->load->model('User_model');
             $userId = $this->session->userdata('user_id');
@@ -153,7 +153,7 @@ class Site extends CI_Controller {
 
             $this->load->view('settings', $data);
         } else {
-            $this->load->view('login');
+            redirect('login');
         }
     }
 
@@ -165,29 +165,35 @@ class Site extends CI_Controller {
     }
 
     public function admin() {
-        if ($this->session->userdata('user_name') == 'Admin') {
+        if ($this->session->userdata('logged_in') && $this->session->userdata('user_name') == 'Admin') {
+
             $this->load->model('Channel_model');
             $data['approved'] = $this->Channel_model->getChannels('1');
             $data['unapproved'] = $this->Channel_model->getChannels('0');
             $data['title'] = 'Dashboard';
             $this->load->view('admin/dashboard', $data);
+
         } else {
-            redirect('index.php/latest');
+            redirect('latest');
         }
     }
 
     public function edit($slug) {
-        $this->load->model('Channel_model');
+        if ($this->session->userdata('logged_in') && $this->session->userdata('user_name') == 'Admin') {
+            $this->load->model('Channel_model');
 
-        $data['channel'] = $this->Channel_model->getChannel('channel_slug', $slug);
+            $data['channel'] = $this->Channel_model->getChannel('channel_slug', $slug);
 
-        $where = array(
-            'song_channel_slug' => $data['channel']->channel_slug //GET CHANNEL BY SLUG
-        );
+            $where = array(
+                'song_channel_slug' => $data['channel']->channel_slug //GET CHANNEL BY SLUG
+            );
 
-        $data['songs'] = $this->Song_model->getSongs($where, 'song_favorites', '100000', $this->offset);
-        $data['title'] = 'Edit: '.$data['channel']->channel_name;
-        $this->load->view('admin/edit', $data);
+            $data['songs'] = $this->Song_model->getSongs($where, 'song_favorites', '100000', $this->offset);
+            $data['title'] = 'Edit: '.$data['channel']->channel_name;
+            $this->load->view('admin/edit', $data);
+        } else {
+            redirect('latest');
+        }
     }
 
 }

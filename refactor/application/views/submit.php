@@ -5,7 +5,7 @@
 	<?php $this->load->view('includes/info'); ?>
 
 	<section id="main">		
-		<?php echo form_open('index.php/channel/submit', 'id=submit class=form' ); ?>
+		<?php echo form_open('channel/submit', 'id=submit class=form' ); ?>
 			<label for="name">Channel Name</label>
 			<input type="text" name="name" required>
 

@@ -19,7 +19,7 @@ class User_model extends CI_Model {
         $this->db->select('user_id, user_name');
         $this->db->from('users');
         $this->db->where('user_name', $name);
-        $this->db->where('user_password', sha1($password));
+        $this->db->where('user_password', $password);
         $this->db->limit(1);
 
         $query = $this->db->get();
@@ -38,32 +38,46 @@ class User_model extends CI_Model {
         }
     }
 
-    public function countFavorties($userId) {
+    public function updateUser($userId, $data) {
         $this->db->where('user_id', $userId);
-        return $this->db->count_all('favorites');
+        $this->db->update('users', $data);
+
+        $this->db->select('user_id, user_name');
+        $this->db->from('users');
+        $this->db->where('user_id', $userId);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1) {
+            $row = $query->row();
+            $data = array(
+                'user_id' => $row->user_id,
+                'user_name' => $row->user_name,
+                'logged_in' => true
+            );
+            $this->session->set_userdata($data);
+        } 
     }
 
-    public function addFavorite($data) {
-        $this->db->insert('favorites', $data);
-        if($this->db->affected_rows() > 0) {
-            return true;
-        }
-    } 
-
-    public function removeFavorite($songId) {
-        $this->db->where('song_id', $songId);
-        $this->db->delete('favorites');
-        if($this->db->affected_rows() > 0) {
-            return true;
-        }
-    } 
-
-    public function checkFavorites($userId, $songId) {
+    public function checkPassword($userId, $password) {
         $this->db->where('user_id', $userId);
-        $this->db->where('song_id', $songId);
-        $query = $this->db->get('favorites');
+        $this->db->where('user_password', $password);
+        $query = $this->db->get('users');
         if($query->num_rows() !== 0){
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkUsername($username) {
+        $this->db->where('user_name', $username);
+        $query = $this->db->get('users');
+        if($query->num_rows() !== 0){
+            return true;
+        } else {
+            return false;
         }
     }
 

@@ -9,33 +9,106 @@ class User extends CI_Controller {
     }
 
 	public function register() {
-        $password = $this->input->post('password');
-        $confirmPassword = $this->input->post('confirm-password');
+        $submittedPassword = $this->input->post('password');
+        $confirmPassword = $this->input->post('confirm');
+        
+        if ( $submittedPassword == $confirmPassword ) {
+            
+            $password = sha1($this->input->post('password'));
+            $name = $this->input->post('name');
+            
+            if ( $this->User_model->checkUsername($name) == false ) {
 
-        if ( $password == $confirmPassword ) {
-            $data = array(
-            	'user_name' => $this->input->post('name'),
-                'user_email' => $this->input->post('email'),
-                'user_password' => sha1($password),
-                'user_registered' => date('Y-m-d H:i:s')
-            );
-        	$this->User_model->registerUser($data);
-        	redirect('/', 'refresh');
+                $data = array(
+                	'user_name' => $name,
+                    'user_email' => $this->input->post('email'),
+                    'user_password' => $password,
+                    'user_registered' => date('Y-m-d H:i:s')
+                );
+
+            	$this->User_model->registerUser($data);
+                $this->User_model->loginUser($name, $password);
+
+            	redirect('/', 'refresh');
+
+            } else {
+                print 'That username is taken...';
+            }
+
         } else {
-            print 'passwords do not match...bro';
+            print 'Passwords do not match...';
         }
     }
 
     public function login() {
         $name = $this->input->post('name');
-        $password = $this->input->post('password');
+        $password = sha1($this->input->post('password'));
         $loggedIn = $this->User_model->loginUser($name, $password);
-        
+
         if($loggedIn) {
             redirect('/', 'refresh');
         } else {
-            print 'invalid';
+            print 'invalid username or password';
         } 
+    }
+
+    public function updateSettings () {
+        $currentName = $this->session->userdata('user_name');
+        $name = $this->input->post('name');
+        $email = $this->input->post('email');
+        
+        if ( $currentName == $name ) {
+
+            $data = array(
+                'user_email' => $email
+            );
+
+            $this->User_model->updateUser($this->session->userdata('user_id'), $data);
+            redirect('settings', 'refresh');
+
+        } else { 
+
+            if ( $this->User_model->checkUsername($name) == false ) {
+
+                $data = array(
+                    'user_name' => $name,
+                    'user_email' => $email
+                );
+
+                $this->User_model->updateUser($this->session->userdata('user_id'), $data);
+                redirect('settings', 'refresh');
+
+            } else {
+                print 'That username is taken...';
+            }
+
+        }
+    }
+
+    public function updatePassword () {
+
+        $current = $this->input->post('current');
+        $new = $this->input->post('new');
+        $confirm = $this->input->post('confirm');
+        $userId = $this->session->userdata('user_id');
+
+        if ( $new == $confirm ) {
+
+            if ( $this->User_model->checkPassword($userId, sha1($current)) ) { //Check if correct password
+
+                $this->User_model->updatePassword($userId, sha1($new));
+                redirect('/index.php/settings', 'refresh');
+
+            } else {
+                print 'That is not your password...';
+            }
+
+        } else {
+            print 'Passwords do not match...';
+        }
+
+
+
     }
 
     public function favorite() {

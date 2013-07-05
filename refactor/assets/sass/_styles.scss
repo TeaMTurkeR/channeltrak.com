@@ -493,3 +493,46 @@ label {
 	}
 }
 
+#login-modal {
+	background-color: #fff;
+	border: 1px solid $light-gray;
+	left: 50%;
+	margin: -100px 0 0 -250px;
+	padding: 40px;
+	position: fixed;
+	top: 50%;
+	width: 500px;
+	z-index: 9999;
+
+	h3 {
+		margin-top: 0;
+		text-align: center;
+	}
+
+	a {
+		color: #fff;
+		float: left;
+		width: 190px;
+
+	}
+
+	p {
+		float: left;
+		line-height: 40px;
+		margin: 0;
+		text-align: center;
+		width: 38px;
+	}
+}
+
+#overlay {
+	background-color: #000;
+	opacity: .5;
+	height: 100%;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 9998;
+}
+

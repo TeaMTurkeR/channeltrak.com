@@ -5,9 +5,9 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<?php if (isset($title)) : ?>
-	<title><?php echo $title ?> | Channeltrak</title>
+	<title id="html-title"><?php echo $title ?> | Channeltrak</title>
 	<?php else : ?>
-	<title>Channeltrak | Youtube Music Channels</title>
+	<title id="html-title">Channeltrak | Youtube Music Channels</title>
 	<?php endif; ?>
 
 	<link rel="icon" href="<?=base_url()?>favicon.ico" type="image/ico">

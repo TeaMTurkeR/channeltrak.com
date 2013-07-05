@@ -17,7 +17,7 @@ class Song extends CI_Controller {
         $song = $this->Song_model->getSong($where);
         $this->Song_model->deleteSong($where); 
 
-        redirect('/index.php/edit/'.$song->song_channel_slug, 'refresh');
+        redirect('edit/'.$song->song_channel_slug, 'refresh');
     }
 
 	public function favorite() {

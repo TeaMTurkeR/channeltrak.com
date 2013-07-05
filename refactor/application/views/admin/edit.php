@@ -11,7 +11,7 @@
 
 			<?php if ($channel->channel_status == 0) : ?>
 				
-				<?php echo form_open('index.php/channel/approve', 'id=edit class=form' ); ?>
+				<?php echo form_open('channel/approve', 'id=edit class=form' ); ?>
 					<input type="hidden" name="id" value="<?php echo $channel->channel_id ?>">
 
 					<label for="name">Channel Name</label>
@@ -38,12 +38,12 @@
 					<hr>
 
 					<input class="btn btn-success" type="submit" value="Approve & Save">
-					<a class="btn" href="<?php echo base_url(); ?>index.php/admin">Cancel</a>
+					<a class="btn" href="<?php echo base_url(); ?>admin">Cancel</a>
 				<?php echo form_close(); ?>
 
 			<?php else : ?>
 
-				<?php echo form_open('index.php/channel/update', 'id=edit class=form' ); ?>
+				<?php echo form_open('channel/update', 'id=edit class=form' ); ?>
 					<input type="hidden" name="id" value="<?php echo $channel->channel_id ?>">
 
 					<label for="name">Channel Name</label>
@@ -70,7 +70,7 @@
 					<hr>
 						
 					<input class="btn btn-success" type="submit" value="Update">
-					<a class="btn" href="<?php echo base_url(); ?>index.php/admin">Cancel</a>
+					<a class="btn" href="<?php echo base_url(); ?>admin">Cancel</a>
 				<?php echo form_close(); ?>
 
 			<?php endif; ?>
@@ -101,9 +101,9 @@
 					<tr>
 						<td><?php echo $song->song_id ?></td>
 						<td><img src="http://img.youtube.com/vi/<?php echo $song->song_yt_id; ?>/hqdefault.jpg"></td>
-						<td><a href="<?php echo base_url(); ?>index.php/song/<?php echo $song->song_slug; ?>" title="<?php echo $song->song_title ?>"><?php echo $song->song_title ?></a></td>
+						<td><a href="<?php echo base_url(); ?>song/<?php echo $song->song_slug; ?>" title="<?php echo $song->song_title ?>"><?php echo $song->song_title ?></a></td>
 						<td><?php echo $song->song_favorites ?></td>
-						<td><a href="<?php echo base_url(); ?>index.php/song/delete/<?php echo $song->song_id; ?>" class="btn btn-danger">Delete</a></td>
+						<td><a href="<?php echo base_url(); ?>song/delete/<?php echo $song->song_id; ?>" class="btn btn-danger">Delete</a></td>
 					</tr>
 
 					<?php endforeach; ?>
@@ -112,7 +112,7 @@
 				</table>
 
 				<div class="well">
-					<a class="btn btn-danger btn-block" href="<?php echo base_url(); ?>index.php/channel/delete/<?php echo $channel->channel_slug ?>">DELETE EVERYTHING!</a>
+					<a class="btn btn-danger btn-block" href="<?php echo base_url(); ?>channel/delete/<?php echo $channel->channel_slug ?>">DELETE EVERYTHING!</a>
 				</div>
 
 			</div>

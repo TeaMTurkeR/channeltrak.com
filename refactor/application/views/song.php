@@ -11,9 +11,9 @@
 					</div>
 				</section>
 				<footer class="caption">
-					<h2><a href="<?php echo base_url(); ?>index.php/song/<?php echo $song->song_slug ?>" title="<?php echo $song->song_title ?>"><?php echo $song->song_title ?></a></h2>
+					<h2><a href="<?php echo base_url(); ?>song/<?php echo $song->song_slug ?>" title="<?php echo $song->song_title ?>"><?php echo $song->song_title ?></a></h2>
 					<p class="date"><span class="icon-calendar-empty"></span><?php echo date('F j Y', strtotime($song->song_uploaded)); ?></p>
-					<p class="source"><span class="icon-user"></span><a href="<?php echo base_url(); ?>index.php/channel/<?php echo $song->song_channel_slug ?>"><?php echo $song->song_channel_name ?></a></p>
+					<p class="source"><span class="icon-user"></span><a href="<?php echo base_url(); ?>channel/<?php echo $song->song_channel_slug ?>"><?php echo $song->song_channel_name ?></a></p>
 				</footer>
 			</section>
 			<section class="actions">
@@ -21,7 +21,7 @@
 				if ($this->session->userdata('logged_in')) :	
 					$userId = $this->session->userdata('user_id');
 					$songId = $song->song_id;
-					$isFavorited = $this->User_model->checkFavorites($userId, $songId);
+					$isFavorited = $this->Favorite_model->checkFavorites($userId, $songId);
 			?>
 
 				<?php if ($isFavorited) : ?>

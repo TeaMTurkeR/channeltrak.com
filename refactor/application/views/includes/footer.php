@@ -1,3 +1,12 @@
+	<article id="login-modal" class="modal" style="display:none">
+		<h3>You need to...</h3>
+		<a href="<?php echo base_url(); ?>login" class="button">Login</a>
+		<p>or</p>
+		<a href="<?php echo base_url(); ?>join" class="button">Join Channeltrak</a>	
+	</article>
+
+	<div id="overlay" style="display:none;"></div>
+
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>assets/javascripts/vendor/jquery.js"><\/script>')</script>
 
@@ -25,7 +34,7 @@
 
   	<?php if (isset($pagination)) : ?>
 	<script>
-		var ajaxUrl = '<?php echo base_url(); ?>index.php/<?php echo $pagination; ?>';
+		var ajaxUrl = '<?php echo base_url(); ?><?php echo $pagination; ?>';
 	</script>
   	<?php endif; ?>
 

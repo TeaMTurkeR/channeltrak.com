@@ -27,7 +27,7 @@
 	<div class="navbar navbar-inverse navbar-fixed-top">
       	<div class="navbar-inner">
         	<div class="container">
-          		<a class="brand" href="<?php echo base_url(); ?>index.php/admin">Channeltrak</a>
+          		<a class="brand" href="<?php echo base_url(); ?>admin">Channeltrak</a>
             	<ul class="nav pull-right">
             		<li><a href="<?php echo base_url(); ?>">Site</a></li>
               		<li><a href="http://www.twitter.com/channeltrak">Twitter</a></li>

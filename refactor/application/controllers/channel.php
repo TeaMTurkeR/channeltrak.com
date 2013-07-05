@@ -24,110 +24,125 @@ class Channel extends CI_Controller {
             'channel_web_url' => $website
         );
         $this->Channel_model->submitChannel($data);
-        redirect('/index.php/submit', 'refresh');
+        redirect('/submit', 'refresh');
     }
 
     public function approve() {
-        $id = $this->input->post('id');
-        $slug = url_title($this->input->post('name'), 'dash', true);
-        $ytId = $this->input->post('yt-id');
+        if ($this->session->userdata('user_name') == 'Admin') {
+            $id = $this->input->post('id');
+            $slug = url_title($this->input->post('name'), 'dash', true);
+            $ytId = $this->input->post('yt-id');
 
-        $data = array(
-            'channel_name' => $this->input->post('name'),
-            'channel_slug' => $slug,
-            'channel_yt_id' => $ytId,
-            'channel_yt_url' => $this->input->post('youtube'),
-            'channel_fb_url' => $this->input->post('facebook'),
-            'channel_tw_url' => $this->input->post('twitter'),
-            'channel_web_url' => $this->input->post('website'),
-            'channel_status' => '1'
-        );
+            $data = array(
+                'channel_name' => $this->input->post('name'),
+                'channel_slug' => $slug,
+                'channel_yt_id' => $ytId,
+                'channel_yt_url' => $this->input->post('youtube'),
+                'channel_fb_url' => $this->input->post('facebook'),
+                'channel_tw_url' => $this->input->post('twitter'),
+                'channel_web_url' => $this->input->post('website'),
+                'channel_approved' => date('Y-m-d H:i:s'),
+                'channel_status' => '1'
+            );
 
-        $this->Channel_model->updateChannel($id, $data);
-        $this->import();
-        redirect('/index.php/edit/'.$slug, 'refresh');
+            $this->Channel_model->updateChannel($id, $data);
+            $this->import();
+            redirect('/edit/'.$slug, 'refresh');
+        } else {
+            redirect('latest');
+        }
     }
 
     public function update() {
+        if ($this->session->userdata('user_name') == 'Admin') {
+            $id = $this->input->post('id');
+            $slug = url_title($this->input->post('name'), 'dash', true);
+            $ytId = $this->input->post('yt-id');
 
-        $id = $this->input->post('id');
-        $slug = url_title($this->input->post('name'), 'dash', true);
-        $ytId = $this->input->post('yt-id');
+            $data = array(
+                'channel_name' => $this->input->post('name'),
+                'channel_slug' => $slug,
+                'channel_yt_id' => $ytId,
+                'channel_yt_url' => $this->input->post('youtube'),
+                'channel_fb_url' => $this->input->post('facebook'),
+                'channel_tw_url' => $this->input->post('twitter'),
+                'channel_web_url' => $this->input->post('website'),
+                'channel_approved' => date('Y-m-d H:i:s')
+            );
 
-        $data = array(
-            'channel_name' => $this->input->post('name'),
-            'channel_slug' => $slug,
-            'channel_yt_id' => $ytId,
-            'channel_yt_url' => $this->input->post('youtube'),
-            'channel_fb_url' => $this->input->post('facebook'),
-            'channel_tw_url' => $this->input->post('twitter'),
-            'channel_web_url' => $this->input->post('website')
-        );
+            $this->Channel_model->updateChannel($id, $data);
 
-        $this->Channel_model->updateChannel($id, $data);
-
-        redirect('/index.php/edit/'.$slug, 'refresh');
+            redirect('edit/'.$slug, 'refresh');
+        } else {
+            redirect('latest');
+        }
     }
 
     public function delete($slug) {
+        if ($this->session->userdata('user_name') == 'Admin') {
+            $this->Channel_model->deleteChannel($slug);
 
-        $this->Channel_model->deleteChannel($slug);
+            $where = array(
+                'song_channel_slug' => $slug
+            );
 
-        $where = array(
-            'song_channel_slug' => $slug
-        );
+            $this->Song_model->deleteSong($where);
 
-        $this->Song_model->deleteSong($where);
-
-        redirect('/index.php/admin', 'refresh');
+            redirect('admin', 'refresh');
+        } else {
+            redirect('latest');
+        }
     }
 
     public function import() {
+        if ($this->session->userdata('user_name') == 'Admin') {
+            $channel = $this->Channel_model->getChannels('1');
+            foreach ($channel as $channel){
+            
+                $channelName = $channel->channel_name;
+                $channelSlug = $channel->channel_slug;
 
-        $channel = $this->Channel_model->getChannels('1');
-        foreach ($channel as $channel){
-        
-            $channelName = $channel->channel_name;
-            $channelSlug = $channel->channel_slug;
+                for ( $i = 1; $i <= 1000; $i += 50) {
 
-            for ( $i = 1; $i <= 500; $i += 50) {
+                    $url = "http://gdata.youtube.com/feeds/api/users/".$channel->channel_yt_id."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
+                    $json = file_get_contents($url);
+                    $jsonOutput = json_decode($json);
 
-                $url = "http://gdata.youtube.com/feeds/api/users/".$channel->channel_yt_id."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
-                $json = file_get_contents($url);
-                $jsonOutput = json_decode($json);
+                    if (isset($jsonOutput->data->items)) {
 
-                if (isset($jsonOutput->data->items)) {
+                        $this->load->model('Song_model');
 
-                    $this->load->model('Song_model');
+                        foreach ( $jsonOutput->data->items as $song ){
 
-                    foreach ( $jsonOutput->data->items as $song ){
+                            $unique = $this->Song_model->checkDuplicates($song->id);
 
-                        $unique = $this->Song_model->checkDuplicates($song->id);
+                            if ($unique) {
+                                $slug = url_title($song->title, 'dash', true);
 
-                        if ($unique) {
-                            $slug = url_title($song->title, 'dash', true);
-
-                            $data = array(
-                                'song_slug' => $slug,
-                                'song_title' => $song->title,
-                                'song_yt_id' => $song->id,
-                                'song_channel_name' => $channelName,
-                                'song_channel_slug' => $channelSlug,
-                                'song_uploaded' => $song->uploaded,
-                                'song_imported' => date('Y-m-d H:i:s')
-                            );
-                            
-                            $this->Song_model->addSong($data);
-                            //print '<p style="color:green">New: '.$song->title.' - '.$channelName.'</p>';
-                        } else {
-                            break;
+                                $data = array(
+                                    'song_slug' => $slug,
+                                    'song_title' => $song->title,
+                                    'song_yt_id' => $song->id,
+                                    'song_channel_name' => $channelName,
+                                    'song_channel_slug' => $channelSlug,
+                                    'song_uploaded' => $song->uploaded,
+                                    'song_imported' => date('Y-m-d H:i:s')
+                                );
+                                
+                                $this->Song_model->addSong($data);
+                                print '<p style="color:green">New: '.$song->title.' - '.$channelName.'</p>';
+                            } else {
+                                break;
+                            }
                         }
+                    } else {
+                        print '<h1>Nothing to new...</h1>';
+                        break;
                     }
-                } else {
-                   // print '<h1>Nothing to new...</h1>';
-                    break;
                 }
             }
+        } else {
+            redirect('latest');
         }
 
     }

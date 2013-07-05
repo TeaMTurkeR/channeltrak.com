@@ -6,7 +6,7 @@
 
 
 	<section id="main">
-		<?php echo form_open('index.php/user/login', 'id=login class=form' ); ?>
+		<?php echo form_open('user/login', 'id=login class=form' ); ?>
 
 			<label for="name">Username</label>
 			<input type="text" name="name" required>
@@ -20,7 +20,7 @@
 
 		<div class="form-side">
 			<h3>Don't have an account?</h3>
-			<a href="<?php echo base_url(); ?>index.php/join" class="button">Join Channeltrak</a>
+			<a href="<?php echo base_url(); ?>join" class="button">Join Channeltrak</a>
 		</div>
 	</section>
 

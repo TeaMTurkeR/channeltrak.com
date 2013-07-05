@@ -5,7 +5,7 @@
 	<?php $this->load->view('includes/info'); ?>
 
 	<section class="settings">		
-		<?php echo form_open('index.php/user/', 'id=username class=form' ); ?>
+		<?php echo form_open('user/updateSettings', 'id=username class=form' ); ?>
 			<label for="name">Username</label>
 			<input type="text" name="name" value="<?php echo $user->user_name ?>">
 
@@ -17,15 +17,15 @@
 	</section>
 
 	<section class="settings">		
-		<?php echo form_open('index.php/user/password', 'id=password class=form' ); ?>
+		<?php echo form_open('user/updatePassword', 'id=password class=form' ); ?>
 			<label for="current">Current Password</label>
-			<input type="text" name="current">
+			<input type="password" name="current">
 
 			<label for="new">New Password</label>
-			<input type="text" name="new">
+			<input id="password" type="password" name="new">
 			
-			<label for="twitter">Confirm New Password</label>
-			<input type="text" name="confirm">
+			<label for="confirm">Confirm New Password</label>
+			<input type="password" name="confirm">
 
 			<input class="button" type="submit" value="Save">
 		<?php echo form_close(); ?>
