@@ -77,7 +77,7 @@ function setPlayingInfo(){
 
         $('#playing-thumbnail a').attr('href', '#'+id);
         $('#playing-thumbnail img').attr('src', img);
-        $('#playing-song-title').text(title);
+        $('#playing-thumbnail').attr('title', title);
         $('#html-title').text(title+' | Channeltrak');
 
     } else {
@@ -88,7 +88,7 @@ function setPlayingInfo(){
 
         $('#playing-thumbnail a').attr('href', '#'+id);
         $('#playing-thumbnail img').attr('src', img);
-        $('#playing-song-title').text(title);
+        $('#playing-thumbnail').attr('title', title);
 
     }
 }

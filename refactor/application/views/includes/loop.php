@@ -26,7 +26,7 @@
 
 			<?php if ($isFavorited) : ?>
 
-				<button class="favorite-song favorited" title="Add to Favorites">
+				<button class="favorite-song favorited" title="Remove from Favorites">
 					<span class="favorite-count"><?php echo $song->song_favorites ?></span>
 					<span class="icon-heart"></span>
 				</button>

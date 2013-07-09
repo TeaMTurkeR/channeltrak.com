@@ -11,6 +11,10 @@
 			<p class="success"><?php echo $success ?></p>
 			<?php endif ?>
 
+			<?php if(isset($error)) : ?>
+			<p class="error"><?php echo $error ?></p>
+			<?php endif ?>
+
 			<label for="name">Channel Name</label>
 			<input type="text" name="name" required>
 

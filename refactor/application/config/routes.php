@@ -65,6 +65,8 @@ $route['channel/delete/(:any)'] = 'channel/delete/$1';
 $route['song/delete/(:any)'] = 'song/delete/$1';
 $route['song/favorite'] = 'song/favorite';
 
+$route['seo/sitemap\.xml'] = 'seo/sitemap';
+
 $route['channel/(:any)'] = 'site/channel/$1';
 $route['song/(:any)'] = 'site/song/$1';
 

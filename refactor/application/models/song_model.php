@@ -76,6 +76,16 @@ class Song_model extends CI_Model {
         $this->db->update('songs', $data);
     }
 
+    public function getSongUrls() {
+        $query = $this->db->get('songs');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row->song_slug;
+            }
+            return $data;
+        }
+    }
+
 }
 
 ?>

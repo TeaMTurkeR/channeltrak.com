@@ -30,9 +30,11 @@ a {
 }
 
 #page {
+	@include box-sizing(content-box);
 	@include clearfix();
 	margin: 0 auto;
 	min-height: 100%;
+	padding: 0 40px;
 	position: relative;
 	width: 1250px;
 }
@@ -56,7 +58,7 @@ a {
 
 #ads {
 	position: absolute;
-	right: 200px;
+	right: 250px;
 	top: 40px;
 
 	img {
@@ -380,7 +382,7 @@ a {
 
 #directory {
 	@include clearfix();
-	margin: 0 0 40px 230px;
+	margin: 0 0 20px 230px;
 	width: 770px;
 }
 

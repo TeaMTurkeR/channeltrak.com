@@ -14,21 +14,36 @@ class Channel extends CI_Controller {
         $facebook = $this->input->post('facebook');
         $twitter = $this->input->post('twitter');
         $website = $this->input->post('website');
+        $ytId = substr( $youtube, strrpos( $youtube, '/' )+1 );
 
         $data = array(
             'channel_name' => $name,
             'channel_slug' => $slug,
+            'channel_yt_id' => $ytId,
             'channel_yt_url' => $youtube,
             'channel_fb_url' => $facebook,
             'channel_tw_url' => $twitter,
-            'channel_web_url' => $website
+            'channel_web_url' => $website,
+            'channel_status' => 'pending'
         );
+        
         $this->Channel_model->submitChannel($data);
 
-        $data['title'] = 'Submit';
-        $data['subtitle'] = 'Submit a new Youtube channel';
-        $data['success'] = 'Channel submitted successfully!';
-        $this->load->view('submit', $data);
+        if ( $this->Channel_model->submitChannel($data) ) {
+
+            $data['title'] = 'Submit';
+            $data['subtitle'] = 'Submit a new Youtube channel';
+            $data['success'] = 'Channel submitted successfully!';
+            $this->load->view('submit', $data);
+
+        } else {
+
+            $data['title'] = 'Submit';
+            $data['subtitle'] = 'Submit a new Youtube channel';
+            $data['error'] = 'Something went wrong...try again';
+            $this->load->view('submit', $data);
+
+        }
     }
 
     public function approve() {
@@ -46,7 +61,7 @@ class Channel extends CI_Controller {
                 'channel_tw_url' => $this->input->post('twitter'),
                 'channel_web_url' => $this->input->post('website'),
                 'channel_approved' => date('Y-m-d H:i:s'),
-                'channel_status' => '1'
+                'channel_status' => 'approved'
             );
 
             $this->Channel_model->updateChannel($id, $data);
@@ -127,7 +142,7 @@ class Channel extends CI_Controller {
     }
 
     public function import() {
-        $channel = $this->Channel_model->getChannels('1');
+        $channel = $this->Channel_model->getChannels('approved');
         foreach ($channel as $channel){
         
             $channelName = $channel->channel_name;

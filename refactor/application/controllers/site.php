@@ -20,17 +20,22 @@ class Site extends CI_Controller {
        		'song_id >' => '0' //GET ALL SONGS
         );
 
-        $data['pagination'] = 'latest';
         $data['title'] = 'Latest';
         $data['subtitle'] = 'The newest songs posted to YouTube';
 
         if (!isset($_POST['offset'])) {
             $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $this->offset);
+            if (count($data['songs']) >= $this->limit){
+                $data['pagination'] = 'latest';
+            }
             $this->load->view('main', $data);
         } else {
             $offset = $_POST['offset'];
             $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $offset);
-            $this->load->view('includes/loop', $data);
+            if (count($data['songs']) >= 1){
+                $data['pagination'] = 'latest';
+                $this->load->view('includes/loop', $data);
+            }
         }
 	}
 
@@ -45,7 +50,7 @@ class Site extends CI_Controller {
 
         $data['rank'] = TRUE;
         $data['title'] = 'Popular';
-        $data['subtitle'] = 'The most popular songs right now';
+        $data['subtitle'] = 'The most popular songs on YouTube right now';
 
         $data['songs'] = $this->Song_model->getSongs($where, $order, $limit, $this->offset);
         $this->load->view('main', $data);
@@ -54,7 +59,7 @@ class Site extends CI_Controller {
 
 	public function directory() {
     	$this->load->model('Channel_model');
-    	$status = '1';
+    	$status = 'approved';
         $data['channels'] = $this->Channel_model->getChannels($status);
         $data['title'] = 'Directory';
         $data['subtitle'] = 'The best music channels on YouTube';
@@ -71,17 +76,27 @@ class Site extends CI_Controller {
        		'song_channel_slug' => $slug //GET CHANNEL BY SLUG
         );
 
-		$data['pagination'] = 'channel/' . $slug;
-
         if (!isset($_POST['offset'])) {
+
             $data['channel'] = $this->Channel_model->getChannel('channel_slug', $slug);
             $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $this->offset);
             $data['title'] = $data['channel']->channel_name;
+
+            if (count($data['songs']) >= $this->limit){
+                $data['pagination'] = 'channel/' . $slug;
+            }
+
             $this->load->view('main', $data);
+
         } else {
+
             $offset = $_POST['offset'];
             $data['songs'] = $this->Song_model->getSongs($where, $this->order, $this->limit, $offset);
-            $this->load->view('includes/loop', $data);
+            if (count($data['songs']) >= 1){
+                $data['pagination'] = 'channel/' . $slug;
+                $this->load->view('includes/loop', $data);
+            }
+
         }
     }
 
@@ -124,17 +139,22 @@ class Site extends CI_Controller {
 
             $userId = $this->session->userdata('user_id');
 
-            $data['pagination'] = 'favorites';
             $data['title'] = 'Favorites';
             $data['subtitle'] = 'Your favorites songs on ChannelTrak';
 
             if (!isset($_POST['offset'])) {
                 $data['songs'] = $this->Song_model->getFavorites($userId, $this->limit, $this->offset);
+                if (count($data['songs']) >= $this->limit){
+                    $data['pagination'] = 'favorites';
+                }
                 $this->load->view('main', $data);
             } else {
                 $offset = $_POST['offset'];
                 $data['songs'] = $this->Song_model->getFavorites($userId, $this->limit, $this->offset);
-                $this->load->view('includes/loop', $data);
+                if (count($data['songs']) > 0){
+                    $data['pagination'] = 'favorites';
+                    $this->load->view('includes/loop', $data);
+                }
             }
 
         } else {
@@ -169,8 +189,8 @@ class Site extends CI_Controller {
         if ($this->session->userdata('logged_in') && $this->session->userdata('user_name') == 'Admin') {
 
             $this->load->model('Channel_model');
-            $data['approved'] = $this->Channel_model->getChannels('1');
-            $data['unapproved'] = $this->Channel_model->getChannels('0');
+            $data['approved'] = $this->Channel_model->getChannels('approved');
+            $data['unapproved'] = $this->Channel_model->getChannels('pending');
             $data['title'] = 'Dashboard';
             $this->load->view('admin/dashboard', $data);
 

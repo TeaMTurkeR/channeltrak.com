@@ -9,7 +9,7 @@
 
 				<h3><?php echo $channel->channel_name ?></h3>
 
-			<?php if ($channel->channel_status == 0) : ?>
+			<?php if ($channel->channel_status == 'pending') : ?>
 				
 				<?php echo form_open('channel/approve', 'id=edit class=form' ); ?>
 					<input type="hidden" name="id" value="<?php echo $channel->channel_id ?>">

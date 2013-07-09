@@ -9,7 +9,11 @@
 	<?php else : ?>
 	<title id="html-title">Channeltrak | Youtube Music Channels</title>
 	<?php endif; ?>
-
+	
+	<?php if (isset($song)) : ?>
+	<meta id="og-img" property="og:image" content="http://img.youtube.com/vi/<?php echo $song->song_yt_id ?>/hqdefault.jpg">
+	<?php endif; ?>
+	
 	<link rel="icon" href="<?=base_url()?>favicon.ico" type="image/ico">
 
 	<!-- <link href="http://localhost/channeltrak.com/refactor/assets/stylesheets/channeltrak.css" rel="stylesheet" type="text/css" /> -->

@@ -41,7 +41,7 @@
 	</script>
   	<?php endif; ?>
 
-  	<script>
+  	<script type="text/javascript">
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-38870469-1']);
 		_gaq.push(['_trackPageview']);
@@ -52,5 +52,6 @@
 		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		})();
 	</script>
+	
 </body>
 </html>

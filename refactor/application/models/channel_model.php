@@ -42,8 +42,14 @@ class Channel_model extends CI_Model {
     }
 
     public function submitChannel($data) {
+
         $this->db->insert('channels', $data);
-        return;
+        
+        if ($this->db->insert_id()) {
+            return true;
+        } else {
+            return false;
+        }
     } 
 
     public function updateChannel($id, $data) {
@@ -55,6 +61,17 @@ class Channel_model extends CI_Model {
     public function deleteChannel($slug) {
         $this->db->where('channel_slug', $slug);
         $this->db->delete('channels');
+    }
+
+    public function getChannelUrls() {
+        $this->db->where('channel_status', '1');
+        $query = $this->db->get('channels');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row->channel_slug;
+            }
+            return $data;
+        }
     }
 
 }
