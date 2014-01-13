@@ -1,10 +1,17 @@
 'use strict';
 
 angular.module('channeltrakApp')
-	.controller('LatestCtrl', function ($scope, Latest) {
+  	.controller('LatestCtrl', function ($scope, trakService) {
 
-		Latest.get(function(data){
-			$scope.Traks = data.traks;
-		});
+  		var init = function() {
 
-	});
+	  		trakService.getTraks('latest', 0)
+	  			.then(function(callback){
+	  				$scope.Traks = callback;
+	  			});
+
+	  	}
+
+	  	init();
+
+  	});
