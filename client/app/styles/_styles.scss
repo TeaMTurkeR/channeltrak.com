@@ -8,6 +8,11 @@ body {
     line-height: 1.4;
 }
 
+a {
+    color: $primary;
+    text-decoration: none;
+}
+
 .wrap {
     margin: 0 auto;
     padding: 0 40px;
@@ -23,13 +28,13 @@ body {
     h1 {
 
         a {
-            color: #333;
             display: block;
             font-family: $header-font-family;
             font-size: 1.75em;
             letter-spacing: 0px;
             margin-bottom: 10px;
             text-decoration: none;
+            text-transform: lowercase;
         }
     }
 
@@ -40,6 +45,7 @@ body {
             color: #666;
             display: block;
             line-height: 35px;
+            padding: 0 5px;
             text-decoration: none;
 
             &:hover {
@@ -55,8 +61,36 @@ body {
     width: 600px;
 }
 
+trak,
 .trak {
+    display: block;
     margin-bottom: 40px;
+
+    .thumbnail {
+        cursor: pointer;
+    }
+
+    .caption {
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 1.125em;
+        margin-bottom: 5px;
+    }
+
+    .meta {
+        color: #666;
+        font-size: 14px;
+
+        i {
+            margin-right: 10px;
+        }
+
+        a {
+            margin-right: 20px;
+        }
+    }
 }
 
 .thumbnail {
@@ -71,4 +105,31 @@ body {
             width: 100%;
         }
     }
+}
+
+#load-more {
+    background-color: $primary;
+    border: 0;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    line-height: 40px;
+    margin: 0 auto;
+    outline: none;
+    padding: 0;
+    text-align: center;
+    width: 200px;
+}
+
+#footer {
+    border-top: 1px solid #ccc;
+    margin-top: 120px;
+    width: 100%;
+}
+
+.copyright {
+    float: right;
+    line-height: 60px;
 }

@@ -35,7 +35,8 @@ angular.module('channeltrakApp', [
 	// });
 
 })
-.config(function ($routeProvider) {
+.config(function($locationProvider, $routeProvider) {
+	$locationProvider.html5Mode(false);
 	$routeProvider
 		.when('/latest', {
 			templateUrl: 'views/latest.html',
