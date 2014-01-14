@@ -24,19 +24,11 @@
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
-		
-	<header id="masthead">
-		<div class="wrap">
-			
-			<h1><a href="/">Channeltrak</a></h1>
 
-
-		</div>
-	</header>
-
-	<!-- Add your site or application content here -->
 	<div class="wrap">
-		<aside id="nav">
+		
+		<header id="masthead">
+			<h1><a href="/">Channeltrak</a></h1>
 			<nav>
 				<a href="/latest">Latest</a>
 				<a href="/popular">Popular</a>
@@ -46,12 +38,15 @@
 				<a href="/login">Login</a>
 				<a href="/signup">Signup</a>
 			</nav>
-		</aside>
+		</header>
+
+		<!-- Add your site or application content here -->
 		<div ng-view=""></div>
+
 	</div>
 
 	<footer id="footer">
-		<div class="wrap mini">
+		<div class="wrap">
 			<p class="copyright">
 				&copy; Channeltrak 2014
 			</p>
@@ -65,7 +60,6 @@
 
 	<!-- build:js scripts/vendor.js -->
 	<!-- bower:js -->
-	<script src="bower_components/jquery/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
 	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -82,17 +76,7 @@
 		<script src="scripts/services/channelService.js"></script>
 		<script src="scripts/services/trakService.js"></script>
 		<script src="scripts/services/userService.js"></script>
-		<script src="scripts/directives/trak.js"></script>
+		<script src="scripts/directives/playtrak.js"></script>
 		<!-- endbuild -->
-
-	<script>
-
-		var tag = document.createElement('script');
-	    tag.src = "https://www.youtube.com/iframe_api";
-	    var firstScriptTag = document.getElementsByTagName('script')[0];
-	    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-	</script>
-
 </body>
 </html>

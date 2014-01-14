@@ -1,7 +1,7 @@
 <section id="traks">
 	
-	<article class="trak" ng-repeat="trak in Traks" trak="{{ trak.youtube_id }}">
-		<div class="media">
+	<article class="trak" ng-repeat="trak in Traks">
+		<div class="thumbnail" playTrak="{{ trak.youtube_id }}">
 			<div class="aspect-ratio">
 				<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
 			</div>

@@ -6,7 +6,6 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.4;
-    padding-top: 61px;
 }
 
 a {
@@ -14,54 +13,31 @@ a {
     text-decoration: none;
 }
 
-.pull-left {
-    float: left;
-}
-
-.pull-right {
-    float: right;
-}
-
 .wrap {
-    @include pie-clearfix;
     margin: 0 auto;
     padding: 0 40px;
     position: relative;
-    width: 1080px;
-
-    &.mini {
-        width: 680px;
-    }
+    width: 1140px;
 }
 
 #masthead {
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
     position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
+    top: 60px;
+    width: 200px;
 
     h1 {
-        float: left;
-        margin-right: 20px;
 
         a {
             display: block;
             font-family: $header-font-family;
             font-size: 1.75em;
-            line-height: 60px;
+            letter-spacing: 0px;
+            margin-bottom: 10px;
             text-decoration: none;
             text-transform: lowercase;
         }
     }
-}
 
-#nav {
-    float: left;
-    padding: 40px 40px 0 0;
-    width: 200px;
-    
     nav {
         margin-bottom: 20px;
 
@@ -80,27 +56,18 @@ a {
 }
 
 #traks {
-    float: left;
+    margin: 0 auto;
     padding-top: 40px;
     width: 600px;
 }
 
+trak,
 .trak {
     display: block;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 
-    &.playing {
-        .thumbnail {
-            display: none;
-        }
-    }
-
-    .media {
+    .thumbnail {
         cursor: pointer;
-    }
-
-    #player {
-        width: 100%;
     }
 
     .caption {
@@ -109,7 +76,6 @@ a {
 
     .title {
         font-size: 1.125em;
-        font-weight: 700;
         margin-bottom: 5px;
     }
 
@@ -127,32 +93,25 @@ a {
     }
 }
 
-.media {
+.thumbnail {
     overflow: hidden;
 
     .aspect-ratio {
         height: 0;
         padding-bottom: 56.25%;
-        position: relative;
 
         img {
             margin-top: -9.4%;
-            width: 100%;
-        }
-
-        iframe {
-            height: 100%;
-            position: absolute;
             width: 100%;
         }
     }
 }
 
 #load-more {
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: $primary;
+    border: 0;
     border-radius: 20px;
-    color: #666;
+    color: #fff;
     cursor: pointer;
     display: block;
     font-size: 1em;
@@ -162,11 +121,6 @@ a {
     padding: 0;
     text-align: center;
     width: 200px;
-
-    &:hover {
-        border-color: $primary;
-        color: $primary;
-    }
 }
 
 #footer {
