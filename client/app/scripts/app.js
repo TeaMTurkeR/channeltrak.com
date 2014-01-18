@@ -4,7 +4,8 @@ angular.module('channeltrakApp', [
 	'ngCookies',
 	'ngResource',
 	'ngSanitize',
-	'ngRoute'
+	'ngRoute',
+	'ngAnimate'
 ])
 .run(function($rootScope, $http, $location){
 
@@ -39,16 +40,24 @@ angular.module('channeltrakApp', [
 	$locationProvider.html5Mode(false);
 	$routeProvider
 		.when('/latest', {
-			templateUrl: 'views/latest.html',
-			controller: 'LatestCtrl'
+			templateUrl: 'views/traklist.html',
+			controller: 'TraklistCtrl'
 		})
 		.when('/popular', {
-			templateUrl: 'views/popular.html',
-			controller: 'PopularCtrl'
+			templateUrl: 'views/traklist.html',
+			controller: 'TraklistCtrl'
 		})
 		.when('/directory', {
 			templateUrl: 'views/directory.html',
 			controller: 'DirectoryCtrl'
+		})
+		.when('/channel/:slug', {
+			templateUrl: 'views/traklist.html',
+			controller: 'TraklistCtrl'
+		})
+		.when('/trak/:slug', {
+			templateUrl: 'views/trak.html',
+			controller: 'TrakCtrl'
 		})
 		.otherwise({
 			redirectTo: '/latest'

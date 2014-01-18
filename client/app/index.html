@@ -25,29 +25,24 @@
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
 		
-	<header id="masthead">
-		<div class="wrap">
-			
-			<h1><a href="/">Channeltrak</a></h1>
-
-
-		</div>
-	</header>
-
-	<!-- Add your site or application content here -->
 	<div class="wrap">
-		<aside id="nav">
+		
+		<header id="masthead">
+			<h1><a href="/">Channeltrak</a></h1>
 			<nav>
-				<a href="/latest">Latest</a>
-				<a href="/popular">Popular</a>
-				<a href="/Directory">Directory</a>
+				<a href="#/latest">Latest</a>
+				<a href="#/popular">Popular</a>
+				<a href="#/directory">Directory</a>
 			</nav>
 			<nav>
-				<a href="/login">Login</a>
-				<a href="/signup">Signup</a>
+				<a href="#/login">Login</a>
+				<a href="#/signup">Signup</a>
 			</nav>
-		</aside>
+		</header>
+
+		<!-- Add your site or application content here -->
 		<div ng-view=""></div>
+
 	</div>
 
 	<footer id="footer">
@@ -71,13 +66,14 @@
 	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
-		<script src="scripts/controllers/latest.js"></script>
-		<script src="scripts/controllers/popular.js"></script>
+		<script src="scripts/controllers/traklist.js"></script>
+		<script src="scripts/controllers/trak.js"></script>
 		<script src="scripts/controllers/directory.js"></script>
 		<script src="scripts/services/channelService.js"></script>
 		<script src="scripts/services/trakService.js"></script>

@@ -1,0 +1,14 @@
+<section id="directory">
+	
+	<a class="channel" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">
+		<div class="media">
+			<div class="aspect-ratio">
+				<img ng-src="http://img.youtube.com/vi/{{ channel.cover_id }}/hqdefault.jpg" alt="{{ channel.title }} on Channeltrak">
+			</div>
+		</div>
+		<div class="caption">
+			<h3 class="title">{{ channel.title }}</h3>
+		</div>
+	</a>
+
+</section>

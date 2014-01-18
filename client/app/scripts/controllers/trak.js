@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.controller('DirectoryCtrl', function ($scope, channelService) {
+  	.controller('TrakCtrl', function ($scope, channelService) {
 	
   		var init = function() {
 
