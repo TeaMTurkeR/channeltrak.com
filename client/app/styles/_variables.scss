@@ -2,3 +2,12 @@ $body-font-family: "jaf-facitweb", sans-serif;
 $header-font-family: "jaf-lapture", serif;
 
 $primary: #d5303d;
+
+$gr-l: (100%)/((1 + sqrt(5)) / 2);
+$gr-s: 100.00% - $gr-l;
+
+@mixin truncate {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

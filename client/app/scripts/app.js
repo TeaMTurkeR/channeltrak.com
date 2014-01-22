@@ -59,6 +59,14 @@ angular.module('channeltrakApp', [
 			templateUrl: 'views/trak.html',
 			controller: 'TrakCtrl'
 		})
+		.when('/favorites', {
+		  templateUrl: 'views/favorites.html',
+		  controller: 'FavoritesCtrl'
+		})
+		.when('/settings', {
+		  templateUrl: 'views/settings.html',
+		  controller: 'SettingsCtrl'
+		})
 		.otherwise({
 			redirectTo: '/latest'
 		});

@@ -1,0 +1,28 @@
+@media (max-width: 1700px) {
+  	#traklist.grid {
+
+	    .trak {
+	        width: 50%;
+	    }
+	}
+}
+
+@media (max-width: 1400px) {
+  	#traklist.grid {
+
+	    .trak {
+	        width: 100%;
+	    }
+	}
+
+	.trak {
+
+		.caption {
+			padding: 10px 20px;
+		} 
+
+		.actions {
+			margin-top: 10px;
+		}
+	}
+}

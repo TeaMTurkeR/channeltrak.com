@@ -24,34 +24,61 @@
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
+				
+	<aside id="navigation" ng-controller="NavigationCtrl">
+
+		<h1><a href="/">Channeltrak</a></h1>
+		<nav>
+			<a href="#/latest">Latest</a>
+			<a href="#/shuffle">Shuffle</a>
+			<a href="#/directory">Directory</a>
+		</nav>
+		<nav>
+			<a ng-click="toggleSignInModal()">Sign In</a>
+		</nav>
+
+		<div id="overlay" class="ng-hide" ng-click="closeModals()" ng-show="isSignInModalVisible || isJoinModalVisible"></div>
 		
-	<div class="wrap">
+		<section id="sign-in" class="modal ng-hide" ng-show="isSignInModalVisible">
+			<h2>Sign In</h2>
+			<i class="fa fa-times" ng-click="closeModals()"></i>
+			<input type="email" placeholder="Email" ng-model="User.email" ng-enter="signIn(User)">
+			<input type="password" placeholder="Password" ng-model="User.password" ng-enter="signIn(User)">
+			<div class="button-group">
+				<button class="button" ng-click="signIn(User)">Submit</button>
+				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">New User?</a>
+			</div>
+		</section>
 		
-		<header id="masthead">
-			<h1><a href="/">Channeltrak</a></h1>
-			<nav>
-				<a href="#/latest">Latest</a>
-				<a href="#/popular">Popular</a>
-				<a href="#/directory">Directory</a>
-			</nav>
-			<nav>
-				<a href="#/login">Login</a>
-				<a href="#/signup">Signup</a>
-			</nav>
-		</header>
+		<section id="join" class="modal ng-hide" ng-show="isJoinModalVisible">
+			<h2>New Account</h2>
+			<i class="fa fa-times" ng-click="closeModals()"></i>
+			<input type="email" placeholder="Email" ng-model="newUser.email" ng-enter="signIn(newUser)">
+			<input type="password" placeholder="Password" ng-model="newUser.password" ng-enter="signIn(newUser)">
+			<button class="button" ng-click="signIn(newUser)">Submit</button>
+		</section>
 
-		<!-- Add your site or application content here -->
-		<div ng-view=""></div>
+	</aside>
 
-	</div>
+	<!-- Add your site or application content here -->
+	<div id="view" ng-view=""></div>
 
-	<footer id="footer">
-		<div class="wrap mini">
-			<p class="copyright">
-				&copy; Channeltrak 2014
-			</p>
+	<aside id="playlist" ng-controller="PlaylistCtrl">
+		<div id="current" class="media">
+			<div class="aspect-ratio">
+				<div id="player"></div>
+			</div>
 		</div>
-	</footer>
+		<section id="upcoming" ng-if="Playlist.length>0">
+			<article class="upcoming-trak" ng-repeat="trak in Playlist track by $index" ng-click="playTrak(trak)">
+				<div class="media" ng-click="playTrak(trak); removeFromPlaylist($index)" >
+					<div class="aspect-ratio">
+						<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
+					</div>
+				</div>
+			</article>
+		</section>
+	</aside>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -79,6 +106,11 @@
 		<script src="scripts/services/trakService.js"></script>
 		<script src="scripts/services/userService.js"></script>
 		<script src="scripts/directives/trak.js"></script>
+		<script src="scripts/controllers/navigation.js"></script>
+		<script src="scripts/controllers/favorites.js"></script>
+		<script src="scripts/controllers/settings.js"></script>
+		<script src="scripts/controllers/playlist.js"></script>
+		<script src="scripts/services/playerService.js"></script>
 		<!-- endbuild -->
 
 	<script>

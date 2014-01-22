@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.controller('TraklistCtrl', function ($scope, $routeParams, $location, trakService, channelService) {
+  	.controller('TraklistCtrl', function ($scope, $routeParams, $rootScope, $location, trakService, channelService, playerService) {
 
   		$scope.pageNumber = 1;
   		$scope.moreTraks = true;
+  		$scope.isListLayout = false;
 
   		var init = function() {
 
@@ -16,6 +17,9 @@ angular.module('channeltrakApp')
 		  				if (callback.length < 10) {
 		  					$scope.moreTraks = false;
 		  				}
+		  				if (!$rootScope.playing) {
+			  				// $scope.playTrak($scope.Traks[0]);
+			  			}
 		  			});
 
 		  	} else if ($location.path() == '/popular') {
@@ -31,14 +35,33 @@ angular.module('channeltrakApp')
 		  				trakService.getChannelTraks($scope.Channel.id, $scope.pageNumber)
 				  			.then(function(callback){
 				  				$scope.Traks = callback;
-				  				console.log(callback.length);
 				  				if (callback.length < 10) {
 				  					$scope.moreTraks = false;
 				  				}
+				  				if (!$rootScope.playing) {
+					  				// $scope.playTrak($scope.Traks[0]);
+					  			}
 				  			});
 		  			});
 		  	}
 
+	  	}
+
+	  	$scope.gridLayout = function() {
+	  		$scope.isListLayout = false;
+	  	}
+
+	  	$scope.listLayout = function() {
+	  		$scope.isListLayout = true;
+	  	}
+
+	  	$scope.playTrak = function(trak) {
+	  		$rootScope.playing = trak;
+	        playerService.createYTPlayer(trak.youtube_id);
+	  	}
+
+	  	$scope.addToPlaylist = function(trak) {
+		  	$rootScope.Playlist.push(trak);
 	  	}
 
 	  	$scope.pagination = function() {

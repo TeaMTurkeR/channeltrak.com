@@ -14,7 +14,7 @@ angular.module('channeltrakApp')
 			        var $newPlayer = $('<div id="player"></div>');
 
 			        $('#player').remove();
-			        $post.addClass('playing');
+			       	element.addClass('playing');
 			        $('.post').not($post).removeClass('playing');
 			        $media.prepend($newPlayer);
 
