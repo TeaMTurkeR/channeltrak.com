@@ -59,6 +59,7 @@ angular.module('channeltrakApp')
 	  	}
 
 	  	$scope.playTrak = function(trak) {
+	  		$rootScope.playerStatus = 'playing';
 	  		$rootScope.playing = trak;
 	        playerService.createYTPlayer(trak.youtube_id);
 	  	}

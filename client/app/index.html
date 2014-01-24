@@ -41,7 +41,7 @@
 				</nav>
 				<section id="controls">
 					<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-					<button class="button icon" ng-click="togglePlay()"><i class="fa fa-play"></i></button>
+					<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-play': playerStatus == 'paused', 'fa-pause': playerStatus == 'playing'}"></i></button>
 					<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
 					<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
 					<button class="button" ng-click="toggleSignInModal()">Sign In</button>

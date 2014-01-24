@@ -39,23 +39,24 @@ angular.module('channeltrakApp')
 
 		var playerEvents = function (event) {
 
+			var status;
+
 		    if (event.data == YT.PlayerState.PLAYING) {
 
-		        console.log('playing');
+		    	status = 'playing';
 
 		    } else if (event.data == YT.PlayerState.ENDED) {
 		        
-		        console.log('next song');
+		        status = 'ended';
 
 		    } else if (event.data == YT.PlayerState.PAUSED){
 
-		        console.log('paused');
-
-		    } else {
-
-		        console.log('something else');
+		        status = 'paused';
 
 		    }
+
+		    return status;
+
 		}
 
 		// Public API
