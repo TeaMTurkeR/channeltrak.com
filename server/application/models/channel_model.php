@@ -4,8 +4,6 @@ class Channel_model extends CI_Model {
 
     public function create($data) {
 
-        $this->User_model->restricted();
-
         $this->db->insert('channels', $data);
 
         if ($this->db->affected_rows() > 0) {
@@ -98,7 +96,6 @@ class Channel_model extends CI_Model {
     public function delete($id) {
 
         $this->db->where('channel_id', $id);
-
         $this->db->delete('channels'); 
 
         if ($this->db->affected_rows() > 0) {

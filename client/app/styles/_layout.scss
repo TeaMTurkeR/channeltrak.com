@@ -1,14 +1,5 @@
 * { @include box-sizing(border-box); }
 
-html, 
-body {
-    height: 100%;
-}
-
-#view {
-    overflow: hidden;
-}
-
 body {
     color: #333;
     font-family: $body-font-family;
@@ -23,70 +14,61 @@ a {
     text-decoration: none;
 }
 
-#controls {
-    border-bottom: 1px solid #ccc;
+#player {
+    @include transition(all .5s ease);
+    background-color: #fff;
+    height: 100%;
     left: 0;
-    padding: 10px 40px;
+    margin-top: 61px;
+    overflow: hidden;
+    position: fixed;
+    top: -100%;
+    width: 100%;
+    z-index: 9999;
+
+    &.open {
+        top: 0;
+        margin: 0;
+    }
+}
+
+#video {
+    margin-top: 60px;
+}
+
+#masthead {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+    bottom: 0;
     position: absolute;
-    top: 0;
     width: 100%;
-
-    .button {
-        padding: 0;
-        width: 35px;
-    }
-}
-
-#current {
-    background-color: #eee;
-    border: 1px dashed #ccc;
-
-    &.playing {
-        border-style: solid;
-    }
-}
-
-#overlay {
-    background-color: rgba(0,0,0,.5);
-    cursor: pointer;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1010;
-}
-
-#navigation {
-    border-right: 1px solid #ccc;
-    height: 100%;
-    left: 0;
-    padding: 60px 40px 0;
-    position: fixed;
-    width: 280px;
-    z-index: 1000;
 
     h1 {
+        float: left;
+        padding-top: 2px;
+        width: 20%;
 
         a {
             color: #333;
             display: block;
             font-family: $header-font-family;
             font-size: 1.75em;
-            letter-spacing: 0px;
-            margin-bottom: 10px;
+            line-height: 58px;
             text-decoration: none;
             text-transform: lowercase;
         }
     }
 
     nav {
-        margin-bottom: 20px;
+        @include clearfix;
+        float: left;
 
         a {
             color: #666;
-            display: block;
-            line-height: 35px;
+            float: left;
+            line-height: 60px;
             padding: 0 10px;
             text-decoration: none;
 
@@ -101,36 +83,33 @@ a {
     }
 }
 
-#view {
-    height: 100%;
-    padding: 0 280px 0;
-    min-width: 900px;
+#controls {
+    @include clearfix;
+    float: right;
+
+    .button {
+        float: left;
+        margin: 10px 10px 10px 0;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
-#playlist {
-    background-color: #fff;
-    border-left: 1px solid #ccc;
+#overlay {
+    background-color: rgba(0,0,0,.5);
+    cursor: pointer;
     height: 100%;
-    padding: 60px 40px 40px;
-    overflow-y: auto;  
+    left: 0;
     position: fixed;
-    right: 0;
     top: 0;
-    width: 280px;
+    width: 100%;
+    z-index: 1010;
 }
 
 #traklist {
-    height: 100%;
-    overflow-y: auto;
-    padding: 96px 40px 160px;
-    position: relative;
-    width: 100%;
-}
-
-#directory {
-    @include pie-clearfix;
-    padding: 40px 20px;
-    width: 100%;
+    padding-top: 61px;
 }
 
 #load-more {

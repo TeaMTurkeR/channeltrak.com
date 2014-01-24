@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('channeltrakApp')
-	.controller('NavigationCtrl', function ($scope, $rootScope, $location, userService, channelService) {
+	.controller('NotificationCtrl', function ($scope, $rootScope, $location, userService, channelService) {
 
 		$scope.toggleSignInModal = function() {
 			$scope.isSignInModalVisible = !$scope.isSignInModalVisible;
@@ -20,7 +20,7 @@ angular.module('channeltrakApp')
 
 			console.log(credentials);
 
-			userService.authenticateUser(credentials)
+			userService.authUser(credentials)
 				.then(function(callback) {
 					console.log(callback);
 					$rootScope.User = callback;
@@ -33,6 +33,19 @@ angular.module('channeltrakApp')
 		}
 
 		$scope.join = function(userData) {
+
+			userService.createUser(userData)
+				.then(function(user_id) {
+					
+					userService.getUser(user_id)
+						.then(function(callback){
+							$rootScope.User = callback;
+						});
+
+				}, function() {
+					$scope.error = true;
+					$scope.errorMessage = 'User exists';
+				});
 
 		}
 

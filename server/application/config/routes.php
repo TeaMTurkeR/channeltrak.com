@@ -41,11 +41,15 @@
 $route['default_controller'] = 'traks';
 $route['404_override'] = '';
 
-$route['join'] = 'users/join';
-$route['login'] = 'users/login';
-$route['logout'] = 'users/logout';
-$route['dashboard'] = 'users/dashboard';
-$route['edit/(:num)'] = 'channels/edit/$1';
+// USER ROUTES
+ 
+$route['users'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/index' : 'users/create';
+$route['users/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get/$1' : 'users/update/$1';
+
+// $route['join'] = 'users/join';
+// $route['login'] = 'users/login';
+// $route['logout'] = 'users/logout';
+// $route['dashboard'] = 'users/dashboard';
 
 // TRAK ROUTES
 

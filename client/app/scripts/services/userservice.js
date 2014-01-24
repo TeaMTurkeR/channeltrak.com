@@ -25,7 +25,7 @@ angular.module('channeltrakApp')
 			
 			var deferred = $q.defer();
 
-			$http.get(url, userData)
+			$http.post(url, userData)
 				.success(function(data){
 					deferred.resolve(data);
 				})

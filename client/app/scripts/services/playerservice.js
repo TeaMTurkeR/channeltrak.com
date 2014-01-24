@@ -5,17 +5,18 @@ angular.module('channeltrakApp')
 
 	  	var createYTPlayer = function (vidID){
 
-	  		var newPlayer = $('<div id="player"></div>');
+	  		var newPlayer = $('<div id="iframe"></div>');
 
-			$('#player').remove();
-			$('#current .aspect-ratio').prepend(newPlayer);
-			$('#current').addClass('playing');
+			$('#iframe')
+				.remove();
+			$('#video .aspect-ratio')
+				.prepend(newPlayer)
+				.addClass('playing');
 
-		    var player = new YT.Player('player', {
+		    var player = new YT.Player('iframe', {
 		        videoId: vidID,
 		        playerVars: {
 		            wmode: "opaque",
-		            controls: 0,
 		            showinfo: 0,
 		            modestbranding: 1
 		        },

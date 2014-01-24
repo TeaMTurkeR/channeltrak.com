@@ -3,13 +3,13 @@
 angular.module('channeltrakApp')
   	.factory('trakService', function ($http, $q) {
 
-		var url = 'http://localhost/channeltrak.com/server/traks/';
+		var url = 'http://localhost/channeltrak.com/server/traks';
 
-		var getLatestTraks = function(pageNumber){
+		var getLatestTraks = function(offset){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'latest/page/'+pageNumber)
+			$http.get(url+'?order=latest&offset='+offset)
 				.success(function(data){
 					deferred.resolve(data);
 				})

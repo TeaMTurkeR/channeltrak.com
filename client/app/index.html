@@ -20,23 +20,41 @@
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="channeltrakApp">
+<body ng-app="channeltrakApp" ng-class="{'no-scroll': isPlayerOpen}">
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
-				
-	<aside id="navigation" ng-controller="NavigationCtrl">
+	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen}">
+		<div class="wrap">
+			<section id="video">
+				<div class="aspect-ratio">
+					<div id="iframe"></div>
+				</div>
+			</section>
+		</div>
+		<header id="masthead">
+			<div class="wrap">
+				<h1><a href="/">Channeltrak</a></h1>
+				<nav>
+					<a href="#/shuffle">Shuffle</a>
+					<a href="#/directory">Directory</a>
+				</nav>
+				<section id="controls">
+					<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
+					<button class="button icon" ng-click="togglePlay()"><i class="fa fa-play"></i></button>
+					<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
+					<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
+					<button class="button" ng-click="toggleSignInModal()">Sign In</button>
+				</section>
+			</div>
+		</header>
+	</section>
 
-		<h1><a href="/">Channeltrak</a></h1>
-		<nav>
-			<a href="#/latest">Latest</a>
-			<a href="#/shuffle">Shuffle</a>
-			<a href="#/directory">Directory</a>
-		</nav>
-		<nav>
-			<a ng-click="toggleSignInModal()">Sign In</a>
-		</nav>
+	<!-- Add your site or application content here -->
+	<div id="view" ng-view=""></div>
 
+	<section ng-controlls="NotificationCtrl">
+		
 		<div id="overlay" class="ng-hide" ng-click="closeModals()" ng-show="isSignInModalVisible || isJoinModalVisible"></div>
 		
 		<section id="sign-in" class="modal ng-hide" ng-show="isSignInModalVisible">
@@ -53,32 +71,12 @@
 		<section id="join" class="modal ng-hide" ng-show="isJoinModalVisible">
 			<h2>New Account</h2>
 			<i class="fa fa-times" ng-click="closeModals()"></i>
-			<input type="email" placeholder="Email" ng-model="newUser.email" ng-enter="signIn(newUser)">
-			<input type="password" placeholder="Password" ng-model="newUser.password" ng-enter="signIn(newUser)">
-			<button class="button" ng-click="signIn(newUser)">Submit</button>
+			<input type="email" name="email" placeholder="Email" ng-model="user.email" ng-enter="join(user)">
+			<input type="password" name="pasword" placeholder="Password" ng-model="user.password" ng-enter="join(user)">
+			<button class="button" ng-click="join(user)">Submit</button>
 		</section>
 
-	</aside>
-
-	<!-- Add your site or application content here -->
-	<div id="view" ng-view=""></div>
-
-	<aside id="playlist" ng-controller="PlaylistCtrl">
-		<div id="current" class="media">
-			<div class="aspect-ratio">
-				<div id="player"></div>
-			</div>
-		</div>
-		<section id="upcoming" ng-if="Playlist.length>0">
-			<article class="upcoming-trak" ng-repeat="trak in Playlist track by $index" ng-click="playTrak(trak)">
-				<div class="media" ng-click="playTrak(trak); removeFromPlaylist($index)" >
-					<div class="aspect-ratio">
-						<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
-					</div>
-				</div>
-			</article>
-		</section>
-	</aside>
+	</section>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -105,8 +103,8 @@
 		<script src="scripts/services/channelService.js"></script>
 		<script src="scripts/services/trakService.js"></script>
 		<script src="scripts/services/userService.js"></script>
-		<script src="scripts/directives/trak.js"></script>
-		<script src="scripts/controllers/navigation.js"></script>
+		<script src="scripts/controllers/player.js"></script>
+		<script src="scripts/controllers/notification.js"></script>
 		<script src="scripts/controllers/favorites.js"></script>
 		<script src="scripts/controllers/settings.js"></script>
 		<script src="scripts/controllers/playlist.js"></script>

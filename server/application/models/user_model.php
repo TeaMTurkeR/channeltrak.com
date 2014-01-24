@@ -2,10 +2,20 @@
 
 class User_model extends CI_Model {
 
+    public function create($data) {
+
+        $this->db->insert('users', $data);
+
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    } 
+
     public function get($array) {
 
         $this->db->where($array);
-
         $query = $this->db->get('users');
 
         if ($query->num_rows() > 1) {
@@ -26,29 +36,25 @@ class User_model extends CI_Model {
         
     }
 
-    public function create($data) {
-
-        $this->db->insert('users', $data);
-
-        if ($this->db->affected_rows() > 0) {
-
-            return true;
-
-        }
-    } 
-
     public function update($id, $data) {
 
         $this->db->where('id', $id);
-
         $this->db->update('users', $data);
 
         if ($this->db->affected_rows() > 0) {
-
             return true;
-        
         }
     } 
+
+    public function delete($id) {
+
+        $this->db->where('id', $id);
+        $this->db->delete('mytable');
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+    }
 
     public function login($email, $password) {
 

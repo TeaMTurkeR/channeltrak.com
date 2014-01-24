@@ -3,7 +3,7 @@
 angular.module('channeltrakApp')
   	.controller('TraklistCtrl', function ($scope, $routeParams, $rootScope, $location, trakService, channelService, playerService) {
 
-  		$scope.pageNumber = 1;
+  		$scope.offset = 0;
   		$scope.moreTraks = true;
   		$scope.isListLayout = false;
 
@@ -11,9 +11,12 @@ angular.module('channeltrakApp')
 
   			if ($location.path() == '/latest') {
 
-		  		trakService.getLatestTraks($scope.pageNumber)
+  				console.log('hi');
+
+		  		trakService.getLatestTraks($scope.offset)
 		  			.then(function(callback){
 		  				$scope.Traks = callback;
+		  				console.log(callback);
 		  				if (callback.length < 10) {
 		  					$scope.moreTraks = false;
 		  				}
@@ -67,16 +70,16 @@ angular.module('channeltrakApp')
 	  	$scope.pagination = function() {
 
 	  		$scope.loadingMoreTraks = true;
-	  		$scope.pageNumber++
+	  		$scope.offset+=50;
 
 	  		setTimeout(function() {
 		  		if ($location.path() == '/latest') {
 
-			  		trakService.getLatestTraks($scope.pageNumber)
+			  		trakService.getLatestTraks($scope.offset)
 			  			.then(function(callback){
 			  				$scope.Traks = $scope.Traks.concat(callback);
 			  				$scope.loadingMoreTraks = false;
-			  				if (callback.length < 10) {
+			  				if (callback.length < 50) {
 			  					$scope.moreTraks = false;
 			  				}
 			  			});

@@ -4,30 +4,27 @@ class Trak_model extends CI_Model {
 
     public function create($data) {
 
-        $this->db->insert('traks', $data);
+        $this->db->insert('channels', $data);
 
         if ($this->db->affected_rows() > 0) {
+
             return $this->db->insert_id();
+
         } else {
+
             return false;
+        
         }
-    } 
+    }
 
-    public function update($id, $data) {
+    public function get($array, $offset) {
 
-        $this->db->where('id', $id);
-        $this->db->update('traks', $data);
+        $this->load->helper('date');
 
-        if ($this->db->affected_rows() > 0) {
-            return true;
-        }
-    } 
-
-    public function get($array) {
-
+        $this->db->select('id, title, slug, youtube_id, channel_id, published');
         $this->db->where($array);
-        $this->db->order_by('uploaded', 'DESC');
-        $this->db->limit('50', '0');
+        $this->db->order_by('published', 'DESC');
+        $this->db->limit('50', $offset);
 
         $query = $this->db->get('traks');
 
@@ -38,6 +35,8 @@ class Trak_model extends CI_Model {
 
             $row->channel_title = $channel->title;
             $row->channel_slug = $channel->slug;
+
+            $row->published = date(DATE_ISO8601, strtotime($row->published));
 
             return $row;
         
@@ -50,6 +49,8 @@ class Trak_model extends CI_Model {
                 $row->channel_title = $channel->title;
                 $row->channel_slug = $channel->slug;
 
+                $row->published = date(DATE_ISO8601, strtotime($row->published));
+
                 $data[] = $row;
 
             }
@@ -60,6 +61,16 @@ class Trak_model extends CI_Model {
             return false;
         }
     }
+
+    public function update($id, $data) {
+
+        $this->db->where('id', $id);
+        $this->db->update('traks', $data);
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
+    } 
 
     public function count($array) {
 

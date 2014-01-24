@@ -1,41 +1,24 @@
-<section id="traklist" ng-class="{grid: !isListLayout, list: isListLayout}">
+<section id="traklist">
 
-	<header id="controls">
-		<button class="button" ng-click="gridLayout()" ng-class="{active: !isListLayout}">
-			<i class="fa fa-th"></i>
-		</button>
-		<button class="button" ng-click="listLayout()" ng-class="{active: isListLayout}">
-			<i class="fa fa-th-list"></i>
-		</button>
-	</header>
-	
-	<div class="clearfix">
-
-		<article class="trak" ng-repeat="trak in Traks" ng-cloak>
+	<article class="trak" ng-repeat="trak in Traks" ng-cloak>
+		<div class="wrap">
+			<div class="meta">
+				<span>{{ trak.published | date:'mediumDate' }}</span>
+				<button class="button icon" ng-click="addToFavorites(trak)">
+					<i class="fa fa-heart"></i>
+				</button>
+			</div>
 			<div class="media" ng-click="playTrak(trak)">
 				<div class="aspect-ratio">
 					<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
-					<span>Play <i class="fa fa-play"></i></span>
 				</div>
 			</div>
 			<div class="caption">
 				<h3 class="title"><a ng-href="#/trak/{{ trak.slug }}">{{ trak.title }}</a></h3>
-				<p class="meta">
-					<a ng-href="#/channel/{{ trak.channel_slug }}">{{ trak.channel_title }}</a>
-					<span>{{ trak.published | date:'mediumDate' }}</span>
-				</p>
-				<div class="actions">
-					<a class="button" target="_blank" ng-click="addToFavorites(trak)">
-						<i class="fa fa-heart"></i>
-					</a>
-					<button class="button" ng-click="addToPlaylist(trak)">
-						<i class="fa fa-plus"></i>
-					</button>
-				</div>
+				<a ng-href="#/channel/{{ trak.channel_slug }}">{{ trak.channel_title }}</a>
 			</div>
-		</article>
-
-	</div>
+		</div>
+	</article>
 
 	<button id="load-more" ng-class="{loading: loadingMoreTraks}" ng-if="moreTraks && Traks" ng-click="pagination()">
 		<span ng-show="!loadingMoreTraks">Load More</span>

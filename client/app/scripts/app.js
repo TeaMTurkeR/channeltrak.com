@@ -43,21 +43,21 @@ angular.module('channeltrakApp', [
 			templateUrl: 'views/traklist.html',
 			controller: 'TraklistCtrl'
 		})
-		.when('/popular', {
-			templateUrl: 'views/traklist.html',
-			controller: 'TraklistCtrl'
-		})
-		.when('/directory', {
-			templateUrl: 'views/directory.html',
-			controller: 'DirectoryCtrl'
-		})
 		.when('/channel/:slug', {
 			templateUrl: 'views/traklist.html',
 			controller: 'TraklistCtrl'
 		})
+		.when('/shuffle/:slug', {
+			templateUrl: 'views/trak.html',
+			controller: 'TrakCtrl'
+		})
 		.when('/trak/:slug', {
 			templateUrl: 'views/trak.html',
 			controller: 'TrakCtrl'
+		})
+		.when('/directory', {
+			templateUrl: 'views/directory.html',
+			controller: 'DirectoryCtrl'
 		})
 		.when('/favorites', {
 		  templateUrl: 'views/favorites.html',

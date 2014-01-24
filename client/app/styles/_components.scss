@@ -6,20 +6,54 @@
     float: right;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .clearfix {
-    @include pie-clearfix;
+    @include clearfix;
 }
 
 .button-group {
-    @include pie-clearfix;
+    @include clearfix;
+}
+
+.button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 38px;
+    outline: none;
+    margin: 0;
+    padding: 0 15px;
+    text-align: center;
+
+    &.icon {
+        padding: 0;
+        width: 40px;
+    }
+
+    &:hover,
+    &.active {
+        background-color: #eee;
+    }
+
+    &:active, 
+    &:focus {
+        border-color: $primary;
+    }
 }
 
 .wrap {
-    @include pie-clearfix;
+    @include clearfix;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 20px;
     position: relative;
-    width: 1400px;
+    max-width: 960px;
 
     &.mini {
         width: 800px;
@@ -27,41 +61,48 @@
 }
 
 .trak {
-    @include pie-clearfix;
-    display: block;
-    margin-bottom: 40px;
-    position: relative;
+    @include transition(opacity .5s ease, background-color .5s ease);
+    background-color: #eee;
+    border-bottom: 1px solid #ccc;
+    opacity: .5;
+    padding: 40px;
 
     &:hover {
-        .actions {
-            opacity: 1;
+        background-color: #fff;
+        opacity: 1;
+
+        .button {
+            display: block;
+            margin-top: 10px;
         }
+    }
+    
+    .meta {
+        color: #999;
+        float: left;
+        padding: 20px 40px 20px 0;
+        width: 20%;
+    }
+
+    .button {
+        display: none;
     }
 
     .media {
         cursor: pointer;
+        float: left;
+        width: 30%
     }
 
     .caption {
-        padding: 20px;
+        float: left;
+        padding: 20px 0 20px 40px;
         position: relative;
+        width: 50%;
     }
 
-    .actions {
-        @include transition(opacity .25s ease);
-        margin-top: 40px;
-        opacity: 0;
-
-        .button {
-            padding: 0;
-            text-align: center;
-            width: 35px;
-        }
-    }
-
-    .title {
-        @include truncate;
-        font-size: 1.125em;
+    h3 {
+        font-size: 1.5em;
         line-height: 30px;
         margin-bottom: 5px;
 
@@ -70,106 +111,38 @@
         }
     }
 
-    .meta{
-        font-size: 14px;
-        
-        span {
-            float: right;
-            color: #ccc;
-        }
-    }
-
 }
 
-#traklist.grid {
-    padding-left: 30px;
-    padding-right: 30px;
-
-    .trak {
-        float: left;
-        padding: 0 10px;
-        width: 33.333%;
-
-        .media {
-
-        }
-
-        &:hover {
-
-            .caption {
-                padding-right: 105px;
-            }
-        }
-
-        .caption {
-            padding-bottom: 5px;
-        }
-
-        .actions {
-            margin: 0;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-        }
-
-        .date {
-            position: static;
-        }
-
-    }
-
-}
-
-#traklist.list {
-
-    .trak {
-
-        .media {
-            float: left;
-            width: 38.20%;
-        }
-
-        .caption {
-            float: left;
-            width: 61.80%
-        }
-
-    }
-}
-
-.media {
+.aspect-ratio {
     overflow: hidden;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
 
-    .aspect-ratio {
-        height: 0;
-        padding-bottom: 56.25%;
-        position: relative;
+    &:hover span {
+        display: block;
+    }
 
-        &:hover span {
-            display: block;
-        }
+    img {
+        margin-top: -9.4%;
+        width: 100%;
+    }
 
-        img {
-            margin-top: -9.4%;
-            width: 100%;
-        }
+    iframe {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
 
-        iframe {
-            height: 100%;
-            position: absolute;
-            width: 100%;
-        }
-
-        span {
-            color: #fff;
-            display: none;
-            font-size: 18px; 
-            font-weight: 300;
-            height: 40px;
-            left: 20px;
-            position: absolute;
-            top: 20px;
-        }
+    span {
+        color: #fff;
+        display: none;
+        font-size: 18px; 
+        font-weight: 300;
+        height: 40px;
+        left: 20px;
+        position: absolute;
+        top: 20px;
     }
 }
 
@@ -247,49 +220,4 @@
         font-size: 16px;
         line-height: 35px;
     }
-}
-
-.upcoming-trak {
-    @include transition(opacity .25s ease);
-    cursor: pointer;
-    margin-top: 40px;
-    opacity: .333;
-
-    &:hover {
-        opacity: 1;
-    }
-}
-
-.button {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 14px;
-    line-height: 33px;
-    outline: none;
-    margin: 0;
-    padding: 0 20px;
-
-    &:hover,
-    &.active {
-        background-color: #eee;
-    }
-
-    &:active, 
-    &:focus {
-        border-color: $primary;
-    }
-}
-
-.animate-enter {
-    -webkit-transition: 1s linear all; /* Chrome */
-    transition: 1s linear all;
-    opacity: 0;
-}
- 
-.animate-enter.animate-enter-active {
-    opacity: 1;
 }

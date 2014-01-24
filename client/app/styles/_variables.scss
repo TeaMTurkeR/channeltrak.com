@@ -11,3 +11,7 @@ $gr-s: 100.00% - $gr-l;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+@mixin clearfix {
+	@include pie-clearfix;
+}
