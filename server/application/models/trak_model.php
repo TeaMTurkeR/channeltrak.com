@@ -131,7 +131,7 @@ class Trak_model extends CI_Model {
         
     }
 
-    public function unique($youtube_id) {
+    public function is_new($youtube_id) {
 
         $this->db->where('youtube_id', $youtube_id);
         $query = $this->db->get('traks');

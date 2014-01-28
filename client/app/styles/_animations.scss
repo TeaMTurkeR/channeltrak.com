@@ -1,0 +1,29 @@
+.pulsate {
+    -webkit-animation: pulsate .5s infinite alternate;
+    -moz-animation: pulsate .5s infinite alternate;
+    -animation: pulsate .5s infinite alternate;
+}
+@-webkit-keyframes pulsate {
+    from { 
+        @include transform(scale(.75)); 
+    }
+    to { 
+        @include transform(scale(1)); 
+    }
+}
+@-moz-keyframes pulsate {
+    from { 
+        @include transform(scale(.75)); 
+    }
+    to { 
+        @include transform(scale(1)); 
+    }
+}
+@keyframes pulsate {
+    from { 
+        @include transform(scale(.75)); 
+    }
+    to { 
+        @include transform(scale(1)); 
+    }
+}

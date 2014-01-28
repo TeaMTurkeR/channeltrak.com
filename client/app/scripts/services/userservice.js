@@ -5,22 +5,6 @@ angular.module('channeltrakApp')
 
 		var url = 'http://localhost/channeltrak.com/server/users';
 
-		var getUsers = function(){
-
-			var deferred = $q.defer();
-
-			$http.get(url+'/authenticate')
-				.success(function(data){
-					deferred.resolve(data);
-				})
-				.error(function(){
-					deferred.reject();
-				});
-
-			return deferred.promise;
-		
-		};
-
 		var createUser = function(userData) {
 			
 			var deferred = $q.defer();
@@ -37,11 +21,11 @@ angular.module('channeltrakApp')
 
 		}
 
-		var getUser = function(userSlug){
+		var getUser = function(){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'/'+channelSlug)
+			$http.get(url)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -53,11 +37,13 @@ angular.module('channeltrakApp')
 		
 		};
 
-		var authenticateUser = function(credentials) {
+		var authUser = function(credentials) {
 
 			var deferred = $q.defer();
 
-			$http.get(url+'/authenticate', credentials)
+			console.log(credentials);
+
+			$http.get(url+'/auth', credentials)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -71,10 +57,9 @@ angular.module('channeltrakApp')
 		// Public API
 
 		return {
-			getUsers: getUsers,
 			createUser: createUser,
 			getUser: getUser,
-			authenticateUser: authenticateUser
+			authUser: authUser,
 		};
 
 	});

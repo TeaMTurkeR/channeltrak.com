@@ -21,27 +21,11 @@ angular.module('channeltrakApp')
 		
 		};
 
-		var getPopularTraks = function(pageNumber){
+		var getChannelTraks = function(channelId, offset){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'popular/page/'+pageNumber)
-				.success(function(data){
-					deferred.resolve(data);
-				})
-				.error(function(){
-					deferred.reject();
-				});
-
-			return deferred.promise;
-		
-		};
-
-		var getChannelTraks = function(channelId, pageNumber){
-
-			var deferred = $q.defer();
-
-			$http.get(url+'channel/'+channelId+'/page/'+pageNumber)
+			$http.get(url+'?order=latest&channel='+channelId+'&offset='+offset)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -73,7 +57,6 @@ angular.module('channeltrakApp')
 
 		return {
 			getLatestTraks: getLatestTraks,
-			getPopularTraks: getPopularTraks,
 			getChannelTraks: getChannelTraks,
 			getTrak: getTrak
 		};

@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('channeltrakApp')
-	.controller('NotificationCtrl', function ($scope, $rootScope, $location, userService, channelService) {
+	.controller('MastheadCtrl', function ($scope, $rootScope, $location, userService, channelService) {
+
+		$scope.togglePlayer = function() {
+			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
+			console.log($rootScope.isPlayerOpen);
+		}
 
 		$scope.toggleSignInModal = function() {
 			$scope.isSignInModalVisible = !$scope.isSignInModalVisible;
@@ -18,13 +23,11 @@ angular.module('channeltrakApp')
 
 		$scope.signIn = function(credentials) {
 
-			console.log(credentials);
-
 			userService.authUser(credentials)
 				.then(function(callback) {
 					console.log(callback);
 					$rootScope.User = callback;
-					$location.path('/favorites');
+					$scope.closeModals();
 				}, function() {
 					$scope.error = true;
 					$scope.errorMessage = 'Incorrect email or password';

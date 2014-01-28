@@ -81,58 +81,91 @@ class Channels extends CI_Controller {
 
     }
 
-    // public function import() {
+    public function import($id) {
+
+        $channel = $this->Channel_model->get(array('id' => $id));
         
-    //     $this->Channel_model->restricted();
+        $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=1&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+        $json = file_get_contents($url);
+        $jsonOutput = json_decode($json);
 
-    //     $channels = $this->Channel_model->get(array('approved' => 1));
-    //     foreach ($channels as $channel){
-        
-    //         $channel_id = $channel->id;
-    //         $youtube_id = $channel->youtube_id;
+        $limit = $jsonOutput->pageInfo->resultsPerPage;
+        $total = $jsonOutput->pageInfo->totalResults;
 
-    //         $url = "http://gdata.youtube.com/feeds/api/users/".$youtube_id."/uploads?v=2&alt=jsonc&max-results=1&format=5&prettyprint=true";
-    //         $json = file_get_contents($url);
-    //         $jsonOutput = json_decode($json);
+        $totalPages = ceil($total / $limit);
 
-    //         for ( $i = 1; $i <= $jsonOutput->data->totalItems; $i += $jsonOutput->data->itemsPerPage) {
+        for ( $page_number = 1; $page_number < $totalPages; $page_number++) { // Paginate
 
-    //             $url = "http://gdata.youtube.com/feeds/api/users/".$youtube_id."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
-    //             $json = file_get_contents($url);
-    //             $jsonOutput = json_decode($json);
+            if ($page_number > 1) {
+                $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&pageToken=".$token."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+            } else {
+                $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+            }
 
-    //             if (isset($jsonOutput->data->items)) {
+            $json = file_get_contents($url);
+            $jsonOutput = json_decode($json);
 
-    //                 foreach ( $jsonOutput->data->items as $trak ){
+            $counter = 0;
+            $result = '<p>Up to date!</p>';
 
-    //                     if ($this->Trak_model->unique($trak->id)) {
+            for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
 
-    //                         $data = array(
-    //                             'title' => $trak->title,
-    //                             'slug' => url_title($trak->title, 'dash', true),
-    //                             'youtube_id' => $trak->id,
-    //                             'channel_id' => $channel_id,
-    //                             'views' => $trak->viewCount,
-    //                             'uploaded' => $trak->uploaded,
-    //                             'imported' => date('Y-m-d H:i:s'),
-    //                             'updated' => date('Y-m-d H:i:s')
-    //                         );
-                            
-    //                         $this->Trak_model->create($data);
+                if (isset($jsonOutput->items[$item_number]->id->videoId) && $this->Trak_model->is_new($jsonOutput->items[$item_number]->id->videoId) ) {
 
-    //                     } else {
-    //                     	$this->Channel_model->update($channel_id, array('updated' => date('Y-m-d H:i:s')));
-    //                         break;
-    //                     }
-    //                 }
+                    $title = $jsonOutput->items[$item_number]->snippet->title;
+                    $slug = url_title($title);
+                    $youtube_id = $jsonOutput->items[$item_number]->id->videoId;
+                    $published = $jsonOutput->items[$item_number]->snippet->publishedAt;
+                    $current_time = date('Y-m-d H:i:s');
 
-    //             } else {
-    //                 print '<p style="color:red">Done with '.$channel_id.'</p>';
-    //                 $this->Channel_model->update($channel_id, array('updated' => date('Y-m-d H:i:s')));
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
+                    $data = array(
+                        'title' => $title,
+                        'slug' => $slug,
+                        'youtube_id' => $youtube_id,            
+                        'channel_id' => $channel->youtube_id,
+                        'published' => $published,
+                        'created' => date('Y-m-d H:i:s'),
+                        'updated' => date('Y-m-d H:i:s')
+                    );
+
+                    if ($id = $this->Trak_model->create($data)) {
+                        echo json_encode($id);
+                    } else {
+                        header('HTTP', TRUE, 401);
+                        echo '<p>Error at '.$title.'</p>';
+                        break;
+                    }
+
+                    $counter++;
+
+                    $result = '<p>'.$counter . ' new traks added!</p>';
+
+                }
+
+            }
+
+            if (isset($jsonOutput->nextPageToken)) {
+
+                $token = $jsonOutput->nextPageToken;
+
+            } else {
+
+                break;
+
+            }
+
+        }
+
+        echo $result;
+    }
+
+    public function import_all() {
+
+        $channels = $this->Channel_model->get(array('approved' => 1));
+
+        foreach ($channels as $channel) {
+            $this->import($channel->id);
+        }
+    }
 
 }

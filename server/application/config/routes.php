@@ -43,13 +43,9 @@ $route['404_override'] = '';
 
 // USER ROUTES
  
-$route['users'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/index' : 'users/create';
-$route['users/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get/$1' : 'users/update/$1';
-
-// $route['join'] = 'users/join';
-// $route['login'] = 'users/login';
-// $route['logout'] = 'users/logout';
-// $route['dashboard'] = 'users/dashboard';
+$route['users'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get' : 'users/create';
+//$route['users/auth'] = 'users/auth';
+$route['users/(:num)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get/$1' : 'users/update/$1';
 
 // TRAK ROUTES
 
@@ -60,6 +56,9 @@ $route['traks/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'traks/get/$1' 
 
 $route['channels'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'channels/index' : 'channels/create';
 $route['channels/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'channels/get/$1' : 'channels/update/$1';
+
+$route['import/(:num)'] = 'channels/import/$1';
+$route['import/all'] = 'channels/import_all'; 
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

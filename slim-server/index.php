@@ -229,7 +229,7 @@ function getChannels() {
 
 function createChannels() {
 
-	// TEST: curl -i -X POST -H 'Content-Type: application/json' -d '{"title": "Boiler Room", "url": "http://www.youtube.com/user/brtvofficial/about"}' http://localhost/channeltrak.com/server/channels
+	// TEST: curl -i -X POST -H 'Content-Type: application/json' -d '{"title": "Liquicity", "url": "http://www.youtube.com/user/liquicity/about"}' http://localhost/channeltrak.com/slim-server/channels
 
     $request = \Slim\Slim::getInstance()->request();
     $channel = json_decode($request->getBody());

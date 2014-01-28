@@ -7,33 +7,30 @@ angular.module('channeltrakApp', [
 	'ngRoute',
 	'ngAnimate'
 ])
-.run(function($rootScope, $http, $location){
+.run(function($rootScope, $http, $location, userService){
 
-	// $http.get('http://localhost/moderator/server/authenticate') 
-	// 	.success(function(callback){
-	// 		$rootScope.loginErrorMessage = false;
-	// 		$rootScope.user = callback;
-	// 	})
-	// 	.error(function(){
-	// 		$rootScope.User = false;
-	// 		$rootScope.loginErrorMessage = 'Please login first.';
-	// 		$location.path('/login');
-	// 	});
+	// WHEN THE APP FIRST RUNS
+	userService.getUser()
+		.then(function(callback){
+			$rootScope.User = callback;
+			$rootScope.isAuthed = true;
+		},function(error){
+			$rootScope.isAuthed = false;
+		});
 
-	// $rootScope.$on('$routeChangeStart', function(current, next) {
-	// 	if (next.requireLogin) {
-	// 		$http.get('http://localhost/moderator/server/authenticate') 
-	// 			.success(function(callback){
-	// 				$rootScope.loginErrorMessage = false;
-	// 				$rootScope.user = callback;
-	// 			})
-	// 			.error(function(){
-	// 				$rootScope.User = false;
-	// 				$rootScope.loginErrorMessage = 'Please login first.';
-	// 				$location.path('/login');
-	// 			});
-	// 	}
-	// });
+	// WHEN EVER YOU GO TO A PAGE THAT IS RESTRICTED...
+	$rootScope.$on('$routeChangeStart', function(current, next) {
+		if (next.requireLogin) {
+			userService.getUser()
+				.then(function(callback){
+					$rootScope.isAuthed = true;
+				},function(error){
+					console.log(error);
+					$rootScope.isAuthed = false;
+					$location.path('/sign-in');
+				});
+		}
+	});
 
 })
 .config(function($locationProvider, $routeProvider) {
@@ -61,11 +58,21 @@ angular.module('channeltrakApp', [
 		})
 		.when('/favorites', {
 		  templateUrl: 'views/favorites.html',
-		  controller: 'FavoritesCtrl'
+		  controller: 'FavoritesCtrl',
+		  requireLogin: true
 		})
 		.when('/settings', {
 		  templateUrl: 'views/settings.html',
-		  controller: 'SettingsCtrl'
+		  controller: 'SettingsCtrl',
+		  requireLogin: true
+		})
+		.when('/sign-in', {
+		  templateUrl: 'views/signin.html',
+		  controller: 'SigninCtrl'
+		})
+		.when('/join', {
+		  templateUrl: 'views/join.html',
+		  controller: 'JoinCtrl'
 		})
 		.otherwise({
 			redirectTo: '/latest'

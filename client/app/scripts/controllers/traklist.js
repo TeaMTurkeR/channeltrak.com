@@ -15,7 +15,7 @@ angular.module('channeltrakApp')
 
 		  		trakService.getLatestTraks($scope.offset)
 		  			.then(function(callback){
-		  				$scope.Traks = callback;
+		  				$rootScope.Traks = callback;
 		  				console.log(callback);
 		  				if (callback.length < 10) {
 		  					$scope.moreTraks = false;
@@ -37,7 +37,7 @@ angular.module('channeltrakApp')
 
 		  				trakService.getChannelTraks($scope.Channel.id, $scope.pageNumber)
 				  			.then(function(callback){
-				  				$scope.Traks = callback;
+				  				$rootScope.Traks = callback;
 				  				if (callback.length < 10) {
 				  					$scope.moreTraks = false;
 				  				}
@@ -59,8 +59,16 @@ angular.module('channeltrakApp')
 	  	}
 
 	  	$scope.playTrak = function(trak) {
+
+	  		var $image = document.getElementById(trak.id).getElementsByTagName('img')[0];
+	  		var colorThief = new ColorThief();
+			var playerColor = colorThief.getColor($image);	
+
+			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
+
 	  		$rootScope.playerStatus = 'playing';
 	  		$rootScope.playing = trak;
+
 	        playerService.createYTPlayer(trak.youtube_id);
 	  	}
 

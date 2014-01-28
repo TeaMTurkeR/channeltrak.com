@@ -1,13 +1,15 @@
 <section id="traklist">
 
-	<article class="trak" ng-repeat="trak in Traks" ng-cloak>
+	<article id="{{trak.id}}" class="trak" ng-repeat="trak in Traks" ng-class="{playing: trak.id == playing.id}" ng-cloak>
 		<div class="wrap">
 			<div class="meta">
 				<span>{{ trak.published | date:'mediumDate' }}</span>
 			</div>
-			<div class="media" ng-click="playTrak(trak)">
+			<div class="media" ng-click="playTrak(trak)" sampleColor>
 				<div class="aspect-ratio">
 					<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
+					<i class="fa fa-volume-up pulsate" ng-if="trak.id == playing.id"></i>
+					<i class="fa fa-play" ng-if="trak.id != playing.id"></i>
 				</div>
 			</div>
 			<div class="caption">

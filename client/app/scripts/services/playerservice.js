@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.service('playerService', function Playerservice() {
+  	.service('playerService', function Playerservice($rootScope) {
 
 	  	var createYTPlayer = function (vidID){
 
@@ -43,11 +43,15 @@ angular.module('channeltrakApp')
 
 		    if (event.data == YT.PlayerState.PLAYING) {
 
-		    	status = 'playing';
+		    	var endedIndex = $rootScope.playing.index;
+
+		        console.log(endedIndex);
 
 		    } else if (event.data == YT.PlayerState.ENDED) {
 		        
-		        status = 'ended';
+		        var endedIndex = $rootScope.playing.$index;
+
+		        console.log(endedIndex);
 
 		    } else if (event.data == YT.PlayerState.PAUSED){
 

@@ -56,10 +56,9 @@ class User_model extends CI_Model {
         }
     }
 
-    public function login($email, $password) {
+    public function auth($email, $password) {
 
         $this->db->where('email', $email);
-
         $this->db->where('password', $password);
 
         $query = $this->db->get('users');
@@ -76,7 +75,7 @@ class User_model extends CI_Model {
 
             $this->session->set_userdata($cookie);
 
-            return true;
+            return $cookie;
 
         } else {
 
@@ -86,18 +85,17 @@ class User_model extends CI_Model {
 
     }
 
-    public function restricted() {
-
+    public function is_authed() {
+        
         if ($this->session->userdata('logged_in')) {
 
             return true;
-
+        
         } else {
-
-            show_404();
-
+        
+            return false;
+        
         }
-
     }
 
 }
