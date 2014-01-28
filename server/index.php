@@ -1,5 +1,7 @@
 <?php
 
+// open -a Google\ Chrome --args --disable-web-security
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
