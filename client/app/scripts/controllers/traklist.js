@@ -4,6 +4,8 @@ angular.module('channeltrakApp')
   	.controller('TraklistCtrl', function ($scope, $routeParams, $rootScope, $location, trakService, channelService, playerService) {
 
   		$scope.offset = 0;
+  		$scope.pageLength = 50;
+
   		$scope.moreTraks = true;
   		$scope.isListLayout = false;
 
@@ -11,17 +13,14 @@ angular.module('channeltrakApp')
 
   			if ($location.path() == '/latest') {
 
-  				console.log('hi');
-
 		  		trakService.getLatestTraks($scope.offset)
 		  			.then(function(callback){
 		  				$rootScope.Traks = callback;
-		  				console.log(callback);
 		  				if (callback.length < 10) {
 		  					$scope.moreTraks = false;
 		  				}
 		  				if (!$rootScope.playing) {
-			  				// $scope.playTrak($scope.Traks[0]);
+			  				// $scope.playTrak($rootScope.Traks[0]);
 			  			}
 		  			});
 
@@ -35,60 +34,31 @@ angular.module('channeltrakApp')
 		  			.then(function(callback){
 		  				$scope.Channel = callback;
 
-		  				trakService.getChannelTraks($scope.Channel.id, $scope.pageNumber)
+		  				trakService.getChannelTraks($scope.Channel.id, $scope.offset)
 				  			.then(function(callback){
 				  				$rootScope.Traks = callback;
-				  				if (callback.length < 10) {
+				  				if (callback.length < $scope.pageLength) {
 				  					$scope.moreTraks = false;
 				  				}
-				  				if (!$rootScope.playing) {
-					  				// $scope.playTrak($scope.Traks[0]);
-					  			}
 				  			});
 		  			});
 		  	}
 
 	  	}
 
-	  	$scope.gridLayout = function() {
-	  		$scope.isListLayout = false;
-	  	}
-
-	  	$scope.listLayout = function() {
-	  		$scope.isListLayout = true;
-	  	}
-
-	  	$scope.playTrak = function(trak) {
-
-	  		var $image = document.getElementById(trak.id).getElementsByTagName('img')[0];
-	  		var colorThief = new ColorThief();
-			var playerColor = colorThief.getColor($image);	
-
-			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
-
-	  		$rootScope.playerStatus = 'playing';
-	  		$rootScope.playing = trak;
-
-	        playerService.createYTPlayer(trak.youtube_id);
-	  	}
-
-	  	$scope.addToPlaylist = function(trak) {
-		  	$rootScope.Playlist.push(trak);
-	  	}
-
 	  	$scope.pagination = function() {
 
 	  		$scope.loadingMoreTraks = true;
-	  		$scope.offset+=50;
+	  		$scope.offset += $scope.pageLength;
 
 	  		setTimeout(function() {
 		  		if ($location.path() == '/latest') {
 
 			  		trakService.getLatestTraks($scope.offset)
 			  			.then(function(callback){
-			  				$scope.Traks = $scope.Traks.concat(callback);
+			  				$rootScope.Traks = $rootScope.Traks.concat(callback);
 			  				$scope.loadingMoreTraks = false;
-			  				if (callback.length < 50) {
+			  				if (callback.length < $scope.pageLength) {
 			  					$scope.moreTraks = false;
 			  				}
 			  			});
@@ -98,9 +68,9 @@ angular.module('channeltrakApp')
 
 			  	} else {
 
-			  		trakService.getChannelTraks($scope.Channel.id, $scope.pageNumber)
+			  		trakService.getChannelTraks($scope.Channel.id, $scope.offset)
 						.then(function(callback){
-						  	$scope.Traks = $scope.Traks.concat(callback);
+						  	$rootScope.Traks = $rootScope.Traks.concat(callback);
 						  	$scope.loadingMoreTraks = false;
 						  	if (callback.length < 10) {
 			  					$scope.moreTraks = false;

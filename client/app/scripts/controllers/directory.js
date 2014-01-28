@@ -10,6 +10,8 @@ angular.module('channeltrakApp')
 	  				$scope.Channels = callback;
 	  			});
 
+	  			console.log($scope.Channels);
+
 	  	}
 
 	  	init();

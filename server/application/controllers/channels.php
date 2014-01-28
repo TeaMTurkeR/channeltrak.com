@@ -94,6 +94,8 @@ class Channels extends CI_Controller {
 
         $totalPages = ceil($total / $limit);
 
+        $counter = 0;
+
         for ( $page_number = 1; $page_number < $totalPages; $page_number++) { // Paginate
 
             if ($page_number > 1) {
@@ -105,7 +107,6 @@ class Channels extends CI_Controller {
             $json = file_get_contents($url);
             $jsonOutput = json_decode($json);
 
-            $counter = 0;
             $result = '<p>Up to date!</p>';
 
             for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
@@ -122,18 +123,15 @@ class Channels extends CI_Controller {
                         'title' => $title,
                         'slug' => $slug,
                         'youtube_id' => $youtube_id,            
-                        'channel_id' => $channel->youtube_id,
+                        'channel_id' => $id,
                         'published' => $published,
                         'created' => date('Y-m-d H:i:s'),
                         'updated' => date('Y-m-d H:i:s')
                     );
 
-                    if ($id = $this->Trak_model->create($data)) {
-                        echo json_encode($id);
-                    } else {
-                        header('HTTP', TRUE, 401);
-                        echo '<p>Error at '.$title.'</p>';
-                        break;
+                    if (!$this->Trak_model->create($data)) {
+                        $result = '<p>Error at '.$title.'</p>';
+                        break 2;
                     }
 
                     $counter++;
@@ -150,7 +148,7 @@ class Channels extends CI_Controller {
 
             } else {
 
-                break;
+                break 1;
 
             }
 

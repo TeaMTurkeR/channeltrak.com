@@ -20,11 +20,12 @@
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="channeltrakApp" ng-class="{'no-scroll': isPlayerOpen}">
+<body ng-app="channeltrakApp" ng-class="{'no-scroll': isPlayerOpen}" ng-keydown="keydown($event)">
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
 	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen}">
+		<div id="holder"></div>
 		<div class="wrap">
 			<section id="video">
 				<div class="aspect-ratio">
@@ -33,7 +34,7 @@
 				<h2>{{ playing.title }}</h2>
 			</section>
 		</div>
-		<header id="masthead" ng-controller="MastheadCtrl">
+		<header id="masthead">
 			<div class="wrap">
 				<h1><a href="/">Channeltrak</a></h1>
 				<nav>
@@ -42,7 +43,7 @@
 				</nav>
 				<section id="controls">
 					<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-					<button class="button icon" ng-click="togglePlay()"><i class="fa fa-play" ng-class="{'fa-play': playerStatus == 'paused', 'fa-pause': playerStatus == 'playing'}"></i></button>
+					<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2, 'fa-spinner fa-spin': playerState == 3}"></i></button>
 					<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
 					<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
 					<button class="button" ng-if="!isAuthed" ng-click="toggleSignInModal()">Sign In</button>
@@ -111,6 +112,7 @@
 		<script src="scripts/vendor/color-thief.js"></script>
 <script src="scripts/controllers/signin.js"></script>
 <script src="scripts/controllers/join.js"></script>
+<script src="scripts/directives/keyboardShortcuts.js"></script>
 		<!-- endbuild -->
 
 	<script>

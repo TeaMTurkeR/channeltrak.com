@@ -4,7 +4,7 @@ class Trak_model extends CI_Model {
 
     public function create($data) {
 
-        $this->db->insert('channels', $data);
+        $this->db->insert('traks', $data);
 
         if ($this->db->affected_rows() > 0) {
 

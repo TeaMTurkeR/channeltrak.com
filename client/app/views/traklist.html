@@ -5,7 +5,7 @@
 			<div class="meta">
 				<span>{{ trak.published | date:'mediumDate' }}</span>
 			</div>
-			<div class="media" ng-click="playTrak(trak)" sampleColor>
+			<div class="media" ng-click="newPlayer(trak, $index)" sampleColor>
 				<div class="aspect-ratio">
 					<img ng-src="http://img.youtube.com/vi/{{ trak.youtube_id }}/hqdefault.jpg" alt="{{ trak.title }} on Channeltrak">
 					<i class="fa fa-volume-up pulsate" ng-if="trak.id == playing.id"></i>
