@@ -74,6 +74,10 @@ angular.module('channeltrakApp', [
 		  templateUrl: 'views/join.html',
 		  controller: 'JoinCtrl'
 		})
+.when('/submit', {
+  templateUrl: 'views/submit.html',
+  controller: 'SubmitCtrl'
+})
 		.otherwise({
 			redirectTo: '/latest'
 		});

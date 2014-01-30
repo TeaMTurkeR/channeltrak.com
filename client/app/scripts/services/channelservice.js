@@ -5,6 +5,24 @@ angular.module('channeltrakApp')
 
 		var url = 'http://localhost/channeltrak.com/server/channels';
 
+		var createChannel = function(channelUrl) {
+			
+			var deferred = $q.defer();
+
+			console.log(channelUrl);
+
+			$http.post(url, channelUrl)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function(){
+					deferred.reject();
+				});
+
+			return deferred.promise;
+
+		}
+
 		var getChannels = function(){
 
 			var deferred = $q.defer();
@@ -40,6 +58,7 @@ angular.module('channeltrakApp')
 		// Public API
 
 		return {
+			createChannel: createChannel,
 			getChannels: getChannels,
 			getChannel: getChannel
 		};

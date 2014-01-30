@@ -14,36 +14,41 @@ class Channels extends CI_Controller {
 
         $decoded_channel = json_decode(file_get_contents('php://input'), TRUE);
 
-        $title = $decoded_channel['title'];
-        $slug = url_title($title);
         $channel_url = $decoded_channel['channel_url'];
-        $youtube_title = explode('/', substr( $url, strrpos( $channel_url, 'user/' )+5 ), 2)[0];
 
-        $url = 'http://gdata.youtube.com/feeds/api/users/'.$youtube_title.'?v=2&format=5&prettyprint=true&alt=json';
+        $array = explode('?', substr( $channel_url, strrpos( $channel_url, 'user/' )+5 ), 2);
+        $youtube_title = $array[0];
 
-        $json = file_get_contents($url);
-        $jsonOutput = json_decode($json);
+        echo json_encode('hi');
 
-        $youtube_title = $jsonOutput->entry->title->{'$t'};
-        $youtube_id = $jsonOutput->entry->{'yt$channelId'}->{'$t'};
-        $published = $jsonOutput->entry->published->{'$t'};
-        
-        $data = array(
-            'title' => $title,
-            'slug' => $slug,
-            'youtube_id' => $youtube_id,            
-            'youtube_title' => $youtube_title,
-            'approved' => 0, // NOT APPROVED
-            'published' => $published,
-            'created' => date('Y-m-d H:i:s'),
-            'updated' => date('Y-m-d H:i:s')
-        );
+        // $url = 'http://gdata.youtube.com/feeds/api/users/'.$youtube_title.'?v=2&format=5&prettyprint=true&alt=json';
 
-        if ($id = $this->Channel_model->create($data)) {
-            echo json_encode($id);
-        } else {
-            header('HTTP', TRUE, 401);
-        }
+        // $json = file_get_contents($url);
+        // $jsonOutput = json_decode($json);
+
+        // $title = $jsonOutput->entry->{'yt$username'}->display;
+        // $youtube_title = $jsonOutput->entry->{'yt$username'}->{'$t'}; // GET OFFICAL TITLE
+        // $youtube_id = $jsonOutput->entry->{'yt$channelId'}->{'$t'};
+        // $published = $jsonOutput->entry->published->{'$t'};
+
+        // $slug = url_title($title);
+
+        // $data = array(
+        //     'title' => $title,
+        //     'slug' => $slug,
+        //     'youtube_id' => $youtube_id,            
+        //     'youtube_title' => $youtube_title,
+        //     'approved' => 0, // NOT APPROVED
+        //     'published' => $published,
+        //     'created' => date('Y-m-d H:i:s'),
+        //     'updated' => date('Y-m-d H:i:s')
+        // );
+
+        // if ($id = $this->Channel_model->create($data)) {
+        //     echo json_encode($id);
+        // } else {
+        //     header('HTTP', TRUE, 401);
+        // }
 
     }
 

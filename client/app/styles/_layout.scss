@@ -128,7 +128,8 @@ a {
 }
 
 #sign-in,
-#join {
+#join,
+#submit {
     @extend .modal;
     margin: 80px auto 0;
     padding-top: 61px;
