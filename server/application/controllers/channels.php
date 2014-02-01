@@ -10,45 +10,60 @@ class Channels extends CI_Controller {
 
     }
 
+    public function test() {
+
+        $channel_url = 'http://www.youtube.com/user/getit/stuff';
+ 
+        $array = preg_split("/[^A-Za-z0-9 ]/", substr($channel_url, strrpos( $channel_url, 'user/' ) + 5));
+
+        $youtube_title = $array[0];
+
+        echo $youtube_title;
+
+    }
+
+    // curl -i -X POST -H 'Content-Type: application/json' -d '{"channel_url": "http://www.youtube.com/user/liquicity"}' http://localhost:8000/channeltrak.com/server/channels
+
     public function create() {
 
         $decoded_channel = json_decode(file_get_contents('php://input'), TRUE);
 
         $channel_url = $decoded_channel['channel_url'];
 
-        $array = explode('?', substr( $channel_url, strrpos( $channel_url, 'user/' )+5 ), 2);
+        $array = preg_split("/[^A-Za-z0-9 ]/", substr($channel_url, strrpos( $channel_url, 'user/' ) + 5));
+
         $youtube_title = $array[0];
 
-        echo json_encode('hi');
+        $url = 'http://gdata.youtube.com/feeds/api/users/'.$youtube_title.'?v=2&format=5&prettyprint=true&alt=json';
 
-        // $url = 'http://gdata.youtube.com/feeds/api/users/'.$youtube_title.'?v=2&format=5&prettyprint=true&alt=json';
+        $json = file_get_contents($url);
+        $jsonOutput = json_decode($json);
 
-        // $json = file_get_contents($url);
-        // $jsonOutput = json_decode($json);
+        // var_dump($jsonOutput);
 
-        // $title = $jsonOutput->entry->{'yt$username'}->display;
-        // $youtube_title = $jsonOutput->entry->{'yt$username'}->{'$t'}; // GET OFFICAL TITLE
-        // $youtube_id = $jsonOutput->entry->{'yt$channelId'}->{'$t'};
-        // $published = $jsonOutput->entry->published->{'$t'};
+        $title = $jsonOutput->entry->{'yt$username'}->display;
+        $youtube_title = $jsonOutput->entry->{'yt$username'}->{'$t'}; // GET OFFICAL TITLE
+        $youtube_id = $jsonOutput->entry->{'yt$channelId'}->{'$t'};
+        $published = $jsonOutput->entry->published->{'$t'};
 
-        // $slug = url_title($title);
+        $slug = url_title($title);
 
-        // $data = array(
-        //     'title' => $title,
-        //     'slug' => $slug,
-        //     'youtube_id' => $youtube_id,            
-        //     'youtube_title' => $youtube_title,
-        //     'approved' => 0, // NOT APPROVED
-        //     'published' => $published,
-        //     'created' => date('Y-m-d H:i:s'),
-        //     'updated' => date('Y-m-d H:i:s')
-        // );
+        $data = array(
+            'title' => $title,
+            'slug' => $slug,
+            'youtube_id' => $youtube_id,            
+            'youtube_title' => $youtube_title,
+            'approved' => 0, // NOT APPROVED
+            'published' => $published,
+            'created' => date('Y-m-d H:i:s'),
+            'updated' => date('Y-m-d H:i:s')
+        );
 
-        // if ($id = $this->Channel_model->create($data)) {
-        //     echo json_encode($id);
-        // } else {
-        //     header('HTTP', TRUE, 401);
-        // }
+        if ($id = $this->Channel_model->create($data)) {
+            echo json_encode($id);
+        } else {
+            header('HTTP', TRUE, 401);
+        }
 
     }
 

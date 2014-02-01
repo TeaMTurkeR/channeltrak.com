@@ -3,7 +3,7 @@
 angular.module('channeltrakApp')
   	.factory('userService', function ($http, $q) {
 
-		var url = 'http://localhost/channeltrak.com/server/users';
+		var url = 'http://localhost:8000/channeltrak.com/server/users';
 
 		var createUser = function(userData) {
 			
@@ -21,11 +21,11 @@ angular.module('channeltrakApp')
 
 		}
 
-		var getUser = function(){
+		var getUser = function(id){
 
 			var deferred = $q.defer();
 
-			$http.get(url)
+			$http.get(url+'/'+id)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -43,7 +43,7 @@ angular.module('channeltrakApp')
 
 			console.log(credentials);
 
-			$http.get(url+'/auth', credentials)
+			$http.post(url+'/auth', credentials)
 				.success(function(data){
 					deferred.resolve(data);
 				})

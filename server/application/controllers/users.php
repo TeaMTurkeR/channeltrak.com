@@ -16,8 +16,6 @@ class Users extends CI_Controller {
 
         $email = $decoded_user['email'];
         $password = md5($decoded_user['password']);
-
-        echo json_encode($decoded_user);
         
         $data = array(
             'email' => $email,
@@ -27,7 +25,7 @@ class Users extends CI_Controller {
         );
 
         if ($id = $this->User_model->create($data)) {
-            echo json_encode($id);
+            echo "{ 'id': ".$id.", 'email': ".$email." }";
         } else {
             header('HTTP', TRUE, 400);
         }

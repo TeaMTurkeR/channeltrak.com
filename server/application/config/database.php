@@ -53,7 +53,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'root';
-$db['default']['database'] = 'ctrak';
+$db['default']['database'] = 'channeltrak';
 
 // $db['default']['hostname'] = 'mysql.api.channeltrak.com';
 // $db['default']['username'] = 'wgminer';

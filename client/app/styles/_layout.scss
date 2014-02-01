@@ -112,7 +112,7 @@ a {
 }
 
 #overlay {
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(255,255,255,.95);
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -122,9 +122,33 @@ a {
     z-index: 1010;
 }
 
+#search {
+    left: 50%;
+    padding: 0 20px;
+    position: fixed;
+    margin-left: -480px;
+    width: 960px;
+    top: 25%;
+    z-index: 1020;
+
+    input {
+        background-color: transparent;
+        border: 0;
+        font-size: 60px;
+        outline: none;
+        width: 100%;
+    }
+}
+
 #traklist,
 #directory {
     padding: 61px 0 120px;
+}
+
+#directory {
+    .wrap {
+        padding: 0;
+    }
 }
 
 #sign-in,

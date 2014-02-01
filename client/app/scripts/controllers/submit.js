@@ -7,7 +7,9 @@ angular.module('channeltrakApp')
 
 	  		channelService.createChannel(url)
 	  			.then(function(callback){
-	  				console.log(callback);
+	  				$scope.success = true; 
+	  			}, function() {
+	  				$scope.success = false;
 	  			});
 
 	  	}

@@ -46,15 +46,17 @@
 					<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-spinner fa-spin': playerState == 3}"></i></button>
 					<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
 					<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
+					<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>
+					<!-- 
 					<button class="button" ng-if="!isAuthed" ng-click="toggleSignInModal()">Sign In</button>
-					<button class="button" ng-if="isAuthed" ng-click="toggleUserDropdown()"><i class="fa fa-user"></i></button>
+					<button class="button" ng-if="isAuthed" ng-click="toggleUserDropdown()"><i class="fa fa-user"></i></button> 
+					-->
 				</section>
 			</div>
 
 		</header>
 
-		<div id="overlay" class="ng-hide" ng-click="closeModals()" ng-show="isSignInModalVisible || isJoinModalVisible"></div>
-		
+		<!--
 		<section class="modal ng-hide" ng-show="isSignInModalVisible">
 			<h2>Sign In</h2>
 			<i class="fa fa-times" ng-click="closeModals()"></i>
@@ -72,11 +74,19 @@
 			<input type="email" name="email" placeholder="Email" ng-model="user.email" ng-enter="join(user)">
 			<input type="password" name="pasword" placeholder="Password" ng-model="user.password" ng-enter="join(user)">
 			<button class="button" ng-click="join(user)">Submit</button>
-		</section>
+		</section> 
+		-->
+
 	</section>
 
 	<!-- Add your site or application content here -->
 	<div id="view" ng-view=""></div>
+
+	<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
+
+	<section id="search" class="ng-hide" ng-show="isSearchOpen">
+		<input type="search" placeholder="Type + Enter">
+	</section>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>

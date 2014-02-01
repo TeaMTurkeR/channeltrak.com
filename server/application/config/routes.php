@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = 'traks';
+$route['default_controller'] = 'channels/test';
 $route['404_override'] = '';
 
 // USER ROUTES

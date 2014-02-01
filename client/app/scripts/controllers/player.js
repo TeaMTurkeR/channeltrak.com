@@ -3,21 +3,26 @@
 angular.module('channeltrakApp')
 	.controller('PlayerCtrl', function ($scope, $rootScope, $location, userService, channelService) {
 
-		$scope.togglePlayer = function() {
+		$rootScope.togglePlayer = function() {
 			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
 		}
 
-		$scope.toggleSignInModal = function() {
-			$scope.isSignInModalVisible = !$scope.isSignInModalVisible;
+		$rootScope.toggleSearch = function() {
+			$rootScope.isSearchOpen = !$rootScope.isSearchOpen;
 		}
 
-		$scope.toggleJoinModal = function() {
-			$scope.isJoinModalVisible = !$scope.isJoinModalVisible;
+		$rootScope.toggleSignInModal = function() {
+			$rootScope.isSignInModalVisible = !$rootScope.isSignInModalVisible;
 		}
 
-		$scope.closeModals = function() {
-			$scope.isSignInModalVisible = false;
-			$scope.isJoinModalVisible = false;
+		$rootScope.toggleJoinModal = function() {
+			$rootScope.isJoinModalVisible = !$rootScope.isJoinModalVisible;
+		}
+
+		$rootScope.closeEverything = function() {
+			$rootScope.isSignInModalVisible = false;
+			$rootScope.isJoinModalVisible = false;
+			$rootScope.isSearchOpen = false;
 		}
 
 		$scope.signIn = function(credentials) {
@@ -38,11 +43,13 @@ angular.module('channeltrakApp')
 
 			userService.createUser(userData)
 				.then(function(user_id) {
+
+					console.log(user_id);
 					
-					userService.getUser(user_id)
-						.then(function(callback){
-							$rootScope.User = callback;
-						});
+					// userService.getUser(user_id)
+					// 	.then(function(callback){
+					// 		$rootScope.User = callback;
+					// 	});
 
 				}, function() {
 					$scope.error = true;
