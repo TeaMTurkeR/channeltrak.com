@@ -46,7 +46,7 @@ class Channels extends CI_Controller {
         $youtube_id = $jsonOutput->entry->{'yt$channelId'}->{'$t'};
         $published = $jsonOutput->entry->published->{'$t'};
 
-        $slug = url_title($title);
+        $slug = url_title($title, '-', TRUE);
 
         $data = array(
             'title' => $title,
@@ -62,7 +62,7 @@ class Channels extends CI_Controller {
         if ($id = $this->Channel_model->create($data)) {
             echo json_encode($id);
         } else {
-            header('HTTP', TRUE, 401);
+            header('HTTP', TRUE, 404);
         }
 
     }
@@ -96,7 +96,7 @@ class Channels extends CI_Controller {
         if ($this->Channel_model->update($data)) {
             // RETRUN SOMETHING HERE
         } else {
-            header('HTTP', TRUE, 401);
+            header('HTTP', TRUE, 404);
         }
 
     }
@@ -127,14 +127,14 @@ class Channels extends CI_Controller {
             $json = file_get_contents($url);
             $jsonOutput = json_decode($json);
 
-            $result = '<p>Up to date!</p>';
+            $result = '<p>'.$channel->title.' is up to date!</p>';
 
             for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
 
                 if (isset($jsonOutput->items[$item_number]->id->videoId) && $this->Trak_model->is_new($jsonOutput->items[$item_number]->id->videoId) ) {
 
                     $title = $jsonOutput->items[$item_number]->snippet->title;
-                    $slug = url_title($title);
+                    $slug = url_title($title, '-', TRUE);
                     $youtube_id = $jsonOutput->items[$item_number]->id->videoId;
                     $published = $jsonOutput->items[$item_number]->snippet->publishedAt;
                     $current_time = date('Y-m-d H:i:s');
@@ -156,7 +156,7 @@ class Channels extends CI_Controller {
 
                     $counter++;
 
-                    $result = '<p>'.$counter . ' new traks added!</p>';
+                    $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
 
                 }
 

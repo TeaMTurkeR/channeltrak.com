@@ -1,6 +1,11 @@
 <section id="traklist">
-
-	<article id="{{trak.id}}" class="trak" ng-repeat="trak in Traks" ng-class="{playing: trak.id == playing.id}" ng-cloak>
+	<section class="page-header" ng-if="Traks" >
+		<div class="wrap">
+			<span>{{ pageSpan }}</span>
+			<h2>{{ pageTitle }}</h2>
+		</div>
+	</section>
+	<article id="{{trak.id}}" class="trak" ng-if="Traks" ng-repeat="trak in Traks" ng-class="{playing: trak.id == playing.id}" ng-cloak>
 		<div class="wrap">
 			<div class="meta">
 				<span>{{ trak.published | date:'mediumDate' }}</span>
@@ -18,10 +23,17 @@
 			</div>
 		</div>
 	</article>
+	
+	<section id="no-results"  ng-if="!Traks && !loadingTraks" ng-cloak>
+		<h2>Uh-Oh!</h2>
+		<p>We didn't find any results for "{{ searchedQuery }}"</p>
+	</section>
 
-	<button id="load-more" ng-class="{loading: loadingMoreTraks}" ng-if="moreTraks && Traks" ng-click="pagination()">
-		<span ng-show="!loadingMoreTraks">Load More</span>
-		<i class="fa fa-settings fa-spin" ng-show="loadingMoreTraks"></i>
+	<button id="load-more" ng-class="{loading: loadingTraks}" ng-if="moreTraks && Traks" ng-click="pagination()">
+		<span ng-show="!loadingTraks">Load More</span>
+		<i class="fa fa-settings fa-spin" ng-show="loadingTraks"></i>
 	</button>
+
+	<p id="no-more" ng-if="!moreTraks && Traks">Nothing more...</p>
 
 </section>

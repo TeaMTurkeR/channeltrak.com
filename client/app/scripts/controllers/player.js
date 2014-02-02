@@ -3,59 +3,12 @@
 angular.module('channeltrakApp')
 	.controller('PlayerCtrl', function ($scope, $rootScope, $location, userService, channelService) {
 
-		$rootScope.togglePlayer = function() {
+		var init = function() {
+
+		}
+
+		$scope.togglePlayer = function() {
 			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
-		}
-
-		$rootScope.toggleSearch = function() {
-			$rootScope.isSearchOpen = !$rootScope.isSearchOpen;
-		}
-
-		$rootScope.toggleSignInModal = function() {
-			$rootScope.isSignInModalVisible = !$rootScope.isSignInModalVisible;
-		}
-
-		$rootScope.toggleJoinModal = function() {
-			$rootScope.isJoinModalVisible = !$rootScope.isJoinModalVisible;
-		}
-
-		$rootScope.closeEverything = function() {
-			$rootScope.isSignInModalVisible = false;
-			$rootScope.isJoinModalVisible = false;
-			$rootScope.isSearchOpen = false;
-		}
-
-		$scope.signIn = function(credentials) {
-
-			userService.authUser(credentials)
-				.then(function(callback) {
-					console.log(callback);
-					$rootScope.User = callback;
-					$scope.closeModals();
-				}, function() {
-					$scope.error = true;
-					$scope.errorMessage = 'Incorrect email or password';
-				});
-
-		}
-
-		$scope.join = function(userData) {
-
-			userService.createUser(userData)
-				.then(function(user_id) {
-
-					console.log(user_id);
-					
-					// userService.getUser(user_id)
-					// 	.then(function(callback){
-					// 		$rootScope.User = callback;
-					// 	});
-
-				}, function() {
-					$scope.error = true;
-					$scope.errorMessage = 'User exists';
-				});
-
 		}
 
 		$rootScope.keydown = function(event){
@@ -118,6 +71,15 @@ angular.module('channeltrakApp')
 			$rootScope.playing = trak;
 			$rootScope.playing.index = index;
 
+			$scope.playerState = 3;
+	  		var newPlayer = $('<div id="iframe"></div>');
+
+			$('#iframe')
+				.remove();
+			$('#video .aspect-ratio')
+				.prepend(newPlayer)
+				.addClass('playing');
+
 			$('#holder img').remove();
 
 			var newImage = $('<img src="http://img.youtube.com/vi/'+trak.youtube_id+'/hqdefault.jpg">');
@@ -128,18 +90,10 @@ angular.module('channeltrakApp')
 			var playerColor = colorThief.getColor($image);	
 
 			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
-			$('#video h2').css('color', textColor(playerColor));
+			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
+			$('#video').css('color', textColor(playerColor));
 
-			$scope.playerState = 3;
-	  		var newPlayer = $('<div id="iframe"></div>');
-
-			$('#iframe')
-				.remove();
-			$('#video .aspect-ratio')
-				.prepend(newPlayer)
-				.addClass('playing');
-
-		     $scope.player = new YT.Player('iframe', {
+		    $scope.player = new YT.Player('iframe', {
 		        videoId: trak.youtube_id,
 		        playerVars: {
 		            wmode: "opaque",
@@ -151,6 +105,15 @@ angular.module('channeltrakApp')
 		            'onStateChange': playerEvents
 		        }
 		    });
+
+		    setInterval(function(){
+		    	var time = $scope.player.getCurrentTime();
+		    	var length = $scope.player.getDuration();
+		    	var percent = (time/length)*100 + '%';
+
+		    	$('#ticker').css('left', percent);
+
+		    }, 100);
 		     
 		}
 
@@ -204,5 +167,6 @@ angular.module('channeltrakApp')
 		    event.target.playVideo();
 		}
 
+		init();
 
 	});

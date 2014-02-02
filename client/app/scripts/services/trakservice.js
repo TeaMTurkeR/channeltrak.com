@@ -5,11 +5,11 @@ angular.module('channeltrakApp')
 
 		var url = 'http://localhost:8000/channeltrak.com/server/traks';
 
-		var getLatestTraks = function(offset){
+		var getTraks = function(order, offset){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'?order=latest&offset='+offset)
+			$http.get(url+'?order='+order+'&offset='+offset)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -21,11 +21,29 @@ angular.module('channeltrakApp')
 		
 		};
 
-		var getChannelTraks = function(channelId, offset){
+		var getChannelTraks = function(channelId, order, offset){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'?order=latest&channel='+channelId+'&offset='+offset)
+			$http.get(url+'?channel='+channelId+'&order='+order+'&offset='+offset)
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function(){
+					deferred.reject();
+				});
+
+			return deferred.promise;
+		
+		};
+
+		var searchTraks = function(query, offset){
+
+			var deferred = $q.defer();
+
+			console.log(url+'?q='+query+'&order=latest&offset='+offset);
+
+			$http.get(url+'?q='+query+'&order=latest&offset='+offset)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -41,7 +59,7 @@ angular.module('channeltrakApp')
 
 			var deferred = $q.defer();
 
-			$http.get(url+trakId)
+			$http.get(url+'/'+trakId)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -56,8 +74,9 @@ angular.module('channeltrakApp')
 		// Public API
 
 		return {
-			getLatestTraks: getLatestTraks,
+			getTraks: getTraks,
 			getChannelTraks: getChannelTraks,
+			searchTraks: searchTraks,
 			getTrak: getTrak
 		};
 

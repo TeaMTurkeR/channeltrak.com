@@ -20,8 +20,8 @@ a {
 }
 
 #player {
-    @include transition(background-color 5s linear, margin .5s ease, top .5s ease);
-    background-color: #fff;
+    @include transition(background-color 5s linear);
+    background-color: #ccc;
     height: 100%;
     left: 0;
     margin-top: 61px;
@@ -29,7 +29,13 @@ a {
     position: fixed;
     top: -100%;
     width: 100%;
-    z-index: 9999;
+    z-index: 900;
+
+    
+
+    &.animated {
+        @include transition(background-color 5s linear, margin .5s ease, top .5s ease);
+    }
 
     &.open {
         top: 0;
@@ -38,23 +44,52 @@ a {
 }
 
 #video {
-    margin-top: 60px;
+    margin-top: 100px;
+
+    .info {
+        @include clearfix;
+        padding: 20px 0;
+    }
+
+    .meta {
+        float: left;
+        width: 20%;
+    }
+
+    .caption {
+        float: left;
+        width: 80%;
+    }
+
+    label {
+        @include transition(color 5s linear);
+        font-size: 14px;
+        opacity: .8;
+    }
+
+    p {
+        @include transition(color 5s linear);
+        margin-bottom: 10px;
+    }
 
     h2 {
         @include transition(color 5s linear);
-        font-size: 24px;
-        margin-top: 20px;
+        @include truncate;
+        float: left;
+        font-size: 42px;
+        font-weight: 300;
+        letter-spacing: -1px;
     }
 }
 
 #masthead {
     background-color: #fff;
-    border: 1px solid #ccc;
     border-left: 0;
     border-right: 0;
-    bottom: 0;
-    position: absolute;
+    top: 0;
+    position: fixed;
     width: 100%;
+    z-index: 9000;
 
     h1 {
         float: left;
@@ -97,11 +132,48 @@ a {
     }
 }
 
+#ticker {
+    @include transition(top .25s ease, height .25s ease, width .25s ease, border-radius .25s ease, left .5s linear, border-color 5s linear);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 10px;
+    left: 0;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    position: fixed;
+    top: 55px;
+    width: 10px;
+    z-index: 9001;
+
+    &:hover {
+        border-radius: 10px;
+        height: 20px;
+        top: 50px;
+        width: 20px;
+
+        .info {
+            display: block;
+        }
+    }
+
+    .info {
+        display: none;
+        left: 15px;
+        position: absolute;
+        top: 15px;
+        width: 1000px;
+    }
+}
+
 #controls {
     @include clearfix;
     float: right;
 
     .button {
+        border: 1px solid transparent;
         float: left;
         margin: 10px 10px 10px 0;
 
@@ -112,6 +184,7 @@ a {
 }
 
 #overlay {
+    @include transition(all .5s ease);
     background-color: rgba(255,255,255,.95);
     cursor: pointer;
     height: 100%;
@@ -134,9 +207,18 @@ a {
     input {
         background-color: transparent;
         border: 0;
+        font-family: $body-font-family;
         font-size: 60px;
+        font-weight: 300;
+        letter-spacing: -1px;
+        margin: 0 0 10px;
         outline: none;
+        padding: 0;
         width: 100%;
+    }
+
+    p {
+        color: #999;
     }
 }
 
@@ -147,7 +229,7 @@ a {
 
 #directory {
     .wrap {
-        padding: 0;
+        max-width: 1000px;
     }
 }
 
@@ -158,6 +240,19 @@ a {
     margin: 80px auto 0;
     padding-top: 61px;
     position: static;
+}
+
+#no-results {
+    text-align: center;
+
+    h2 {
+        font-size: 32px;
+        margin: 80px 0 10px;
+    }
+
+    p {
+        font-size: 18px;
+    }
 }
 
 #load-more {
@@ -185,4 +280,14 @@ a {
     &.loading {
         width: 40px;
     }
+}
+
+#no-more {
+    color: #999;
+    margin: 80px auto 0;
+    text-align: center;
+}
+
+#trak {
+    padding: 101px 0 120px;
 }

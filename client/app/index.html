@@ -24,39 +24,58 @@
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
-	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen}">
+	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen, animated: isAnimated}">
 		<div id="holder"></div>
 		<div class="wrap">
 			<section id="video">
 				<div class="aspect-ratio">
 					<div id="iframe"></div>
 				</div>
-				<h2>{{ playing.title }}</h2>
+				<section class="info">
+					<section class="meta">
+						<label>Published</label>
+						<p>{{ playing.published | date:'mediumDate' }}</p>
+						<label>Channel</label>
+						<p>{{ playing.channel_title  }}</p>
+					</section>
+					<section class="caption">
+						<h2>{{ playing.title }}</h2>
+					</section>
+				</section>
 			</section>
 		</div>
-		<header id="masthead">
-			<div class="wrap">
-				<h1><a href="/">Channeltrak</a></h1>
-				<nav>
-					<a href="#/shuffle">Shuffle</a>
-					<a href="#/directory">Directory</a>
-				</nav>
-				<section id="controls">
-					<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-					<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-spinner fa-spin': playerState == 3}"></i></button>
-					<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
-					<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
-					<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>
-					<!-- 
-					<button class="button" ng-if="!isAuthed" ng-click="toggleSignInModal()">Sign In</button>
-					<button class="button" ng-if="isAuthed" ng-click="toggleUserDropdown()"><i class="fa fa-user"></i></button> 
-					-->
-				</section>
-			</div>
+	</section>
+	<header id="masthead" ng-controller="PlayerCtrl">
+		<div class="wrap">
+			<h1><a href="/">Channeltrak</a></h1>
+			<nav>
+				<a href="#/latest">Latest</a>
+				<a href="#/random">Random</a>
+				<a href="#/directory">Directory</a>
+			</nav>
+			<section id="controls">
+				<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
+				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-sun-o fa-spin': playerState == 3}"></i></button>
+				<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
+				<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
+				<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>
+				<!-- 
+				<button class="button" ng-if="!isAuthed" ng-click="toggleSignInModal()">Sign In</button>
+				<button class="button" ng-if="isAuthed" ng-click="toggleUserDropdown()"><i class="fa fa-user"></i></button> 
+				-->
+			</section>
+		</div>
+	</header>
+	<section id="ticker">
+		<div class="info">
+			{{ playing.title }}
+		</div>
+	</section>
+	<!-- Add your site or application content here -->
+	<div id="view" ng-view=""></div>
 
-		</header>
-
-		<!--
+	<div ng-controller="PopupCtrl">
+		
 		<section class="modal ng-hide" ng-show="isSignInModalVisible">
 			<h2>Sign In</h2>
 			<i class="fa fa-times" ng-click="closeModals()"></i>
@@ -74,19 +93,16 @@
 			<input type="email" name="email" placeholder="Email" ng-model="user.email" ng-enter="join(user)">
 			<input type="password" name="pasword" placeholder="Password" ng-model="user.password" ng-enter="join(user)">
 			<button class="button" ng-click="join(user)">Submit</button>
-		</section> 
-		-->
+		</section> 		
 
-	</section>
+		<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
 
-	<!-- Add your site or application content here -->
-	<div id="view" ng-view=""></div>
+		<form id="search" class="ng-hide" ng-show="isSearchOpen" ng-submit="searchTraks(searchQuery)">
+			<input type="text" ng-model="searchQuery" ng-change="changeSearchInstructions(searchQuery)">
+			<p>{{ searchInstructions }}</p>
+		</form>
 
-	<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
-
-	<section id="search" class="ng-hide" ng-show="isSearchOpen">
-		<input type="search" placeholder="Type + Enter">
-	</section>
+	</div>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -108,7 +124,6 @@
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
 		<script src="scripts/controllers/traklist.js"></script>
-		<script src="scripts/controllers/trak.js"></script>
 		<script src="scripts/controllers/directory.js"></script>
 		<script src="scripts/services/channelService.js"></script>
 		<script src="scripts/services/trakService.js"></script>
@@ -117,11 +132,12 @@
 		<script src="scripts/controllers/masthead.js"></script>
 		<script src="scripts/controllers/favorites.js"></script>
 		<script src="scripts/controllers/settings.js"></script>
-		<script src="scripts/services/playerService.js"></script>
 		<script src="scripts/vendor/color-thief.js"></script>
 		<script src="scripts/controllers/signin.js"></script>
 		<script src="scripts/controllers/join.js"></script>
 		<script src="scripts/controllers/submit.js"></script>
+		<script src="scripts/controllers/search.js"></script>
+		<script src="scripts/controllers/popup.js"></script>
 		<!-- endbuild -->
 
 	<script>

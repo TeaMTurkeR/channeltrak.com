@@ -51,12 +51,33 @@
 .wrap {
     @include clearfix;
     margin: 0 auto;
-    padding: 0 20px;
     position: relative;
     max-width: 960px;
 
     &.mini {
         width: 800px;
+    }
+}
+
+.page-header {
+    border-bottom: 1px solid #ccc;
+    padding: 30px 40px 40px;
+
+    span {
+        color: #999;
+        float: left;
+        line-height: 40px;
+        width: 20%;
+    }
+
+    h2 {
+        @include truncate;
+        float: left;
+        font-size: 2em;
+        font-weight: 300;
+        letter-spacing: -1px;
+        line-height: 40px;
+        max-width: 80%;
     }
 }
 
