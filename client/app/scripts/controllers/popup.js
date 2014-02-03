@@ -44,6 +44,7 @@ angular.module('channeltrakApp')
 		}
 
 		$rootScope.toggleSearch = function() {
+			$rootScope.isMenuOpen = false;
 			$rootScope.isSearchOpen = !$rootScope.isSearchOpen;
 			if ($rootScope.isSearchOpen) {
 				setTimeout(function(){
@@ -63,6 +64,9 @@ angular.module('channeltrakApp')
 		$rootScope.closeEverything = function() {
 			$scope.isSignInModalVisible = false;
 			$scope.isJoinModalVisible = false;
+			$rootScope.isSearchOpen = false;
+			$rootScope.isMenuOpen = false;
+			$rootScope.isPlayerOpen = false;
 			$rootScope.isSearchOpen = false;
 		}
 
@@ -84,34 +88,32 @@ angular.module('channeltrakApp')
 
 		$scope.signIn = function(credentials) {
 
+			$scope.loadingAuth = true;
+
 			userService.authUser(credentials)
 				.then(function(callback) {
 					console.log(callback);
 					$rootScope.User = callback;
+					$scope.loadingAuth = false;
 					$rootScope.isAuthed = true;
 					$rootScope.closeEverything();
 				}, function() {
-					$scope.error = true;
-					$scope.errorMessage = 'Incorrect email or password';
+					$scope.loadingAuth = false;
+					$scope.signInErrorMessage = 'Incorrect email or password';
 				});
 
 		}
 
 		$scope.join = function(userData) {
 
+			$scope.loadingAuth = true;
+
 			userService.createUser(userData)
 				.then(function(user_id) {
-
-					console.log(user_id);
-					
-					// userService.getUser(user_id)
-					// 	.then(function(callback){
-					// 		$rootScope.User = callback;
-					// 	});
-
+					$scope.loadingAuth = false;
 				}, function() {
-					$scope.error = true;
-					$scope.errorMessage = 'User exists';
+					$scope.loadingAuth = false;
+					$scope.joinErrorMessage = 'Something went wrong...';
 				});
 
 		}

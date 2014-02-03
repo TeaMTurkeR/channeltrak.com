@@ -3,7 +3,8 @@
 angular.module('channeltrakApp')
   	.factory('userService', function ($http, $q) {
 
-		var url = 'http://localhost:8000/channeltrak.com/server/users';
+  		var url = 'http://dev.channeltrak.com/server/users';
+		// var url = 'http://localhost:8000/channeltrak.com/server/users';
 
 		var createUser = function(userData) {
 			
@@ -57,8 +58,6 @@ angular.module('channeltrakApp')
 		var unauthUser = function(credentials) {
 
 			var deferred = $q.defer();
-
-			console.log(credentials);
 
 			$http.post(url+'/unauth')
 				.success(function(data){

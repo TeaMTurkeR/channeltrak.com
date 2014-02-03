@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.controller('TraklistCtrl', function ($scope, $routeParams, $rootScope, $location, trakService, channelService) {
+  	.controller('TraklistCtrl', function ($scope, $route, $routeParams, $rootScope, $location, trakService, channelService, favoriteService) {
 
   		var init = function() {
 
@@ -59,10 +59,8 @@ angular.module('channeltrakApp')
 
 			  				if (callback.length > 1) {
 			  					$rootScope.Traks = callback;
-			  					console.log('hi');
 				  			} else {
 				  				$rootScope.Traks = [callback];
-				  				console.log(callback);
 				  			}
 
 			  				if (callback.length == $scope.pageLength) {
@@ -95,16 +93,28 @@ angular.module('channeltrakApp')
 
 			} else if ($location.path() == '/favorites') {
 
-				trakService.getFavorites('DESC', $scope.offset)
+				favoriteService.getFavorites('DESC', $scope.offset)
 		  			.then(function(callback){
 		  				
-		  				$rootScope.Traks = callback;
+		  				if (callback.length > 1) {
+		  					$rootScope.Traks = callback;
+			  			} else {
+			  				$rootScope.Traks = [callback];
+			  			}
+			  			
 		  				$scope.loadingTraks = false;
 
 		  				if (callback.length == $scope.pageLength) {
 		  					$scope.moreTraks = true;
 		  				}
-		  			});
+
+		  			}, function(){
+
+		  				$scope.moreTraks = false;
+		  				$rootScope.Traks = false;
+		  				$scope.loadingTraks = false;
+
+			  		});
 
 		  		$scope.pageSpan = 'Your'; 
 		  		$scope.pageTitle = 'Favorites';
@@ -168,7 +178,7 @@ angular.module('channeltrakApp')
 
 	  	$scope.pagination = function() {
 
-	  		$scope.loadingTraks = true;
+	  		$scope.loadingPagination = true;
 	  		$scope.offset += $scope.pageLength;
 
 	  		setTimeout(function() {
@@ -177,18 +187,18 @@ angular.module('channeltrakApp')
 			  		trakService.getTraks('DESC', $scope.offset)
 			  			.then(function(callback){
 			  				$rootScope.Traks = $rootScope.Traks.concat(callback);
-			  				$scope.loadingTraks = false;
+			  				$scope.loadingPagination = false;
 			  				if (callback.length < $scope.pageLength) {
 			  					$scope.moreTraks = false;
 			  				}
 			  			});
 
-			  	} else if ($location.path() == '/random') {
+			  	} else if ($location.path() == '/randomize') {
 
 			  		trakService.getTraks('RANDOM', $scope.offset)
 			  			.then(function(callback){
 			  				$rootScope.Traks = $rootScope.Traks.concat(callback);
-			  				$scope.loadingTraks = false;
+			  				$scope.loadingPagination = false;
 			  				if (callback.length < $scope.pageLength) {
 			  					$scope.moreTraks = false;
 			  				}
@@ -199,7 +209,7 @@ angular.module('channeltrakApp')
 			  		trakService.getChannelTraks($scope.Channel.id, 'DESC', $scope.offset)
 						.then(function(callback){
 						  	$rootScope.Traks = $rootScope.Traks.concat(callback);
-						  	$scope.loadingTraks = false;
+						  	$scope.loadingPagination = false;
 						  	if (callback.length < 10) {
 			  					$scope.moreTraks = false;
 			  				}

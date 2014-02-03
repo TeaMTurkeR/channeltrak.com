@@ -51,14 +51,14 @@ $active_record = TRUE;
 
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
-$db['default']['database'] = 'channeltrak';
 
-// $db['default']['hostname'] = 'mysql.api.channeltrak.com';
-// $db['default']['username'] = 'wgminer';
-// $db['default']['password'] = '@mNUDi6]8G_h';
+// $db['default']['username'] = 'root';
+// $db['default']['password'] = 'root';
 // $db['default']['database'] = 'channeltrak';
+
+$db['default']['username'] = 'williamm_admin';
+$db['default']['password'] = '@mNUDi6]8G_h';
+$db['default']['database'] = 'williamm_ctrak';
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

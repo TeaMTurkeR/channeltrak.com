@@ -11,16 +11,13 @@
 	<meta name="viewport" content="width=device-width">
 	<script type="text/javascript" src="//use.typekit.net/nuh3nan.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css styles/vendor.css -->
-	<!-- bower:css -->
-	<!-- endbower -->
-	<!-- endbuild -->
+	<link rel="shortcut icon" href="http://www.dev.channeltrak.com/favicon.ico" />
+
 	<!-- build:css({.tmp,app}) styles/main.css -->
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="channeltrakApp" ng-class="{'no-scroll': isPlayerOpen}" ng-keydown="keydown($event)">
+<body ng-app="channeltrakApp" ng-class="{'no-scroll': isPlayerOpen}" ng-keydown="keydown($event)" ng-cloak>
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -38,13 +35,14 @@
 							<p>{{ playing.published | date:'mediumDate' }}</p>
 							<label>Channel</label>
 							<p><a ng-href="#/channel/{{ trak.channel_slug }}">{{ playing.channel_title }}</a></p>
-							<label>Links</label>
-							<p><a ng-href="https://www.youtube.com/watch?v={{ playing.youtube_id }}">Youtube</a></p>
 						</section>
 						<section class="caption">
-							<h2>{{ playing.title }}</h2>
+							<h2 title="{{ playing.title }}">{{ playing.title }}</h2>
 							<section class="sharing">
-								<button class="button icon-left"><i class="fa fa-heart"></i> Favorite</button>
+								<button class="button icon-left" ng-click="toggleFavorite(playing)" ng-class="{favorited: playing.favorited}"><i class="fa" ng-class="{'fa-heart': !playing.favorited, 'fa-check': playing.favorited}"></i> 
+									<span ng-show="!playing.favorited">Favorite</span>
+									<span ng-show="playing.favorited">Favorited</span>
+								</button>
 								<button class="button" ng-click="shareTwitter(playing)">Post to Twitter</button>
 								<button class="button" ng-click="shareFacebook(playing)">Post to Facebook</button>
 							</section>
@@ -57,14 +55,19 @@
 	<header id="masthead" ng-controller="PlayerCtrl">
 		<div class="wrap">
 			<h1><a href="/">Channeltrak</a></h1>
-			<a id="menu-toggle" ng-click="toggleMenu()">Menu <i class="fa" ng-class="{'fa-caret-down': !isMenuOpen,'fa-caret-up': isMenuOpen}"></i></a>
-			<section id="controls">
-				<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-circle-o': playerState == 3}"></i></button>
-				<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
-				<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
-				<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>			
+
+			<section id="toggles" class="pull-left">
+				<button class="button icon" title="Toggle menu" ng-click="toggleMenu()"><i class="fa" ng-class="{'fa-bars': !isMenuOpen, 'fa-times': isMenuOpen}"></i></button>				
+				<button class="button icon" title="Toggle search" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>	
 			</section>
+			
+			<section id="controls" class="pull-right">
+				<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
+				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-spinner fa-spin': playerState == 3}"></i></button>
+				<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
+				<button class="button icon" title="Toggle player" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
+			</section>
+
 		</div>
 		<section id="ticker" ng-click="scrollToPlaying()">
 			<div class="info" ng-class="{'force-dark': !isPlayerOpen}">
@@ -79,9 +82,11 @@
 					<a href="#/randomize">Randomize</a>
 					<a href="#/directory">Directory</a>
 				</nav>
-				<nav class="pull-right" ng-if="isAuthed">
+				<nav class="pull-left" ng-if="isAuthed" style="border-left:1px solid #ccc; margin-left:10px; padding-left:10px;">
 					<a href="#/favorites">Favorites</a>
-					<a href="#/settings">Settings</a>
+					<a href="#/submit">Submit</a>
+				</nav>
+				<nav class="pull-right" ng-if="isAuthed">
 					<a ng-click="signOut()">Sign Out</a>
 				</nav>
 				<nav class="pull-right" ng-if="!isAuthed">
@@ -99,27 +104,33 @@
 
 	<div ng-controller="PopupCtrl">
 		
-		<section class="modal ng-hide" ng-show="isSignInModalVisible">
+		<form class="modal ng-hide" ng-show="isSignInModalVisible"  ng-submit="signIn(User)">
 			<h2>Sign In</h2>
+			<p ng-show="signInErrorMessage">{{ signInErrorMessage }}</p>
 			<i class="fa fa-times" ng-click="closeEverything()"></i>
-			<input type="email" name="email" placeholder="Email" ng-model="User.email" ng-enter="signIn(User)">
-			<input type="password" name="password" placeholder="Password" ng-model="User.password" ng-enter="signIn(User)">
+			<input type="email" name="email" placeholder="Email" ng-model="User.email">
+			<input type="password" name="password" placeholder="Password" ng-model="User.password">
 			<div class="button-group">
-				<button class="button" ng-click="signIn(User)">Submit</button>
+				<button class="button rounded" ng-class="{loading: loadingAuth}" ng-click="signIn(User)">
+					<span ng-show="!loadingAuth">Submit</span>
+				</button>
 				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">New User?</a>
 			</div>
-		</section>
+		</form>
 		
-		<section class="modal ng-hide" ng-show="isJoinModalVisible">
+		<form class="modal ng-hide" ng-show="isJoinModalVisible" ng-submit="join(user)">
 			<h2>New Account</h2>
+			<p ng-show="joinErrorMessage">{{ joinErrorMessage }}</p>
 			<i class="fa fa-times" ng-click="closeEverything()"></i>
-			<input type="email" name="email" placeholder="Email" ng-model="user.email" ng-enter="join(user)">
-			<input type="password" name="pasword" placeholder="Password" ng-model="user.password" ng-enter="join(user)">
+			<input type="email" name="email" placeholder="Email" ng-model="user.email">
+			<input type="password" name="pasword" placeholder="Password" ng-model="user.password">
 			<div class="button-group">
-				<button class="button" ng-click="join(user)">Submit</button>
+				<button class="button rounded" ng-class="{loading: loadingAuth}" ng-click="join(user)">
+					<span ng-show="!loadingAuth">Submit</span>
+				</button>
 				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">Have an Account?</a>
 			</div>
-		</section> 		
+		</form> 		
 
 		<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
 
@@ -144,22 +155,23 @@
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="https://www.youtube.com/iframe_api"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
+		<script src="scripts/color-thief.js"></script>
+		<script src="scripts/youtube-api.js"></script>
+
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/services/channelservice.js"></script>
+		<script src="scripts/services/trakservice.js"></script>
+		<script src="scripts/services/userservice.js"></script>
+		<script src="scripts/services/favoriteservice.js"></script>
 		<script src="scripts/controllers/traklist.js"></script>
 		<script src="scripts/controllers/directory.js"></script>
-		<script src="scripts/services/channelService.js"></script>
-		<script src="scripts/services/trakService.js"></script>
-		<script src="scripts/services/userService.js"></script>
 		<script src="scripts/controllers/player.js"></script>
 		<script src="scripts/controllers/masthead.js"></script>
-		<script src="scripts/controllers/favorites.js"></script>
 		<script src="scripts/controllers/settings.js"></script>
-		<script src="scripts/vendor/color-thief.js"></script>
 		<script src="scripts/controllers/signin.js"></script>
 		<script src="scripts/controllers/join.js"></script>
 		<script src="scripts/controllers/submit.js"></script>

@@ -123,7 +123,7 @@ class Traks extends CI_Controller {
                 echo json_encode($data);
 
             } else {
-                header('HTTP', TRUE, 401);
+                header('HTTP', TRUE, 404);
             }
 
         } else {
@@ -138,10 +138,41 @@ class Traks extends CI_Controller {
 
         if ($this->User_model->is_authed()) {
 
-            $id = $this->session->userdata('id');
+            if (isset($_GET['order'])) {
+                
+                $order = $_GET['order'];
 
-            $this->Favorites_model->
+            } else {
 
+                $order = 'DESC';
+
+            }
+
+            if (isset($_GET['offset'])) {
+                
+                $offset = $_GET['offset'];
+
+            } else {
+
+                $offset = 0;
+
+            }
+
+            $user_id = $this->session->userdata('id');
+
+            if ($data = $this->Favorites_model->get($user_id, $offset, $order)) {
+
+                echo json_encode($data);
+
+            } else {
+                echo 'nada...';
+                // header('HTTP', TRUE, 404);
+            }
+
+        } else {
+            echo 'nope';
+            header('HTTP', TRUE, 401);
+        }
 
     }
 

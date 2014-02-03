@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('channeltrakApp')
-	.controller('PlayerCtrl', function ($scope, $rootScope, $location, $anchorScroll, userService, channelService) {
+	.controller('PlayerCtrl', function ($scope, $route, $rootScope, $location, userService, channelService, favoriteService) {
 
 		var init = function() {
 
@@ -11,21 +11,23 @@ angular.module('channeltrakApp')
 
 			userService.unauthUser()
 				.then(function(callback) {
-					console.log(callback);
 					$rootScope.User = false;
 					$rootScope.isAuthed = false;
 					$location.path('/');
+					$route.reload();
 				}, function() {
-					$scope.error = true;
-					$scope.errorMessage = 'Incorrect email or password';
+					$route.reload();
 				});
 		}
 
 		$scope.togglePlayer = function() {
+			$rootScope.isMenuOpen = false;
+			$rootScope.isSearchOpen = false;
 			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
 		}
 
 		$scope.toggleMenu = function() {
+			$rootScope.isSearchOpen = false;
 			$rootScope.isMenuOpen = !$rootScope.isMenuOpen;
 		}
 
@@ -84,6 +86,30 @@ angular.module('channeltrakApp')
 
 		}
 
+		$rootScope.toggleFavorite = function(trak) {
+
+			if (!trak.favorited && $rootScope.isAuthed) {
+				favoriteService.createFavorite(trak.id)
+					.then(function() {
+						console.log('added');
+						trak.favorited = true;
+					});
+
+			} else if (trak.favorited) {
+				console.log('destroy');
+				favoriteService.deleteFavorite(trak.id)
+					.then(function(){
+						console.log('removed');
+						trak.favorited = false;
+					});
+
+			} else {
+				$rootScope.toggleSignInModal();
+				$rootScope.signInErrorMessage = 'You need to sign in first!';
+			}
+
+		}
+
 		$rootScope.newPlayer = function (trak, index){
 
 			$scope.Playlist = angular.copy($rootScope.Traks);
@@ -139,6 +165,8 @@ angular.module('channeltrakApp')
 
 			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
 			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
+			$('#subnav').css('borderTopColor', 'rgb('+playerColor+')');
+
 			$('#video, #ticker .info, .sharing .button').css('color', textColor(playerColor));
 			$('.sharing .button').css('borderColor', textColor(playerColor));
 		} 

@@ -1,5 +1,5 @@
 <section id="directory">
-	<section class="page-header" ng-if="Channels" >
+	<section class="page-header fade-in" ng-if="Channels">
 		<div class="wrap">
 			<span>Directory</span>
 			<h2>Channels</h2>
@@ -7,7 +7,7 @@
 	</section>
 	<div class="wrap">
 		
-		<a class="channel" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">
+		<a class="channel fade-in" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">
 			<div class="media">
 				<div class="aspect-ratio">
 					<img ng-src="http://img.youtube.com/vi/{{ channel.cover_id }}/hqdefault.jpg" alt="{{ channel.title }} on Channeltrak">

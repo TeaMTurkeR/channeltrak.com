@@ -36,6 +36,10 @@ class Trak_model extends CI_Model {
             $row->channel_title = $channel->title;
             $row->channel_slug = $channel->slug;
 
+            if ($this->User_model->is_authed() && $this->Favorite_model->is_favorited(array('user_id' => $this->session->userdata('id'), 'trak_id' => $row->id))) {
+                $row->favorited = 'true';
+            }
+
             $row->published = date(DATE_ISO8601, strtotime($row->published));
 
             return $row;
@@ -48,6 +52,10 @@ class Trak_model extends CI_Model {
 
                 $row->channel_title = $channel->title;
                 $row->channel_slug = $channel->slug;
+
+                if ($this->User_model->is_authed() && $this->Favorite_model->is_favorited(array('user_id' => $this->session->userdata('id'), 'trak_id' => $row->id))) {
+                    $row->favorited = 'true';
+                }
 
                 $row->published = date(DATE_ISO8601, strtotime($row->published));
 

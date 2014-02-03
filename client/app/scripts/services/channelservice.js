@@ -3,7 +3,8 @@
 angular.module('channeltrakApp')
   	.factory('channelService', function ($http, $q, $templateCache) {
 
-		var url = 'http://localhost:8000/channeltrak.com/server/channels';
+  		var url = 'http://dev.channeltrak.com/server/channels';  		
+		// var url = 'http://localhost:8000/channeltrak.com/server/channels';
 
 		var createChannel = function(channelUrl) {
 			

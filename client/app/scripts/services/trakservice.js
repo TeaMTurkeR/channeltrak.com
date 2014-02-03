@@ -3,7 +3,8 @@
 angular.module('channeltrakApp')
   	.factory('trakService', function ($http, $q) {
 
-		var url = 'http://localhost:8000/channeltrak.com/server/traks';
+  		var url = 'http://dev.channeltrak.com/server/traks';
+		// var url = 'http://localhost:8000/channeltrak.com/server/traks';
 
 		var getTraks = function(order, offset){
 

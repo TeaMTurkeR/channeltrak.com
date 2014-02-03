@@ -4,7 +4,8 @@ angular.module('channeltrakApp', [
 	'ngCookies',
 	'ngResource',
 	'ngSanitize',
-	'ngRoute'
+	'ngRoute',
+	'ngAnimate'
 ])
 .run(function($rootScope, $http, $location, userService){
 
@@ -81,7 +82,8 @@ angular.module('channeltrakApp', [
 		})
 		.when('/submit', {
 			templateUrl: 'views/submit.html',
-			controller: 'SubmitCtrl'
+			controller: 'SubmitCtrl',
+			requireLogin: true
 		})
 		.otherwise({
 			redirectTo: '/latest'
