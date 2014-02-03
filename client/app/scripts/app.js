@@ -62,8 +62,8 @@ angular.module('channeltrakApp', [
 			controller: 'DirectoryCtrl'
 		})
 		.when('/favorites', {
-			templateUrl: 'views/favorites.html',
-			controller: 'FavoritesCtrl',
+			templateUrl: 'views/traklist.html',
+			controller: 'TraklistCtrl',
 			requireLogin: true
 		})
 		.when('/settings', {

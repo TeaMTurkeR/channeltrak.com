@@ -93,6 +93,22 @@ angular.module('channeltrakApp')
 
 			  	}
 
+			} else if ($location.path() == '/favorites') {
+
+				trakService.getFavorites('DESC', $scope.offset)
+		  			.then(function(callback){
+		  				
+		  				$rootScope.Traks = callback;
+		  				$scope.loadingTraks = false;
+
+		  				if (callback.length == $scope.pageLength) {
+		  					$scope.moreTraks = true;
+		  				}
+		  			});
+
+		  		$scope.pageSpan = 'Your'; 
+		  		$scope.pageTitle = 'Favorites';
+
 		  	} else if ($location.path().indexOf('/trak/') != -1) {
 
 		  		$rootScope.isAnimated = false;

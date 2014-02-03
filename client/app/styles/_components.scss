@@ -41,6 +41,10 @@
         width: 40px;
     }
 
+    &.icon-left i {
+        margin-right: 5px;
+    }
+
     &:hover,
     &.active {
         background-color: #eee;

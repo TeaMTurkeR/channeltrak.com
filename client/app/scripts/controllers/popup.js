@@ -10,6 +10,39 @@ angular.module('channeltrakApp')
 
 		// GLOBAL TOGGLES
 
+		$rootScope.shareFacebook = function(trak) {
+			var url = 'http://channeltrak.com/trak/'+trak.slug;
+			var width  = 575,
+	            height = 400,
+	            left   = ($(window).width()  - width)  / 2,
+	            top    = ($(window).height() - height) / 2,
+	            opts   = 'status=1' +
+	                     ',width='  + width  +
+	                     ',height=' + height +
+	                     ',top='    + top    +
+	                     ',left='   + left;
+
+			window.open('https://www.facebook.com/sharer/sharer.php?u='+url, 'facebook', opts);
+		}
+
+		$rootScope.shareTwitter = function(trak) {
+
+	        var title = trak.title.replace('&', 'and');
+	        var url = 'http://channeltrak.com/trak/'+trak.slug;
+
+	        var width  = 575,
+	            height = 400,
+	            left   = ($(window).width()  - width)  / 2,
+	            top    = ($(window).height() - height) / 2,
+	            opts   = 'status=1' +
+	                     ',width='  + width  +
+	                     ',height=' + height +
+	                     ',top='    + top    +
+	                     ',left='   + left;
+
+			window.open('http://twitter.com/intent/tweet?url='+url+'&text=Check%20out%20%20"'+title+'"%20at&via=channeltrak', 'twitter', opts);
+		}
+
 		$rootScope.toggleSearch = function() {
 			$rootScope.isSearchOpen = !$rootScope.isSearchOpen;
 			if ($rootScope.isSearchOpen) {

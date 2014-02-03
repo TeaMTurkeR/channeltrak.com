@@ -37,12 +37,16 @@
 							<label>Published</label>
 							<p>{{ playing.published | date:'mediumDate' }}</p>
 							<label>Channel</label>
-							<p>{{ playing.channel_title  }}</p>
+							<p><a ng-href="#/channel/{{ trak.channel_slug }}">{{ playing.channel_title }}</a></p>
+							<label>Links</label>
+							<p><a ng-href="https://www.youtube.com/watch?v={{ playing.youtube_id }}">Youtube</a></p>
 						</section>
 						<section class="caption">
 							<h2>{{ playing.title }}</h2>
 							<section class="sharing">
-								
+								<button class="button icon-left"><i class="fa fa-heart"></i> Favorite</button>
+								<button class="button" ng-click="shareTwitter(playing)">Post to Twitter</button>
+								<button class="button" ng-click="shareFacebook(playing)">Post to Facebook</button>
 							</section>
 						</section>
 					</section>

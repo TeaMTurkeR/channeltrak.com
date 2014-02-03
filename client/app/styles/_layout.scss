@@ -65,6 +65,19 @@ a {
         width: 80%;
     }
 
+    .sharing {
+        @include clearfix;
+        margin-top: 20px;
+
+        .button {
+            @include transition(border-color 5s linear, color 5s linear);
+            background-color: transparent;
+            border-color: #333;
+            float: left;
+            margin-right: 10px;
+        }
+    }
+
     label {
         @include transition(color 5s linear);
         font-size: 14px;
@@ -79,7 +92,6 @@ a {
     h2 {
         @include transition(color 5s linear);
         @include truncate;
-        float: left;
         font-size: 42px;
         font-weight: 300;
         letter-spacing: -1px;

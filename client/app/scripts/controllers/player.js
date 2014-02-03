@@ -139,7 +139,8 @@ angular.module('channeltrakApp')
 
 			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
 			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
-			$('#video, #ticker .info').css('color', textColor(playerColor));
+			$('#video, #ticker .info, .sharing .button').css('color', textColor(playerColor));
+			$('.sharing .button').css('borderColor', textColor(playerColor));
 		} 
 
 		var ticker = function() {

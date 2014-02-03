@@ -67,7 +67,44 @@ class Traks extends CI_Controller {
 
             echo json_encode($data);
 
-        } else if (isset($_GET['order']) && $_GET['order'] == 'latest' && !isset($_GET['channel'])  && isset($_GET['q'])) {
+        } else if (isset($_GET['favorites'])  && !isset($_GET['q'])) { // GET FAVORITES
+
+            if (isset($_GET['order'])) {
+                
+                $order = $_GET['order'];
+
+            } else {
+
+                $order = 'DESC';
+
+            }
+
+            if (isset($_GET['offset'])) {
+                
+                $offset = $_GET['offset'];
+
+            } else {
+
+                $offset = 0;
+
+            }
+
+            $id = $_GET['channel'];
+
+            if (is_numeric($id)) {
+            
+                $data = $this->Trak_model->get(array('channel_id' => $id), $offset, $order);
+            
+            } else {
+
+                $channel = $this->Channel_model->get(array('slug' => $id));
+                $data = $this->Trak_model->get(array('channel_id' => $channel->id), $offset, $order);
+
+            }
+
+            echo json_encode($data);
+
+        } else if (isset($_GET['order']) && $_GET['order'] == 'latest' && !isset($_GET['channel'])  && isset($_GET['q'])) { // GET SEARCH
 
             if (isset($_GET['offset'])) {
                 
@@ -94,6 +131,17 @@ class Traks extends CI_Controller {
             echo 'Welcome to the Channeltrak API';
 
         }
+
+    }
+
+    public function favorites() {
+
+        if ($this->User_model->is_authed()) {
+
+            $id = $this->session->userdata('id');
+
+            $this->Favorites_model->
+
 
     }
 
