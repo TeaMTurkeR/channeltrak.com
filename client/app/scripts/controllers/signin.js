@@ -5,11 +5,8 @@ angular.module('channeltrakApp')
 
 		$scope.signIn = function(credentials) {
 
-			console.log(credentials);
-
 			userService.authUser(credentials)
 				.then(function(callback) {
-					console.log(callback);
 					$rootScope.User = callback;
 					$location.path('/favorites');
 				}, function() {

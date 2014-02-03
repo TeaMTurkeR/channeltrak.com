@@ -36,7 +36,7 @@ class Users extends CI_Controller {
 
         if ($this->User_model->is_authed()) {
 
-            $id = $this->session->userdata('user_id');
+            $id = $this->session->userdata('id');
 
             $data = $this->User_model->get(array('id' => $id));
 
@@ -44,7 +44,7 @@ class Users extends CI_Controller {
 
         } else {
 
-            header('HTTP', TRUE, 405);
+            header('HTTP', TRUE, 401);
             echo '/get unauthorized';
 
         }
@@ -89,19 +89,25 @@ class Users extends CI_Controller {
         $email = $decoded_user['email'];
         $password = md5($decoded_user['password']);
 
-        echo json_encode($decoded_user['password']);
+        if ($cookie = $this->User_model->auth($email, $password)) {
 
-        // if ($this->User_model->auth($email, $password)) {
+            echo json_encode($cookie);
 
-        //     echo json_encode($data);
+        } else {
 
-        // } else {
+            header('HTTP', TRUE, 400);
+            echo 'fail';
 
-        //     header('HTTP', TRUE, 400);
-        //     echo 'fail';
+        }
 
-        // }
+    }
 
+    public function unauth() {
+        $this->session->unset_userdata('id');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('logged_in');
+
+        header('HTTP', TRUE, 200);
     }
 
 }

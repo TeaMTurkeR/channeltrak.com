@@ -13,6 +13,7 @@ angular.module('channeltrakApp')
 
 	  		$scope.moreTraks = false;
 	  		$rootScope.isPlayerOpen = false;
+	  		$rootScope.isMenuOpen = false;
 	  		$rootScope.isAnimated = true;
 
   			$rootScope.closeEverything();
@@ -33,7 +34,7 @@ angular.module('channeltrakApp')
 		  		$scope.pageSpan = 'All'; 
 		  		$scope.pageTitle = 'Latest';
 
-		  	} else if ($location.path() == '/random') {
+		  	} else if ($location.path() == '/randomize') {
 
 		  		trakService.getTraks('RANDOM', $scope.offset)
 		  			.then(function(callback){

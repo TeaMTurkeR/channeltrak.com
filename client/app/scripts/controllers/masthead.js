@@ -16,6 +16,10 @@ angular.module('channeltrakApp')
 			$scope.isJoinModalVisible = !$scope.isJoinModalVisible;
 		}
 
+		$scope.toggleMenu = function() {
+			$scope.isMenuOpen = !$scope.isMenuOpen;
+		}
+
 		$scope.closeModals = function() {
 			$scope.isSignInModalVisible = false;
 			$scope.isJoinModalVisible = false;

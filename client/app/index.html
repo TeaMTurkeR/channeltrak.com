@@ -26,51 +26,70 @@
 	<![endif]-->
 	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen, animated: isAnimated}">
 		<div id="holder"></div>
-		<div class="wrap">
-			<section id="video">
-				<div class="aspect-ratio">
-					<div id="iframe"></div>
-				</div>
-				<section class="info">
-					<section class="meta">
-						<label>Published</label>
-						<p>{{ playing.published | date:'mediumDate' }}</p>
-						<label>Channel</label>
-						<p>{{ playing.channel_title  }}</p>
-					</section>
-					<section class="caption">
-						<h2>{{ playing.title }}</h2>
+		<div class="scroll-wrap">
+			<div class="wrap">
+				<section id="video">
+					<div class="aspect-ratio">
+						<div id="iframe"></div>
+					</div>
+					<section class="info" ng-show="playing">
+						<section class="meta">
+							<label>Published</label>
+							<p>{{ playing.published | date:'mediumDate' }}</p>
+							<label>Channel</label>
+							<p>{{ playing.channel_title  }}</p>
+						</section>
+						<section class="caption">
+							<h2>{{ playing.title }}</h2>
+							<section class="sharing">
+								
+							</section>
+						</section>
 					</section>
 				</section>
-			</section>
+			</div>
 		</div>
 	</section>
 	<header id="masthead" ng-controller="PlayerCtrl">
 		<div class="wrap">
 			<h1><a href="/">Channeltrak</a></h1>
-			<nav>
-				<a href="#/latest">Latest</a>
-				<a href="#/random">Random</a>
-				<a href="#/directory">Directory</a>
-			</nav>
+			<a id="menu-toggle" ng-click="toggleMenu()">Menu <i class="fa" ng-class="{'fa-caret-down': !isMenuOpen,'fa-caret-up': isMenuOpen}"></i></a>
 			<section id="controls">
 				<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-sun-o fa-spin': playerState == 3}"></i></button>
+				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-circle-o': playerState == 3}"></i></button>
 				<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
 				<button class="button icon" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
-				<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>
-				<!-- 
-				<button class="button" ng-if="!isAuthed" ng-click="toggleSignInModal()">Sign In</button>
-				<button class="button" ng-if="isAuthed" ng-click="toggleUserDropdown()"><i class="fa fa-user"></i></button> 
-				-->
+				<button class="button icon" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>			
 			</section>
 		</div>
+		<section id="ticker" ng-click="scrollToPlaying()">
+			<div class="info" ng-class="{'force-dark': !isPlayerOpen}">
+				<p>{{ playing.title }}</p>
+				<span></span>
+			</div>
+		</section>
+		<section id="subnav" ng-show="isMenuOpen">
+			<div class="wrap">
+				<nav class="pull-left">
+					<a href="#/latest">Latest</a>
+					<a href="#/randomize">Randomize</a>
+					<a href="#/directory">Directory</a>
+				</nav>
+				<nav class="pull-right" ng-if="isAuthed">
+					<a href="#/favorites">Favorites</a>
+					<a href="#/settings">Settings</a>
+					<a ng-click="signOut()">Sign Out</a>
+				</nav>
+				<nav class="pull-right" ng-if="!isAuthed">
+					<a ng-click="toggleSignInModal()">Sign In</a>
+					<span>or</span>
+					<a ng-click="toggleJoinModal()">Join</a>
+				</nav>
+			</div>
+		</section>
 	</header>
-	<section id="ticker">
-		<div class="info">
-			{{ playing.title }}
-		</div>
-	</section>
+	
+	
 	<!-- Add your site or application content here -->
 	<div id="view" ng-view=""></div>
 
@@ -78,7 +97,7 @@
 		
 		<section class="modal ng-hide" ng-show="isSignInModalVisible">
 			<h2>Sign In</h2>
-			<i class="fa fa-times" ng-click="closeModals()"></i>
+			<i class="fa fa-times" ng-click="closeEverything()"></i>
 			<input type="email" name="email" placeholder="Email" ng-model="User.email" ng-enter="signIn(User)">
 			<input type="password" name="password" placeholder="Password" ng-model="User.password" ng-enter="signIn(User)">
 			<div class="button-group">
@@ -89,10 +108,13 @@
 		
 		<section class="modal ng-hide" ng-show="isJoinModalVisible">
 			<h2>New Account</h2>
-			<i class="fa fa-times" ng-click="closeModals()"></i>
+			<i class="fa fa-times" ng-click="closeEverything()"></i>
 			<input type="email" name="email" placeholder="Email" ng-model="user.email" ng-enter="join(user)">
 			<input type="password" name="pasword" placeholder="Password" ng-model="user.password" ng-enter="join(user)">
-			<button class="button" ng-click="join(user)">Submit</button>
+			<div class="button-group">
+				<button class="button" ng-click="join(user)">Submit</button>
+				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">Have an Account?</a>
+			</div>
 		</section> 		
 
 		<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
@@ -118,6 +140,7 @@
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="https://www.youtube.com/iframe_api"></script>
 	<!-- endbower -->
 	<!-- endbuild -->
 
@@ -139,15 +162,6 @@
 		<script src="scripts/controllers/search.js"></script>
 		<script src="scripts/controllers/popup.js"></script>
 		<!-- endbuild -->
-
-	<script>
-
-		var tag = document.createElement('script');
-	    tag.src = "https://www.youtube.com/iframe_api";
-	    var firstScriptTag = document.getElementsByTagName('script')[0];
-	    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-	</script>
 
 </body>
 </html>

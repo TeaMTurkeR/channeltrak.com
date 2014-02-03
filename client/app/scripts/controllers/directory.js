@@ -6,13 +6,12 @@ angular.module('channeltrakApp')
   		var init = function() {
 
   			$rootScope.isPlayerOpen = false;
+  			$rootScope.isMenuOpen = false;
 
 	  		channelService.getChannels()
 	  			.then(function(callback){
 	  				$scope.Channels = callback;
 	  			});
-
-	  			console.log($scope.Channels);
 
 	  	}
 

@@ -44,7 +44,8 @@ $route['404_override'] = '';
 // USER ROUTES
  
 $route['users'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get' : 'users/create';
-//$route['users/auth'] = 'users/auth';
+$route['users/auth'] = 'users/auth';
+$route['users/unauth'] = 'users/unauth';
 $route['users/(:num)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get/$1' : 'users/update/$1';
 
 // TRAK ROUTES

@@ -1,14 +1,32 @@
 'use strict';
 
 angular.module('channeltrakApp')
-	.controller('PlayerCtrl', function ($scope, $rootScope, $location, userService, channelService) {
+	.controller('PlayerCtrl', function ($scope, $rootScope, $location, $anchorScroll, userService, channelService) {
 
 		var init = function() {
 
 		}
 
+		$scope.signOut = function() {
+
+			userService.unauthUser()
+				.then(function(callback) {
+					console.log(callback);
+					$rootScope.User = false;
+					$rootScope.isAuthed = false;
+					$location.path('/');
+				}, function() {
+					$scope.error = true;
+					$scope.errorMessage = 'Incorrect email or password';
+				});
+		}
+
 		$scope.togglePlayer = function() {
 			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
+		}
+
+		$scope.toggleMenu = function() {
+			$rootScope.isMenuOpen = !$rootScope.isMenuOpen;
 		}
 
 		$rootScope.keydown = function(event){
@@ -37,8 +55,10 @@ angular.module('channeltrakApp')
 		$scope.togglePlay = function() {
 			if ($scope.playerState == 1) {
 				$scope.player.pauseVideo();
+				clearInterval($scope.tickerProgress);
 			} else if ($scope.playerState == 2) {
 				$scope.player.playVideo();
+				ticker();
 			}
 		}
 
@@ -80,19 +100,6 @@ angular.module('channeltrakApp')
 				.prepend(newPlayer)
 				.addClass('playing');
 
-			$('#holder img').remove();
-
-			var newImage = $('<img src="http://img.youtube.com/vi/'+trak.youtube_id+'/hqdefault.jpg">');
-			$('#holder').prepend(newImage);
-
-			var $image = document.getElementById('holder').getElementsByTagName('img')[0];
-	  		var colorThief = new ColorThief();
-			var playerColor = colorThief.getColor($image);	
-
-			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
-			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
-			$('#video').css('color', textColor(playerColor));
-
 		    $scope.player = new YT.Player('iframe', {
 		        videoId: trak.youtube_id,
 		        playerVars: {
@@ -106,18 +113,68 @@ angular.module('channeltrakApp')
 		        }
 		    });
 
-		    setInterval(function(){
-		    	var time = $scope.player.getCurrentTime();
-		    	var length = $scope.player.getDuration();
-		    	var percent = (time/length)*100 + '%';
-
-		    	$('#ticker').css('left', percent);
-
-		    }, 100);
+		    ticker();
 		     
 		}
 
+		$scope.scrollToPlaying = function() {
+			if ($('#'+$scope.playing.id).length) {
+				$(document.body).animate({
+				    'scrollTop': $('#'+$scope.playing.id).offset().top - 60
+				}, 2000);
+			}
+		}
+
 		// Private Methods
+
+		var setColors = function(youtube_id) {
+			$('#holder img').remove();
+
+			var newImage = $('<img src="http://img.youtube.com/vi/'+youtube_id+'/hqdefault.jpg">');
+			$('#holder').prepend(newImage);
+
+			var $image = document.getElementById('holder').getElementsByTagName('img')[0];
+	  		var colorThief = new ColorThief();
+			var playerColor = colorThief.getColor($image);	
+
+			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
+			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
+			$('#video, #ticker .info').css('color', textColor(playerColor));
+		} 
+
+		var ticker = function() {
+			$scope.tickerProgress = setInterval(function(){
+
+		    	if ($scope.player) {
+
+		    		var length = $scope.player.getDuration();
+		    		var lengthText = calculateTime(length);
+
+			    	var time = $scope.player.getCurrentTime();
+			    	var percent = (time/length)*100 + '%';
+
+			    	var progressText = calculateTime(time) + ' / ' + lengthText;
+
+			    	$('#ticker').css('left', percent);
+			    	$('#ticker span').text(progressText);
+
+			    }
+
+		    }, 100);
+		}
+
+		var calculateTime = function(time) {
+
+		    var minutes = Math.floor(time / 60);
+		    var seconds = Math.round(time - minutes * 60);
+
+		    if (seconds < 10) {
+		        seconds = '0' + seconds;
+		    }
+
+		    return minutes + ':' + seconds;
+
+		}
 
 		var textColor = function(rgb) {
 
@@ -165,6 +222,7 @@ angular.module('channeltrakApp')
 
 		var onPlayerReady = function (event) {
 		    event.target.playVideo();
+		    setColors($rootScope.playing.youtube_id);
 		}
 
 		init();

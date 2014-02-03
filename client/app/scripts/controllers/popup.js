@@ -55,7 +55,8 @@ angular.module('channeltrakApp')
 				.then(function(callback) {
 					console.log(callback);
 					$rootScope.User = callback;
-					$scope.closeModals();
+					$rootScope.isAuthed = true;
+					$rootScope.closeEverything();
 				}, function() {
 					$scope.error = true;
 					$scope.errorMessage = 'Incorrect email or password';

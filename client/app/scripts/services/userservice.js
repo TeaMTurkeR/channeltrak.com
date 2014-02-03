@@ -21,11 +21,11 @@ angular.module('channeltrakApp')
 
 		}
 
-		var getUser = function(id){
+		var getUser = function(){
 
 			var deferred = $q.defer();
 
-			$http.get(url+'/'+id)
+			$http.get(url)
 				.success(function(data){
 					deferred.resolve(data);
 				})
@@ -54,12 +54,45 @@ angular.module('channeltrakApp')
 			return deferred.promise;
 		}
 
+		var unauthUser = function(credentials) {
+
+			var deferred = $q.defer();
+
+			console.log(credentials);
+
+			$http.post(url+'/unauth')
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function(){
+					deferred.reject();
+				});
+
+			return deferred.promise;
+		}
+
+		var signOutUser = function() {
+
+			var deferred = $q.defer();
+
+			$http.post(url+'/signout')
+				.success(function(data){
+					deferred.resolve(data);
+				})
+				.error(function(){
+					deferred.reject();
+				});
+
+			return deferred.promise;
+		}
+
 		// Public API
 
 		return {
 			createUser: createUser,
 			getUser: getUser,
 			authUser: authUser,
+			unauthUser: unauthUser
 		};
 
 	});

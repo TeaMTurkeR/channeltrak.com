@@ -18,6 +18,10 @@
     @include clearfix;
 }
 
+.force-dark {
+    color: #333 !important;
+}
+
 .button {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -205,6 +209,7 @@
 
 .modal {
     background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 2px;
     left: 50%;
     margin-left: -200px;

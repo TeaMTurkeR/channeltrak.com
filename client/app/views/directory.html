@@ -1,5 +1,10 @@
 <section id="directory">
-
+	<section class="page-header" ng-if="Channels" >
+		<div class="wrap">
+			<span>Directory</span>
+			<h2>Channels</h2>
+		</div>
+	</section>
 	<div class="wrap">
 		
 		<a class="channel" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">

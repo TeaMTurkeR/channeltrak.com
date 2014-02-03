@@ -15,6 +15,7 @@ class User_model extends CI_Model {
 
     public function get($array) {
 
+        $this->db->select('id, email, created, updated');
         $this->db->where($array);
         $query = $this->db->get('users');
 
