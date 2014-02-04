@@ -4,7 +4,7 @@ class Channels extends CI_Controller {
 
     public function index() { // APPROVED CHANNELS
 
-        $data = $this->Channel_model->channels(array('approved' => 1));
+        $data = $this->Channel_model->get(array('approved' => 1));
 
         echo json_encode($data);
 
@@ -144,6 +144,7 @@ class Channels extends CI_Controller {
                         'slug' => $slug,
                         'youtube_id' => $youtube_id,            
                         'channel_id' => $id,
+                        'color_sample' => $this->Trak_model->sample_color($youtube_id),
                         'published' => $published,
                         'created' => date('Y-m-d H:i:s'),
                         'updated' => date('Y-m-d H:i:s')
@@ -175,6 +176,9 @@ class Channels extends CI_Controller {
         }
 
         echo $result;
+        // $path = $this->config->base_url().'assets/uploads';
+        // $this->load->helper('file');
+        // delete_files($path, true);
     }
 
     public function import_all() {

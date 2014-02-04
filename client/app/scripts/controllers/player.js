@@ -153,22 +153,16 @@ angular.module('channeltrakApp')
 
 		// Private Methods
 
-		var setColors = function(youtube_id) {
-			$('#holder img').remove();
+		var setColors = function(color) {
 
-			var newImage = $('<img src="http://img.youtube.com/vi/'+youtube_id+'/hqdefault.jpg">');
-			$('#holder').prepend(newImage);
+			console.log(color);
 
-			var $image = document.getElementById('holder').getElementsByTagName('img')[0];
-	  		var colorThief = new ColorThief();
-			var playerColor = colorThief.getColor($image);	
+			$('#player').css('backgroundColor', color);
+			$('#ticker').css('borderColor', color);
+			$('#subnav').css('borderTopColor', color);
 
-			$('#player').css('backgroundColor', 'rgb('+playerColor+')');
-			$('#ticker').css('borderColor', 'rgb('+playerColor+')');
-			$('#subnav').css('borderTopColor', 'rgb('+playerColor+')');
-
-			$('#video, #ticker .info, .sharing .button').css('color', textColor(playerColor));
-			$('.sharing .button').css('borderColor', textColor(playerColor));
+			$('#video, #ticker .info, .sharing .button').css('color', textColor(color));
+			$('.sharing .button').css('borderColor', textColor(color));
 		} 
 
 		var ticker = function() {
@@ -205,10 +199,9 @@ angular.module('channeltrakApp')
 
 		}
 
-		var textColor = function(rgb) {
+		var textColor = function(hex) {
 
-			// SOURCE: http://www.w3.org/TR/AERT#color-contrast
-
+			var rgb = hexToRgb(hex); 
 			var red = rgb[0];
 			var green = rgb[1];
 			var blue = rgb[2];
@@ -222,6 +215,15 @@ angular.module('channeltrakApp')
 			} else {
 				return '#fff'
 			}
+		}
+
+		var hexToRgb = function(hex) {
+		    var bigint = parseInt(hex, 16);
+		    var r = (bigint >> 16) & 255;
+		    var g = (bigint >> 8) & 255;
+		    var b = bigint & 255;
+
+		    return [r, g, b].join();
 		}
 
 		var playerEvents = function (event) {
@@ -251,7 +253,12 @@ angular.module('channeltrakApp')
 
 		var onPlayerReady = function (event) {
 		    event.target.playVideo();
-		    setColors($rootScope.playing.youtube_id);
+		    setColors($rootScope.playing.color_sample);
+		    $scope.showTicker = true;
+		    setTimeout(function(){
+		    	$scope.showTicker = false;
+		    	$scope.$apply();
+		    }, 10000);
 		}
 
 		init();

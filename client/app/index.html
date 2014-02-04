@@ -69,7 +69,7 @@
 			</section>
 
 		</div>
-		<section id="ticker" ng-click="scrollToPlaying()">
+		<section id="ticker" ng-click="scrollToPlaying()" ng-class="{show: showTicker}">
 			<div class="info" ng-class="{'force-dark': !isPlayerOpen}">
 				<p>{{ playing.title }}</p>
 				<span></span>
@@ -158,7 +158,6 @@
 	<!-- endbower -->
 	<!-- endbuild -->
 
-		<script src="scripts/color-thief.js"></script>
 		<script src="scripts/youtube-api.js"></script>
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->

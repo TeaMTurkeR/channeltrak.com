@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.factory('favoriteService', function ($http, $q) {
+  	.factory('favoriteService', function ($http, $q, $location) {
 
-  		var url = 'http://dev.channeltrak.com/server/favorites';
-		// var url = 'http://localhost:8000/channeltrak.com/server/favorites';
+		if ($location.host() != 'localhost') {
+  			var url = 'http://dev.channeltrak.com/server/favorites';
+  		} else {
+  			var url = 'http://localhost:8000/channeltrak.com/server/favorites';
+  		}
 
 		var createFavorite = function(trak_id) {
 			

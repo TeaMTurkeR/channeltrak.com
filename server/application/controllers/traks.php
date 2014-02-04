@@ -134,65 +134,29 @@ class Traks extends CI_Controller {
 
     }
 
-    public function favorites() {
-
-        if ($this->User_model->is_authed()) {
-
-            if (isset($_GET['order'])) {
-                
-                $order = $_GET['order'];
-
-            } else {
-
-                $order = 'DESC';
-
-            }
-
-            if (isset($_GET['offset'])) {
-                
-                $offset = $_GET['offset'];
-
-            } else {
-
-                $offset = 0;
-
-            }
-
-            $user_id = $this->session->userdata('id');
-
-            if ($data = $this->Favorites_model->get($user_id, $offset, $order)) {
-
-                echo json_encode($data);
-
-            } else {
-                echo 'nada...';
-                // header('HTTP', TRUE, 404);
-            }
-
-        } else {
-            echo 'nope';
-            header('HTTP', TRUE, 401);
-        }
-
-    }
-
 	public function get($id) {
 
         if (is_numeric($id)) {
 
-            $data = $this->Trak_model->get(array('id' => $id), 0, 'DESC');
+            $trak = $this->Trak_model->get(array('id' => $id), 0, 'DESC');
 
         } else if ($id == 'random') {
 
-            $data = $this->Trak_model->random();
+            $trak = $this->Trak_model->random();
 
         } else {
 
-            $data = $this->Trak_model->get(array('slug' => $id), 0, 'DESC');
+            $trak = $this->Trak_model->get(array('slug' => $id), 0, 'DESC');
 
         }
 
-    	echo json_encode($data);
+    	echo json_encode($trak);
+
+    }
+
+    public function sample_color($youtube_id) {
+
+        echo json_encode($this->Trak_model->sample_color($youtube_id));
 
     }
 

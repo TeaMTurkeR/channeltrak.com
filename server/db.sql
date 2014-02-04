@@ -19,6 +19,7 @@ CREATE TABLE `traks` (
   `slug` varchar(255) NOT NULL,
   `youtube_id` varchar(11) NOT NULL,
   `channel_id` varchar(11) NOT NULL,
+  `color_sample` varchar(255) NOT NULL,
   `published` datetime NOT NULL,
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,

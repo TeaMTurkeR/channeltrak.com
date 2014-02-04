@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.factory('channelService', function ($http, $q, $templateCache) {
+  	.factory('channelService', function ($http, $q, $location, $templateCache) {
 
-  		var url = 'http://dev.channeltrak.com/server/channels';  		
-		// var url = 'http://localhost:8000/channeltrak.com/server/channels';
+		if ($location.host() != 'localhost') {
+  			var url = 'http://dev.channeltrak.com/server/channels';
+  		} else {
+  			var url = 'http://localhost:8000/channeltrak.com/server/channels';
+  		}
 
 		var createChannel = function(channelUrl) {
 			

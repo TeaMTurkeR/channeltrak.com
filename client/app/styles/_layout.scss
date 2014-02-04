@@ -203,14 +203,25 @@ a {
 
         .info {
             display: block;
+            left: 25px;
+            opacity: 1;
+            top: 25px;
+        }
+    }
+
+    &.show {
+        .info {
+            display: block;
+            left: 15px;
+            opacity: 1;
+            top: 15px;
         }
     }
 
     .info {
-        display: none;
-        left: 15px;
+        @include transition(opacity .5s ease);
+        opacity: 0;
         position: absolute;
-        top: 15px;
         width: 1000px;
     }
 

@@ -41,6 +41,8 @@
 $route['default_controller'] = 'channels/test';
 $route['404_override'] = '';
 
+$route['sample/(:any)'] = 'traks/sample_color/$1';
+
 // USER ROUTES
  
 $route['users'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'users/get' : 'users/create';

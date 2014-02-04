@@ -7,6 +7,8 @@ angular.module('channeltrakApp')
 
   			$(window).scrollTop(0);
 
+  			$rootScope.Traks = []; // CLEAR TRAKS
+
   			$scope.offset = 0;
 	  		$scope.pageLength = 50;
 	  		$scope.loadingTraks = true;
