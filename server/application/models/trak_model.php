@@ -70,6 +70,32 @@ class Trak_model extends CI_Model {
         }
     }
 
+    public function get_channel_traks($channel_id) {
+
+        $this->db->select('id, title, slug, youtube_id, channel_id, color_sample, status, published');
+        $this->db->where('channel_id', $channel_id);
+        $this->db->order_by('published', 'DESC');
+        $query = $this->db->get('traks');
+
+        if ($query->num_rows() == 1) {
+
+            $row = $query->row();
+
+            return $row;
+        
+        } else if ($query->num_rows() > 1) {
+
+            foreach ($query->result() as $row) {
+
+                $data[] = $row;
+
+            }
+
+            return $data;
+
+        }
+    }
+
     public function search($query, $offset) {
 
         $this->load->helper('date');
@@ -157,8 +183,6 @@ class Trak_model extends CI_Model {
         $this->load->library('colorthief');
         $rgb = colorthief::getColor($upload_path, 8); // Get color
 
-        unlink($upload_path);
-
         $hex = "#";
         $hex .= str_pad(dechex($rgb[0]), 2, '0', STR_PAD_LEFT);
         $hex .= str_pad(dechex($rgb[1]), 2, '0', STR_PAD_LEFT);
@@ -166,6 +190,13 @@ class Trak_model extends CI_Model {
 
         return $hex;
 
+    }
+
+    public function count($id) {
+        $this->db->where('channel_id', $id);
+        $query = $this->db->get('traks');
+        
+        return $query->num_rows();
     }
 
 }

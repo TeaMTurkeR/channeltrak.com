@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.factory('trakService', function ($http, $q, $location) {
+  	.factory('trakService', function ($http, $q, $location, urlService) {
 
-		if ($location.host() != 'localhost') {
-  			var url = 'http://dev.channeltrak.com/server/traks';
-  		} else {
-  			var url = 'http://localhost:8000/channeltrak.com/server/traks';
-  		}
+  		var root = urlService.rootUrl();
+  		var url = root+'traks';
 
 		var getTraks = function(order, offset){
 

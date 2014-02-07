@@ -1,9 +1,9 @@
-<section id="join">
+<form id="join" ng-submit="signIn(User)" autocomplete="off">
 	<h2>Join</h2>
-	<input type="email" placeholder="Email" class="input" ng-model="User.email" ng-enter="signIn(User)">
-	<input type="password" placeholder="Password" class="input" ng-model="User.password" ng-enter="signIn(User)">
+	<input type="email" placeholder="Email" class="input" ng-model="User.email" autocomplete="off">
+	<input type="password" placeholder="Password" class="input" ng-model="User.password">
 	<div class="button-group">
-		<button class="button" ng-click="signIn(User)">Submit</button>
-		<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">New User?</a>
+		<button class="button" type="submit">Submit</button>
+		<a href="#/sign-in">New User?</a>
 	</div>
-</section>
+</form>

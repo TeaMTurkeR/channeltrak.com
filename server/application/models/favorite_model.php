@@ -85,7 +85,9 @@ class Favorite_model extends CI_Model {
         $this->db->where($array);
         $this->db->delete('favorites'); 
 
-        return true;
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        }
     }
 
 }

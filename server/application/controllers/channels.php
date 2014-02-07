@@ -2,9 +2,9 @@
 
 class Channels extends CI_Controller {
 
-    public function index() { // APPROVED CHANNELS
+    public function index() { // ACTIVE CHANNELS 
 
-        $data = $this->Channel_model->get(array('approved' => 1));
+        $data = $this->Channel_model->get(array('status' => 1));
 
         echo json_encode($data);
 
@@ -12,17 +12,13 @@ class Channels extends CI_Controller {
 
     public function test() {
 
-        $channel_url = 'http://www.youtube.com/user/getit/stuff';
- 
-        $array = preg_split("/[^A-Za-z0-9 ]/", substr($channel_url, strrpos( $channel_url, 'user/' ) + 5));
-
-        $youtube_title = $array[0];
-
-        echo $youtube_title;
+        if(date('Ymd') == date('Ymd', strtotime('2014-02-04T17:00:06.000Z'))) {
+            echo 'hi';
+        } else {
+            echo "no";
+        }
 
     }
-
-    // curl -i -X POST -H 'Content-Type: application/json' -d '{"channel_url": "http://www.youtube.com/user/liquicity"}' http://localhost:8000/channeltrak.com/server/channels
 
     public function create() {
 
@@ -53,7 +49,7 @@ class Channels extends CI_Controller {
             'slug' => $slug,
             'youtube_id' => $youtube_id,            
             'youtube_title' => $youtube_title,
-            'approved' => 0, // NOT APPROVED
+            'status' => 0, // NOT ACTIVE
             'published' => $published,
             'created' => date('Y-m-d H:i:s'),
             'updated' => date('Y-m-d H:i:s')
@@ -80,113 +76,375 @@ class Channels extends CI_Controller {
     }
 
     public function update($id) {
+        if ($this->User_model->is_admin()) {
 
-        $decoded_channel = json_decode(file_get_contents('php://input'), TRUE);
+            $channel = $this->Channel_model->get(array('id' => $id));
 
-        $email = $decoded_channel['email'];
-        $password = md5($decoded_channel['password']);
-        
-        $data = array(
-            'email' => $email,
-            'password' => $password,
-            'created' => date('Y-m-d H:i:s'),
-            'updated' => date('Y-m-d H:i:s')
-        );
+            $title = $this->input->post('title');
+            $cover_id = $this->input->post('cover_id');
 
-        if ($this->Channel_model->update($data)) {
-            // RETRUN SOMETHING HERE
+            $data = array(
+                'title' => $title,
+                'slug' => url_title($title, '-', TRUE),
+                'cover_id' => $cover_id,
+                'updated' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->Channel_model->update($id, $data)) {
+                redirect('admin/channel/'.$channel->id);
+            }
+
+        }
+    }
+
+    public function v2_import_all() {
+
+        $channels = $this->Channel_model->get(array('status' => 1));
+
+        foreach ($channels as $channel) {
+            $this->v2_import($channel->id);
+        }
+    }
+
+    public function v2_import_new($id) {
+
+        if ($channel = $this->Channel_model->get(array('id' => $id, 'status' => 1))) {
+
+            $counter = 0;
+            
+            for ( $i = 1; $i < 500; $i += $limit) {
+
+                $result = '<p>'.$channel->title.' is up to date!</p>';
+
+                $url = "http://gdata.youtube.com/feeds/api/users/".$channel->youtube_title."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
+                $json = json_decode(file_get_contents($url));
+                $items = $json->data->items;
+
+                if (isset($jsonOutput->data->items)) {
+
+                    foreach ($items as $trak){
+
+                        if ($this->Trak_model->is_new($trak->id)) {
+
+                            $data = array(
+                                'title' => $trak->title,
+                                'slug' => url_title($trak->title, 'dash', true),
+                                'youtube_id' => $trak->id,            
+                                'channel_id' => $id,
+                                'color_sample' => $this->Trak_model->sample_color($trak->id),
+                                'published' => $trak->uploaded,
+                                'created' => date('Y-m-d H:i:s'),
+                                'updated' => date('Y-m-d H:i:s')
+                            );
+                            
+                            if (!$this->Trak_model->create($data)) {
+                                $result = '<p>Error at '.$title.'</p>';
+                                break 2;
+                            } else {
+                                $counter++;
+                                $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
+                            }
+                        } else {
+                            break 2;
+                        }
+                    }
+                }
+            }
+
+            echo $result;
+
+            $this->load->helper('file');
+            delete_files('assets/uploads', TRUE);
         } else {
-            header('HTTP', TRUE, 404);
+            print('Channel not found or inactive');
         }
 
     }
 
-    public function import($id) {
+    public function v2_import($id) {
 
-        $channel = $this->Channel_model->get(array('id' => $id));
-        
-        $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=1&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
-        $json = file_get_contents($url);
-        $jsonOutput = json_decode($json);
+        if ($channel = $this->Channel_model->get(array('id' => $id, 'status' => 1))) {
 
-        $limit = $jsonOutput->pageInfo->resultsPerPage;
-        $total = $jsonOutput->pageInfo->totalResults;
-
-        $totalPages = ceil($total / $limit);
-
-        $counter = 0;
-
-        for ( $page_number = 1; $page_number < $totalPages; $page_number++) { // Paginate
-
-            if ($page_number > 1) {
-                $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&pageToken=".$token."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
-            } else {
-                $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
-            }
-
+            $counter = 0;
+            
+            $url = "http://gdata.youtube.com/feeds/api/users/".$channel->youtube_title."/uploads?v=2&alt=jsonc&max-results=1&format=5";
             $json = file_get_contents($url);
             $jsonOutput = json_decode($json);
 
-            $result = '<p>'.$channel->title.' is up to date!</p>';
+            $limit = 50; // Max results allowed per page
 
-            for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
+            if ($jsonOutput->data->totalItems > 500) { // Max histroy allowed
+                $total = 500;
+            } else {
+                $total = $jsonOutput->data->totalItems;
+            }
+            
+            for ( $i = 1; $i < $total; $i += $limit) {
 
-                if (isset($jsonOutput->items[$item_number]->id->videoId) && $this->Trak_model->is_new($jsonOutput->items[$item_number]->id->videoId) ) {
+                $result = '<p>'.$channel->title.' is up to date!</p>';
 
-                    $title = $jsonOutput->items[$item_number]->snippet->title;
-                    $slug = url_title($title, '-', TRUE);
-                    $youtube_id = $jsonOutput->items[$item_number]->id->videoId;
-                    $published = $jsonOutput->items[$item_number]->snippet->publishedAt;
-                    $current_time = date('Y-m-d H:i:s');
+                $url = "http://gdata.youtube.com/feeds/api/users/".$channel->youtube_title."/uploads?v=2&alt=jsonc&max-results=50&start-index=".$i."&format=5";
+                $json = json_decode(file_get_contents($url));
+                $items = $json->data->items;
 
-                    $data = array(
-                        'title' => $title,
-                        'slug' => $slug,
-                        'youtube_id' => $youtube_id,            
-                        'channel_id' => $id,
-                        'color_sample' => $this->Trak_model->sample_color($youtube_id),
-                        'published' => $published,
-                        'created' => date('Y-m-d H:i:s'),
-                        'updated' => date('Y-m-d H:i:s')
-                    );
+                if (isset($jsonOutput->data->items)) {
 
-                    if (!$this->Trak_model->create($data)) {
-                        $result = '<p>Error at '.$title.'</p>';
+                    foreach ($items as $trak){
+
+                        if ($this->Trak_model->is_new($trak->id)) {
+
+                            $data = array(
+                                'title' => $trak->title,
+                                'slug' => url_title($trak->title, 'dash', true),
+                                'youtube_id' => $trak->id,            
+                                'channel_id' => $id,
+                                'color_sample' => $this->Trak_model->sample_color($trak->id),
+                                'published' => $trak->uploaded,
+                                'created' => date('Y-m-d H:i:s'),
+                                'updated' => date('Y-m-d H:i:s')
+                            );
+                            
+                            if (!$this->Trak_model->create($data)) {
+                                $result = '<p>Error at '.$title.'</p>';
+                                break 2;
+                            } else {
+                                $counter++;
+                                $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
+                            }
+                        }
+                    }
+                }
+            }
+
+            $this->load->helper('file');
+            delete_files('assets/uploads', TRUE);
+            $this->Channel_model->update($id, array('updated' => date('Y-m-d H:i:s')));
+
+            echo $result;
+
+        } else {
+            print('Channel not found or inactive');
+        }
+
+    }
+
+    public function v3_import_all() {
+
+        $channels = $this->Channel_model->get(array('status' => 1));
+
+        foreach ($channels as $channel) {
+            $this->v3_import($channel->id);
+        }
+    }
+
+    public function v3_import_new($id) {
+
+        if ($channel = $this->Channel_model->get(array('id' => $id, 'status' => 1))) {
+        
+            $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=1&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+            $json = file_get_contents($url);
+            $jsonOutput = json_decode($json);
+
+            $limit = $jsonOutput->pageInfo->resultsPerPage;
+            $total = $jsonOutput->pageInfo->totalResults;
+
+            $totalPages = ceil($total / $limit);
+
+            $counter = 0;
+
+            for ( $page_number = 1; $page_number < $totalPages; $page_number++) { // Paginate
+
+                if ($page_number > 1) {
+                    $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&pageToken=".$token."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+                } else {
+                    $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+                }
+
+                $json = file_get_contents($url);
+                $jsonOutput = json_decode($json);
+
+                $result = '<p>'.$channel->title.' is up to date!</p>';
+
+                for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
+
+                    if (isset($jsonOutput->items[$item_number]->id->videoId) && $this->Trak_model->is_new($jsonOutput->items[$item_number]->id->videoId) ) {
+
+                        $title = $jsonOutput->items[$item_number]->snippet->title;
+                        $slug = url_title($title, '-', TRUE);
+                        $youtube_id = $jsonOutput->items[$item_number]->id->videoId;
+                        $published = $jsonOutput->items[$item_number]->snippet->publishedAt;
+                        $current_time = date('Y-m-d H:i:s');
+
+                        $data = array(
+                            'title' => $title,
+                            'slug' => $slug,
+                            'youtube_id' => $youtube_id,            
+                            'channel_id' => $id,
+                            'color_sample' => $this->Trak_model->sample_color($youtube_id),
+                            'published' => $published,
+                            'created' => date('Y-m-d H:i:s'),
+                            'updated' => date('Y-m-d H:i:s')
+                        );
+
+                        if (!$this->Trak_model->create($data)) {
+                            $result = '<p>Error at '.$title.'</p>';
+                            break 2;
+                        }
+
+                        $counter++;
+
+                        $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
+
+                    } else {
                         break 2;
                     }
 
-                    $counter++;
+                }
 
-                    $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
+                if (isset($jsonOutput->nextPageToken)) {
+
+                    $token = $jsonOutput->nextPageToken;
+
+                } else {
+
+                    break 1;
 
                 }
 
             }
 
-            if (isset($jsonOutput->nextPageToken)) {
+            $this->load->helper('file');
+            delete_files('assets/uploads', TRUE);
+            $this->Channel_model->update($id, array('updated' => date('Y-m-d H:i:s')));
 
-                $token = $jsonOutput->nextPageToken;
+            echo $result;
 
-            } else {
+        } else {
+            print('Channel not found or inactive');
+        }
+    }
 
-                break 1;
+    public function v3_import($id) {
+
+        if ($channel = $this->Channel_model->get(array('id' => $id, 'status' => 1))) {
+        
+            $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=1&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+            $json = file_get_contents($url);
+            $jsonOutput = json_decode($json);
+
+            $limit = $jsonOutput->pageInfo->resultsPerPage;
+            $total = $jsonOutput->pageInfo->totalResults;
+
+            $totalPages = ceil($total / $limit);
+
+            $counter = 0;
+
+            for ( $page_number = 1; $page_number < $totalPages; $page_number++) { // Paginate
+
+                if ($page_number > 1) {
+                    $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&pageToken=".$token."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+                } else {
+                    $url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=".$channel->youtube_id."&maxResults=50&key=AIzaSyCkoszshUaUgV-2CrviQI0I4pTkd8j61gc";
+                }
+
+                $json = file_get_contents($url);
+                $jsonOutput = json_decode($json);
+
+                $result = '<p>'.$channel->title.' is up to date!</p>';
+
+                for ( $item_number = 0; $item_number < count($jsonOutput->items); $item_number++ ){
+
+                    if (isset($jsonOutput->items[$item_number]->id->videoId) && $this->Trak_model->is_new($jsonOutput->items[$item_number]->id->videoId) ) {
+
+                        $title = $jsonOutput->items[$item_number]->snippet->title;
+                        $slug = url_title($title, '-', TRUE);
+                        $youtube_id = $jsonOutput->items[$item_number]->id->videoId;
+                        $published = $jsonOutput->items[$item_number]->snippet->publishedAt;
+                        $current_time = date('Y-m-d H:i:s');
+
+                        $data = array(
+                            'title' => $title,
+                            'slug' => $slug,
+                            'youtube_id' => $youtube_id,            
+                            'channel_id' => $id,
+                            'color_sample' => $this->Trak_model->sample_color($youtube_id),
+                            'published' => $published,
+                            'created' => date('Y-m-d H:i:s'),
+                            'updated' => date('Y-m-d H:i:s')
+                        );
+
+                        if (!$this->Trak_model->create($data)) {
+                            $result = '<p>Error at '.$title.'</p>';
+                            break 2;
+                        }
+
+                        $counter++;
+
+                        $result = '<p>'.$counter . ' new traks added to '.$channel->title.'!</p>';
+
+                    }
+
+                }
+
+                if (isset($jsonOutput->nextPageToken)) {
+
+                    $token = $jsonOutput->nextPageToken;
+
+                } else {
+
+                    break 1;
+
+                }
 
             }
 
-        }
+            $this->load->helper('file');
+            delete_files('assets/uploads', TRUE);
+            $this->Channel_model->update($id, array('updated' => date('Y-m-d H:i:s')));
 
-        echo $result;
-        // $path = $this->config->base_url().'assets/uploads';
-        // $this->load->helper('file');
-        // delete_files($path, true);
+            echo $result;
+
+        } else {
+            print('Channel not found or inactive');
+        }
     }
 
-    public function import_all() {
+    public function activate($id) {
+        if ($this->User_model->is_admin()) {
 
-        $channels = $this->Channel_model->get(array('approved' => 1));
+            $data = array(
+                'status' => 1,
+                'updated' => date('Y-m-d H:i:s')
+            );
 
-        foreach ($channels as $channel) {
-            $this->import($channel->id);
+            if ($this->Channel_model->update($id, $data)) {
+                redirect('dashboard', 'refresh');
+            }
+        }
+    }
+
+    public function deactivate($id) {
+        if ($this->User_model->is_admin()) {
+
+            $data = array(
+                'status' => 0,
+                'updated' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->Channel_model->update($id, $data)) {
+                redirect('dashboard', 'refresh');
+            }
+        }
+    }
+
+    public function delete($id) {
+
+        if ($this->User_model->is_admin()) {
+
+            if ($this->Channel_model->delete($id)) {
+                redirect('dashboard', 'refresh');
+            }
+
         }
     }
 

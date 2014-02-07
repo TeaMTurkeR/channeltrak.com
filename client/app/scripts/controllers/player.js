@@ -13,22 +13,29 @@ angular.module('channeltrakApp')
 				.then(function(callback) {
 					$rootScope.User = false;
 					$rootScope.isAuthed = false;
-					$location.path('/');
-					$route.reload();
+					location.reload();
 				}, function() {
-					$route.reload();
+					location.reload();
 				});
 		}
 
 		$scope.togglePlayer = function() {
-			$rootScope.isMenuOpen = false;
-			$rootScope.isSearchOpen = false;
-			$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
+			if ($scope.playing) {
+				$rootScope.isMenuOpen = false;
+				$rootScope.isSearchOpen = false;
+				$rootScope.isPlayerOpen = !$rootScope.isPlayerOpen;
+			}
 		}
 
 		$scope.toggleMenu = function() {
 			$rootScope.isSearchOpen = false;
 			$rootScope.isMenuOpen = !$rootScope.isMenuOpen;
+
+			if ($rootScope.isMenuOpen) {
+				$(document.body).animate({
+				    'scrollTop': 0
+				}, 1000);
+			}
 		}
 
 		$rootScope.keydown = function(event){
@@ -88,18 +95,22 @@ angular.module('channeltrakApp')
 
 		$rootScope.toggleFavorite = function(trak) {
 
+			$scope.loadingFavorite = true;
+
 			if (!trak.favorited && $rootScope.isAuthed) {
 				favoriteService.createFavorite(trak.id)
 					.then(function() {
 						console.log('added');
+						$scope.loadingFavorite = false;
 						trak.favorited = true;
 					});
 
 			} else if (trak.favorited) {
-				console.log('destroy');
+				console.log('destroying...');
 				favoriteService.deleteFavorite(trak.id)
 					.then(function(){
-						console.log('removed');
+						console.log('...and it\'s gone');
+						$scope.loadingFavorite = false;
 						trak.favorited = false;
 					});
 
@@ -111,6 +122,8 @@ angular.module('channeltrakApp')
 		}
 
 		$rootScope.newPlayer = function (trak, index){
+
+			console.log('initalizing new player');
 
 			$scope.Playlist = angular.copy($rootScope.Traks);
 
@@ -155,11 +168,9 @@ angular.module('channeltrakApp')
 
 		var setColors = function(color) {
 
-			console.log(color);
-
 			$('#player').css('backgroundColor', color);
 			$('#ticker').css('borderColor', color);
-			$('#subnav').css('borderTopColor', color);
+			$('#masthead').css('borderBottomColor', color);
 
 			$('#video, #ticker .info, .sharing .button').css('color', textColor(color));
 			$('.sharing .button').css('borderColor', textColor(color));
@@ -183,7 +194,7 @@ angular.module('channeltrakApp')
 
 			    }
 
-		    }, 100);
+		    }, 1000);
 		}
 
 		var calculateTime = function(time) {
@@ -201,15 +212,15 @@ angular.module('channeltrakApp')
 
 		var textColor = function(hex) {
 
-			var rgb = hexToRgb(hex); 
-			var red = rgb[0];
-			var green = rgb[1];
-			var blue = rgb[2];
+			var color = hexToRgb(hex); 
+			var red = color.r;
+			var green = color.g;
+			var blue = color.b;
 
 			var brightness = ((red * 299) + (green * 587) + (blue * 114)) / 1000;
 			var colorDiffBlack = (Math.max(red, 0) - Math.min(red, 0)) + (Math.max(green, 0) - Math.min(green, 0)) + (Math.max(blue, 0) - Math.min(blue, 0));
 			var colorDiffWhite = (Math.max(red, 255) - Math.min(red, 255)) + (Math.max(green, 255) - Math.min(green, 255)) + (Math.max(blue, 255) - Math.min(blue, 255));
-		
+
 			if (colorDiffBlack > colorDiffWhite) {
 				return 'inherit';
 			} else {
@@ -217,13 +228,13 @@ angular.module('channeltrakApp')
 			}
 		}
 
-		var hexToRgb = function(hex) {
-		    var bigint = parseInt(hex, 16);
-		    var r = (bigint >> 16) & 255;
-		    var g = (bigint >> 8) & 255;
-		    var b = bigint & 255;
-
-		    return [r, g, b].join();
+		function hexToRgb(hex) {
+		    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		    return result ? {
+		        r: parseInt(result[1], 16),
+		        g: parseInt(result[2], 16),
+		        b: parseInt(result[3], 16)
+		    } : null;
 		}
 
 		var playerEvents = function (event) {
@@ -254,11 +265,11 @@ angular.module('channeltrakApp')
 		var onPlayerReady = function (event) {
 		    event.target.playVideo();
 		    setColors($rootScope.playing.color_sample);
-		    $scope.showTicker = true;
-		    setTimeout(function(){
-		    	$scope.showTicker = false;
-		    	$scope.$apply();
-		    }, 10000);
+		    // $scope.showTicker = true;
+		    // setTimeout(function(){
+		    // 	$scope.showTicker = false;
+		    // 	$scope.$apply();
+		    // }, 5000);
 		}
 
 		init();

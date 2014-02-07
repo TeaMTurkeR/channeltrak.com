@@ -20,12 +20,15 @@ class Users extends CI_Controller {
         $data = array(
             'email' => $email,
             'password' => $password,
+            'permissions' => 0,
             'created' => date('Y-m-d H:i:s'),
             'updated' => date('Y-m-d H:i:s')
         );
 
-        if ($id = $this->User_model->create($data)) {
-            echo "{ 'id': ".$id.", 'email': ".$email." }";
+        if ($this->User_model->create($data) && $this->User_model->auth($email, $password)) {
+
+            echo json_encode(array('id' => $this->session->userdata('id'), 'email' => $email));
+
         } else {
             header('HTTP', TRUE, 400);
         }

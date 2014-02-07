@@ -8,6 +8,7 @@ angular.module('channeltrakApp')
   			$(window).scrollTop(0);
 
   			$rootScope.Traks = []; // CLEAR TRAKS
+  			console.log('loading!');
 
   			$scope.offset = 0;
 	  		$scope.pageLength = 50;
@@ -54,6 +55,8 @@ angular.module('channeltrakApp')
 
 		  	} else if ($location.path() == '/search') {
 
+		  		$scope.currentPage = 'search';
+
 		  		if ($scope.searchedQuery = $routeParams.q) {
 
 			  		trakService.searchTraks($routeParams.q, $scope.offset)
@@ -94,6 +97,8 @@ angular.module('channeltrakApp')
 			  	}
 
 			} else if ($location.path() == '/favorites') {
+
+				$scope.currentPage = 'favorites';
 
 				favoriteService.getFavorites('DESC', $scope.offset)
 		  			.then(function(callback){
@@ -218,7 +223,7 @@ angular.module('channeltrakApp')
 						});
 
 			  	}
-	  		}, 1000);
+	  		}, 500);
 	  	}
 
 	  	init();

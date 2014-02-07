@@ -75,10 +75,8 @@ class Favorites extends CI_Controller {
 
             $user_id = $this->session->userdata('id');
 
-            $this->Favorite_model->delete(array('user_id' => $user_id, 'trak_id' => $trak_id));
-
             if ($this->Favorite_model->delete(array('user_id' => $user_id, 'trak_id' => $trak_id))) {
-                header('HTTP', TRUE, 200);
+                echo json_encode('removed');
             } else {
                 header('HTTP', TRUE, 404);
             }

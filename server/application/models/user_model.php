@@ -15,9 +15,9 @@ class User_model extends CI_Model {
 
     public function get($array) {
 
-        $this->db->select('id, email, created, updated');
+        $this->db->select('id, email, permissions, created, updated');
         $this->db->where($array);
-        $query = $this->db->get('users');
+        $query = $this->db->get('users'); 
 
         if ($query->num_rows() > 1) {
 
@@ -91,6 +91,29 @@ class User_model extends CI_Model {
         if ($this->session->userdata('logged_in')) {
 
             return true;
+        
+        } else {
+        
+            return false;
+        
+        }
+    }
+
+    public function is_admin() {
+        
+        if ($this->session->userdata('logged_in')) {
+
+            $id = $this->session->userdata('id');
+
+            if ($this->User_model->get(array('id' => $id, 'permissions' => 1))) {
+
+                return true;
+
+            } else {
+
+                return false;
+
+            }
         
         } else {
         

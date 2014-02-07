@@ -1,23 +1,31 @@
 <section id="directory">
+	<section ng-if="!Channels">
+		<div class="spinner spin">
+			<div class="circle"></div>
+		</div>
+	</section>
 	<section class="page-header fade-in" ng-if="Channels">
 		<div class="wrap">
 			<span>Directory</span>
 			<h2>Channels</h2>
 		</div>
 	</section>
-	<div class="wrap">
+	<section id="channels">
+		<div class="wrap">
 		
-		<a class="channel fade-in" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">
-			<div class="media">
-				<div class="aspect-ratio">
-					<img ng-src="http://img.youtube.com/vi/{{ channel.cover_id }}/hqdefault.jpg" alt="{{ channel.title }} on Channeltrak">
+			<a class="channel fade-in" ng-href="#/channel/{{ channel.slug }}" ng-repeat="channel in Channels">
+				<div class="media">
+					<div class="aspect-ratio">
+						<img ng-src="http://img.youtube.com/vi/{{ channel.cover_id }}/hqdefault.jpg" alt="{{ channel.title }} on Channeltrak">
+					</div>
 				</div>
-			</div>
-			<div class="caption">
-				<h3 class="title">{{ channel.title }}</h3>
-			</div>
-		</a>
+				<div class="caption">
+					<h3 class="title">{{ channel.title }}</h3>
+				</div>
+			</a>
 
-	</div>
+		</div>
+	</section>
+
 
 </section>

@@ -10,6 +10,14 @@
     overflow: hidden;
 }
 
+.success {
+    color: $success;
+}
+
+.error {
+    color: $error;
+}
+
 .clearfix {
     @include clearfix;
 }
@@ -20,6 +28,29 @@
 
 .force-dark {
     color: #333 !important;
+}
+.spinner {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    height: 40px;
+    left: 50%;
+    margin-left: -20px;
+    position: fixed;
+    top: 200px;
+    width: 40px;
+
+    .circle {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: 10px;
+        left: -5px;
+        margin-top: -5px;
+        position: absolute;
+        top: 50%;
+        width: 10px;
+    }
 }
 
 .button {
@@ -36,13 +67,23 @@
     padding: 0 15px;
     text-align: center;
 
+    &.disabled {
+        cursor: default;
+        opacity: .5;
+
+        &:hover,
+        &.active {
+            background-color: #fff;
+        }
+    }
+
     &.icon {
         padding: 0;
         width: 40px;
     }
 
     &.rounded {
-        @include transition(width .5s ease, padding .5s ease);
+        @include transition(width 1s ease, padding 1s ease);
         border-radius: 20px;
         height: 38px;
         padding: 0 30px;

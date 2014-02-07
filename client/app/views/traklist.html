@@ -1,4 +1,9 @@
 <section id="traklist">
+	<section ng-if="loadingTraks">
+		<div class="spinner spin">
+			<div class="circle"></div>
+		</div>
+	</section>
 	<section class="page-header fade-in" ng-if="Traks && !loadingTraks">
 		<div class="wrap">
 			<span>{{ pageSpan }}</span>
@@ -24,9 +29,14 @@
 		</div>
 	</article>
 	
-	<section id="no-results"  ng-if="!Traks && !loadingTraks" ng-cloak>
+	<section class="no-results" ng-if="!Traks && !loadingTraks && currentPage=='search'" ng-cloak>
 		<h2>Uh-Oh!</h2>
 		<p>We didn't find any results for "{{ searchedQuery }}"</p>
+	</section>
+
+	<section class="no-results" ng-if="!Traks && !loadingTraks && currentPage=='favorites'" ng-cloak>
+		<h2>Nada...</h2>
+		<p>You don't have any favorites yet</p>
 	</section>
 
 	<button id="load-more" ng-class="{loading: loadingPagination}" ng-if="moreTraks && Traks" ng-click="pagination()">

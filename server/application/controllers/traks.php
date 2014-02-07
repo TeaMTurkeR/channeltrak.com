@@ -26,7 +26,7 @@ class Traks extends CI_Controller {
 
             }
 
-            $data = $this->Trak_model->get(array('id >' => 0), $offset, $order);
+            $data = $this->Trak_model->get(array('id >' => 0, 'status' => 1), $offset, $order);
 
             echo json_encode($data);
 
@@ -56,12 +56,12 @@ class Traks extends CI_Controller {
 
             if (is_numeric($id)) {
             
-                $data = $this->Trak_model->get(array('channel_id' => $id), $offset, $order);
+                $data = $this->Trak_model->get(array('channel_id' => $id, 'status' => 1), $offset, $order);
             
             } else {
 
                 $channel = $this->Channel_model->get(array('slug' => $id));
-                $data = $this->Trak_model->get(array('channel_id' => $channel->id), $offset, $order);
+                $data = $this->Trak_model->get(array('channel_id' => $channel->id, 'status' => 1), $offset, $order);
 
             }
 
@@ -93,12 +93,12 @@ class Traks extends CI_Controller {
 
             if (is_numeric($id)) {
             
-                $data = $this->Trak_model->get(array('channel_id' => $id), $offset, $order);
+                $data = $this->Trak_model->get(array('channel_id' => $id, 'status' => 1), $offset, $order);
             
             } else {
 
                 $channel = $this->Channel_model->get(array('slug' => $id));
-                $data = $this->Trak_model->get(array('channel_id' => $channel->id), $offset, $order);
+                $data = $this->Trak_model->get(array('channel_id' => $channel->id, 'status' => 1), $offset, $order);
 
             }
 
@@ -151,6 +151,53 @@ class Traks extends CI_Controller {
         }
 
     	echo json_encode($trak);
+
+    }
+
+    public function activate($id) {
+        if ($this->User_model->is_admin()) {
+
+            $trak = $this->Trak_model->get(array('id' => $id), 0, 'DESC');
+
+            $data = array(
+                'status' => 1,
+                'updated' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->Trak_model->update($id, $data)) {
+                redirect('admin/channel/'.$trak->channel_id);
+            }
+
+        }
+    }
+
+    public function deactivate($id) {
+        if ($this->User_model->is_admin()) {
+
+            $trak = $this->Trak_model->get(array('id' => $id), 0, 'DESC');
+
+            $data = array(
+                'status' => 0,
+                'updated' => date('Y-m-d H:i:s')
+            );
+
+            if ($this->Trak_model->update($id, $data)) {
+                redirect('admin/channel/'.$trak->channel_id);
+            }
+        }
+    }
+
+    public function delete($id) {
+
+        if ($this->User_model->is_admin()) {
+
+            $trak = $this->Trak_model->get(array('id' => $id), 0, 'DESC');
+
+            if ($this->Trak_model->delete($id)) {
+                redirect('admin/channel/'.$trak->channel_id);
+            }
+
+        }
 
     }
 

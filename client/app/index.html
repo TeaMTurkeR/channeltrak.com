@@ -21,125 +21,12 @@
 	<!--[if lt IE 7]>
 		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
-	<section id="player" ng-controller="PlayerCtrl" ng-class="{open: isPlayerOpen, animated: isAnimated}">
-		<div id="holder"></div>
-		<div class="scroll-wrap">
-			<div class="wrap">
-				<section id="video">
-					<div class="aspect-ratio">
-						<div id="iframe"></div>
-					</div>
-					<section class="info" ng-show="playing">
-						<section class="meta">
-							<label>Published</label>
-							<p>{{ playing.published | date:'mediumDate' }}</p>
-							<label>Channel</label>
-							<p><a ng-href="#/channel/{{ trak.channel_slug }}">{{ playing.channel_title }}</a></p>
-						</section>
-						<section class="caption">
-							<h2 title="{{ playing.title }}">{{ playing.title }}</h2>
-							<section class="sharing">
-								<button class="button icon-left" ng-click="toggleFavorite(playing)" ng-class="{favorited: playing.favorited}"><i class="fa" ng-class="{'fa-heart': !playing.favorited, 'fa-check': playing.favorited}"></i> 
-									<span ng-show="!playing.favorited">Favorite</span>
-									<span ng-show="playing.favorited">Favorited</span>
-								</button>
-								<button class="button" ng-click="shareTwitter(playing)">Post to Twitter</button>
-								<button class="button" ng-click="shareFacebook(playing)">Post to Facebook</button>
-							</section>
-						</section>
-					</section>
-				</section>
-			</div>
-		</div>
-	</section>
-	<header id="masthead" ng-controller="PlayerCtrl">
-		<div class="wrap">
-			<h1><a href="/">Channeltrak</a></h1>
 
-			<section id="toggles" class="pull-left">
-				<button class="button icon" title="Toggle menu" ng-click="toggleMenu()"><i class="fa" ng-class="{'fa-bars': !isMenuOpen, 'fa-times': isMenuOpen}"></i></button>				
-				<button class="button icon" title="Toggle search" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>	
-			</section>
-			
-			<section id="controls" class="pull-right">
-				<button class="button icon" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
-				<button class="button icon" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-spinner fa-spin': playerState == 3}"></i></button>
-				<button class="button icon" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
-				<button class="button icon" title="Toggle player" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
-			</section>
-
-		</div>
-		<section id="ticker" ng-click="scrollToPlaying()" ng-class="{show: showTicker}">
-			<div class="info" ng-class="{'force-dark': !isPlayerOpen}">
-				<p>{{ playing.title }}</p>
-				<span></span>
-			</div>
-		</section>
-		<section id="subnav" ng-show="isMenuOpen">
-			<div class="wrap">
-				<nav class="pull-left">
-					<a href="#/latest">Latest</a>
-					<a href="#/randomize">Randomize</a>
-					<a href="#/directory">Directory</a>
-				</nav>
-				<nav class="pull-left" ng-if="isAuthed" style="border-left:1px solid #ccc; margin-left:10px; padding-left:10px;">
-					<a href="#/favorites">Favorites</a>
-					<a href="#/submit">Submit</a>
-				</nav>
-				<nav class="pull-right" ng-if="isAuthed">
-					<a ng-click="signOut()">Sign Out</a>
-				</nav>
-				<nav class="pull-right" ng-if="!isAuthed">
-					<a ng-click="toggleSignInModal()">Sign In</a>
-					<span>or</span>
-					<a ng-click="toggleJoinModal()">Join</a>
-				</nav>
-			</div>
-		</section>
-	</header>
+	<div ng-include="'views/player.html'" ng-controller="PlayerCtrl"></div>	
 	
-	
-	<!-- Add your site or application content here -->
 	<div id="view" ng-view=""></div>
 
-	<div ng-controller="PopupCtrl">
-		
-		<form class="modal ng-hide" ng-show="isSignInModalVisible"  ng-submit="signIn(User)">
-			<h2>Sign In</h2>
-			<p ng-show="signInErrorMessage">{{ signInErrorMessage }}</p>
-			<i class="fa fa-times" ng-click="closeEverything()"></i>
-			<input type="email" name="email" placeholder="Email" ng-model="User.email">
-			<input type="password" name="password" placeholder="Password" ng-model="User.password">
-			<div class="button-group">
-				<button class="button rounded" ng-class="{loading: loadingAuth}" ng-click="signIn(User)">
-					<span ng-show="!loadingAuth">Submit</span>
-				</button>
-				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">New User?</a>
-			</div>
-		</form>
-		
-		<form class="modal ng-hide" ng-show="isJoinModalVisible" ng-submit="join(user)">
-			<h2>New Account</h2>
-			<p ng-show="joinErrorMessage">{{ joinErrorMessage }}</p>
-			<i class="fa fa-times" ng-click="closeEverything()"></i>
-			<input type="email" name="email" placeholder="Email" ng-model="user.email">
-			<input type="password" name="pasword" placeholder="Password" ng-model="user.password">
-			<div class="button-group">
-				<button class="button rounded" ng-class="{loading: loadingAuth}" ng-click="join(user)">
-					<span ng-show="!loadingAuth">Submit</span>
-				</button>
-				<a href="" ng-click="toggleSignInModal(); toggleJoinModal();">Have an Account?</a>
-			</div>
-		</form> 		
-
-		<div id="overlay" class="ng-hide" ng-click="closeEverything()" ng-show="isSignInModalVisible || isJoinModalVisible || isSearchOpen"></div>
-
-		<form id="search" class="ng-hide" ng-show="isSearchOpen" ng-submit="searchTraks(searchQuery)">
-			<input type="text" ng-model="searchQuery" ng-change="changeSearchInstructions(searchQuery)">
-			<p>{{ searchInstructions }}</p>
-		</form>
-
-	</div>
+	<div ng-include="'views/popup.html'" ng-controller="PopupCtrl"></div>
 
 	<!--[if lt IE 9]>
 	<script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -162,6 +49,7 @@
 
 		<!-- build:js({.tmp,app}) scripts/scripts.js -->
 		<script src="scripts/app.js"></script>
+		<script src="scripts/services/urlservice.js"></script>
 		<script src="scripts/services/channelservice.js"></script>
 		<script src="scripts/services/trakservice.js"></script>
 		<script src="scripts/services/userservice.js"></script>

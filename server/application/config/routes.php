@@ -38,10 +38,12 @@
 |
 */
 
-$route['default_controller'] = 'channels/test';
+$route['default_controller'] = 'admin';
 $route['404_override'] = '';
 
-$route['sample/(:any)'] = 'traks/sample_color/$1';
+// ADMIN ROUTES
+
+$route['dashboard'] = 'admin/dashboard';
 
 // USER ROUTES
  
@@ -58,17 +60,27 @@ $route['favorites/delete/(:num)'] = 'favorites/delete/$1';
 // TRAK ROUTES
 
 $route['traks'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'traks/index' : 'traks/create';
+$route['traks/activate/(:num)'] = 'traks/activate/$1';
+$route['traks/deactivate/(:num)'] = 'traks/deactivate/$1';
+$route['traks/delete/(:num)'] = 'traks/delete/$1';
 $route['traks/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'traks/get/$1' : 'traks/update/$1';
 
 // CHANNEL ROUTES 
 
 $route['channels'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'channels/index' : 'channels/create';
+$route['channels/activate/(:num)'] = 'channels/activate/$1';
+$route['channels/deactivate/(:num)'] = 'channels/deactivate/$1';
+$route['channels/delete/(:num)'] = 'channels/delete/$1';
+$route['channels/update/(:num)'] = 'channels/update/$1';
 $route['channels/(:any)'] = ($_SERVER['REQUEST_METHOD'] == 'GET') ? 'channels/get/$1' : 'channels/update/$1';
 
 // IMPORT ROUTES
 
-$route['import/(:num)'] = 'channels/import/$1';
-$route['import/all'] = 'channels/import_all'; 
+$route['v2_import/all'] = 'channels/v2_import_all'; 
+$route['v2_import/(:num)'] = 'channels/v2_import/$1';
+
+$route['v3_import/all'] = 'channels/v3_import_all'; 
+$route['v3_import/(:num)'] = 'channels/v3_import/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

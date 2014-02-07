@@ -3,7 +3,8 @@
 	<input type="text" placeholder="Channel URL" name="channel_url" class="input" ng-model="channel_url" ng-enter="submitChannel(channel_url)">
 	<div class="button-group">
 		<button class="button rounded" ng-click="submitChannel(channel_url)" ng-class="{loading: loadingSubmit}">
-			<span ng-show="!loadingSubmit">Submit</span>
+			<span ng-show="!loadingSubmit && !submitSuccess">Submit</span>
+			<span ng-show="!loadingSubmit && !submitSuccess"><i class="fa fa-check"></i></span>
 		</button>
 	</div>
 </section>

@@ -1,13 +1,10 @@
 'use strict';
 
 angular.module('channeltrakApp')
-  	.factory('userService', function ($http, $q, $location) {
+  	.factory('userService', function ($http, $q, $location, urlService) {
 
-  		if ($location.host() != 'localhost') {
-  			var url = 'http://dev.channeltrak.com/server/users';
-  		} else {
-  			var url = 'http://localhost:8000/channeltrak.com/server/users';
-  		}
+  		var root = urlService.rootUrl();
+  		var url = root+'traks';
   		
 		var createUser = function(userData) {
 			
@@ -44,9 +41,7 @@ angular.module('channeltrakApp')
 		var authUser = function(credentials) {
 
 			var deferred = $q.defer();
-
-			console.log(credentials);
-
+			
 			$http.post(url+'/auth', credentials)
 				.success(function(data){
 					deferred.resolve(data);

@@ -34,6 +34,7 @@ a {
     .scroll-wrap {
         height: 100%;
         overflow-y: auto; 
+        padding: 0 40px;
     }
 
     &.animated {
@@ -75,7 +76,7 @@ a {
             border-color: #333;
             float: left;
             margin-right: 10px;
-            opacity: .5;
+            opacity: .8;
 
             &:hover {
                 opacity: 1;
@@ -86,7 +87,7 @@ a {
     label {
         @include transition(color 5s linear);
         font-size: 14px;
-        opacity: .5;
+        opacity: .8;
     }
 
     p {
@@ -96,7 +97,6 @@ a {
 
     h2 {
         @include transition(color 5s linear);
-        @include truncate;
         font-size: 42px;
         font-weight: 300;
         letter-spacing: -1px;
@@ -105,10 +105,11 @@ a {
 }
 
 #masthead {
+    @include transition(border-color 5s linear);
     background-color: #fff;
-    border-left: 0;
-    border-right: 0;
+    border-bottom: 1px solid #ccc;
     top: 0;
+    padding: 0 40px;
     position: fixed;
     width: 100%;
     z-index: 9000;
@@ -160,25 +161,18 @@ a {
                 border-color: $primary;
             }
         }
-
-        span {
-            float: left;
-            font-size: 14px;
-            line-height: 40px;
-            padding: 0 10px;
-        }
     }
 }
 
 #ticker {
     @include transition(
-        margin .25s ease, 
-        top .25s ease, 
-        height .25s ease, 
-        width .25s ease, 
-        border-radius .25s ease, 
-        left .5s linear, 
-        border-color 5s linear
+        // margin .25s ease, 
+        // top .25s ease, 
+        // height .25s ease, 
+        // width .25s ease, 
+        // border-radius .25s ease, 
+        left 1s linear 
+        // border-color 5s linear
     );
     background-color: #fff;
     border: 1px solid #ccc;
@@ -198,6 +192,7 @@ a {
         border-radius: 10px;
         height: 20px;
         margin-left: -10px;
+        opacity: 1;
         top: 50px;
         width: 20px;
 
@@ -220,6 +215,7 @@ a {
 
     .info {
         @include transition(opacity .5s ease);
+        display: none;
         opacity: 0;
         position: absolute;
         width: 1000px;
@@ -232,10 +228,10 @@ a {
 
 #subnav {
     @include clearfix;
-    @include transition(border-color 5s ease);
+    @include transition(margin .5s ease);
+    background-color: #fff;
     border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
-    padding: 10px 0;
+    padding: 10px 40px;
 
     a {
         border-radius: 4px;
@@ -253,6 +249,23 @@ a {
         &:active {
             border-color: $primary;
         }
+    }
+
+    span {
+        float: left;
+        font-size: 14px;
+        line-height: 40px;
+        padding: 0 10px;
+    }
+
+    &.show {
+        margin-top: 60px;
+    }
+
+    &.fixed {
+        position: fixed;
+        width: 100%;
+        z-index: 8000;
     }
 }
 
@@ -312,15 +325,17 @@ a {
 
 #traklist,
 #directory {
-    padding: 61px 0 120px;
+    padding: 0 0 120px;
 
     &.menuOpen {
         padding-top: 123px;
     }
 }
 
-#directory {
-    > .wrap {
+#channels {
+    padding: 0 20px;
+
+    .wrap {
         max-width: 1000px;
     }
 }
@@ -335,11 +350,14 @@ a {
     position: static;
 }
 
-#no-results {
+.no-results {
+    color: #ccc;
     text-align: center;
 
     h2 {
+        
         font-size: 32px;
+        font-weight: 300;
         margin: 80px 0 10px;
     }
 
@@ -348,8 +366,12 @@ a {
     }
 }
 
+.add-padding {
+    padding-top: 60px;
+}
+
 #load-more {
-    @include transition(width .5s ease);
+    @include transition(width 1s ease);
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 20px;

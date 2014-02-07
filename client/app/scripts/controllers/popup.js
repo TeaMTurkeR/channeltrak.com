@@ -54,20 +54,31 @@ angular.module('channeltrakApp')
 		}
 
 		$rootScope.toggleSignInModal = function() {
+			$scope.signInErrorMessage = false;
 			$scope.isSignInModalVisible = !$scope.isSignInModalVisible;
 		}
 
 		$rootScope.toggleJoinModal = function() {
+			$scope.joinErrorMessage = false;
 			$scope.isJoinModalVisible = !$scope.isJoinModalVisible;
 		}
 
 		$rootScope.closeEverything = function() {
+			$scope.user = false;
 			$scope.isSignInModalVisible = false;
 			$scope.isJoinModalVisible = false;
 			$rootScope.isSearchOpen = false;
 			$rootScope.isMenuOpen = false;
 			$rootScope.isPlayerOpen = false;
-			$rootScope.isSearchOpen = false;
+		}
+
+		$rootScope.closeModals = function() {
+			$scope.isSignInModalVisible = false;
+			$scope.isJoinModalVisible = false;
+		}
+
+		$rootScope.closeSearch = function() {
+			$scope.isSearchOpen = false;
 		}
 
 		// LOCAL THINGS
@@ -90,6 +101,11 @@ angular.module('channeltrakApp')
 
 			$scope.loadingAuth = true;
 
+			console.log(credentials.email);
+			if (credentials.password) {
+				console.log('password: true');
+			}
+
 			userService.authUser(credentials)
 				.then(function(callback) {
 					console.log(callback);
@@ -104,16 +120,25 @@ angular.module('channeltrakApp')
 
 		}
 
-		$scope.join = function(userData) {
+		$scope.join = function(user) {
 
 			$scope.loadingAuth = true;
 
-			userService.createUser(userData)
-				.then(function(user_id) {
+			console.log(user.email);
+			if (user.password) {
+				console.log('password: true');
+			}
+
+			userService.createUser(user)
+				.then(function(callback) {
+					console.log(callback);
 					$scope.loadingAuth = false;
-				}, function() {
+					$rootScope.isAuthed = true;
+					$rootScope.closeEverything();
+				}, function(callback) {
+					console.log(callback);
 					$scope.loadingAuth = false;
-					$scope.joinErrorMessage = 'Something went wrong...';
+					$scope.joinErrorMessage = 'The email has an account already.';
 				});
 
 		}

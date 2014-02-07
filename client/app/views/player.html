@@ -1,0 +1,75 @@
+<section id="player" ng-class="{open: isPlayerOpen, animated: isAnimated}">
+	<div class="scroll-wrap">
+		<div class="wrap">
+			<section id="video">
+				<div class="aspect-ratio">
+					<div id="iframe"></div>
+				</div>
+				<section class="info" ng-show="playing">
+					<section class="meta">
+						<label>Published</label>
+						<p>{{ playing.published | date:'mediumDate' }}</p>
+						<label>Channel</label>
+						<p><a ng-href="#/channel/{{ trak.channel_slug }}">{{ playing.channel_title }}</a></p>
+					</section>
+					<section class="caption">
+						<h2 title="{{ playing.title }}">{{ playing.title }}</h2>
+						<section class="sharing">
+							<button class="button icon-left" ng-click="toggleFavorite(playing)" ng-class="{favorited: playing.favorited}"><i class="fa" ng-class="{'fa-heart': !playing.favorited && !loadingFavorite, 'fa-heart error': playing.favorited && !loadingFavorite, 'fa-cog fa-spin': loadingFavorite}"></i> 
+								<span ng-show="!playing.favorited">Favorite</span>
+								<span ng-show="playing.favorited">Favorited</span>
+							</button>
+							<button class="button" ng-click="shareTwitter(playing)">Post to Twitter</button>
+							<button class="button" ng-click="shareFacebook(playing)">Post to Facebook</button>
+						</section>
+					</section>
+				</section>
+			</section>
+		</div>
+	</div>
+</section>
+<header id="masthead">
+	<div class="wrap">
+		<h1><a href="/">Channeltrak</a></h1>
+
+		<section id="toggles" class="pull-left">
+			<button class="button icon" title="Toggle menu" ng-click="toggleMenu()"><i class="fa" ng-class="{'fa-bars': !isMenuOpen, 'fa-times': isMenuOpen}"></i></button>				
+			<button class="button icon" title="Toggle search" ng-click="toggleSearch()"><i class="fa"  ng-class="{'fa-search': !isSearchOpen, 'fa-times': isSearchOpen}"></i></button>	
+		</section>
+		
+		<section id="controls" class="pull-right">
+			<button class="button icon" ng-class="{'disabled': !playing}" ng-click="playPrevious()"><i class="fa fa-step-backward"></i></button>
+			<button class="button icon" ng-class="{'disabled': !playing}" ng-click="togglePlay()"><i class="fa" ng-class="{'fa-pause': playerState == 1, 'fa-play': playerState == 2 || !playerState, 'fa-cog fa-spin': playerState == 3}"></i></button>
+			<button class="button icon" ng-class="{'disabled': !playing}" ng-click="playNext()"><i class="fa fa-step-forward"></i></button>
+			<button class="button icon" title="Toggle player" ng-class="{'disabled': !playing}" ng-click="togglePlayer()"><i class="fa" ng-class="{'fa-expand': !isPlayerOpen, 'fa-compress': isPlayerOpen}"></i></button>
+		</section>
+
+	</div>
+	<section id="ticker" ng-click="scrollToPlaying()" ng-class="{show: showTicker && !isPlayerOpen && !isMenuOpen && !isSearchOpen}">
+		<div class="info" ng-class="{'force-dark': !isPlayerOpen}">
+			<p>{{ playing.title }}</p>
+			<span></span>
+		</div>
+	</section>
+</header>
+<section id="subnav" ng-class="{show: isMenuOpen, fixed: isPlayerOpen || hasScrolled}">
+	<div class="wrap">
+		<nav class="pull-left">
+			<a href="#/latest">Latest</a>
+			<a href="#/randomize">Randomize</a>
+			<a href="#/directory">Directory</a>
+		</nav>
+		<nav class="pull-left" ng-if="isAuthed" style="border-left:1px solid #ccc; margin-left:10px; padding-left:10px;">
+			<a href="#/favorites">Favorites</a>
+			<a href="#/submit">Submit</a>
+		</nav>
+		<nav class="pull-right" ng-if="isAuthed">
+			<a ng-click="signOut()">Sign Out</a>
+		</nav>
+		<nav class="pull-right" ng-if="!isAuthed">
+			<a ng-click="toggleSignInModal()">Sign In</a>
+			<span>or</span>
+			<a ng-click="toggleJoinModal()">Join</a>
+		</nav>
+	</div>
+</section>

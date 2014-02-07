@@ -13,11 +13,12 @@ angular.module('channeltrakApp')
 
 	  		channelService.createChannel(url)
 	  			.then(function(callback){
-	  				$scope.success = true; 
+	  				$scope.submitSuccess = true; 
 	  				$scope.channel_url = '';
 	  				$scope.loadingSubmit = false;
 	  			}, function() {
-	  				$scope.success = false;
+	  				$scope.submitSuccess = false;
+	  				$scope.loadingSubmit = false;
 	  			});
 
 	  	}
